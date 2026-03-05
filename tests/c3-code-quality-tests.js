@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 "use strict";
 
 describe("pow", function() {

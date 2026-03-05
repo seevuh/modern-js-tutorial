@@ -1,6 +1,3 @@
-/* eslint-disable no-unassigned-vars */
-/* eslint-disable no-constant-binary-expression */
-/* eslint-disable no-unused-vars */
 "use strict";
 /* alert("Hello");
 
@@ -49,7 +46,6 @@ console.log(age); // null
 let age2;
 console.log(age2); // undefined
 
-// eslint-disable-next-line no-useless-assignment
 let age3 = 100;
 age3 = undefined;
 console.log(age3); // undefined
