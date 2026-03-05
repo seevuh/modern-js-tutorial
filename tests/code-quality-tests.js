@@ -13,11 +13,11 @@ describe("pow", function() {
     });
 
     it("for negative n the result is NaN", function() {
-        assert.isNaN(pow(2, -1));
+        assert(Number.isNaN(pow(2, -1)));
     });
 
     it("for non-integer n the result is NaN", function() {
-        assert.isNaN(pow(2, 1.5));
+        assert(Number.isNaN(pow(2, 1.5)));
     });
 
     describe("raises x to the power of 3", function() {
