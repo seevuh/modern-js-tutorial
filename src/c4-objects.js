@@ -38,20 +38,58 @@ function multiplyNumeric(obj) {
 // #region 4.2 Object references and copying
 
 // Cloning the object
-let user = {
-    name: "John",
-    age: 30,
+{
+    let user = {
+        name: "John",
+        age: 30,
+    }
+
+    let clone = {};
+
+    for (let key in user) {
+        clone[key] = user[key];
+    }
+
+    clone.name = "Pete";
+
+    console.log(user.name); // John
+    console.log(clone.name); // Pete
 }
 
-let clone = {};
+// Using Object.assign to clone an object
+{
+    let user = { name: "John" };
 
-for (let key in user) {
-    clone[key] = user[key];
+    let permissions1 = { canView: true };
+    let permissions2 = { canEdit: true };
+
+    // copies all properties from permissions1 and permissions2 into user
+    Object.assign(user, permissions1, permissions2);
+
+    // now user = { name: "John", canView: true, canEdit: true }
+    console.log(user.name); // John
+    console.log(user.canView); // true
+    console.log(user.canEdit); // true
+
+
+    // if the copied property name already exists, it will be overwritten
+    let user2 = { name: "John" };
+
+    Object.assign(user2, { name: "Pete" });
+
+    console.log(user2.name); // Pete
+
+    // we can also use Object.assign to perform a simple object cloning
+    let user3 = {
+        name: "John",
+        age: 30,
+    };
+
+    let clone = Object.assign({}, user3);
+    
+    console.log(clone.name);
 }
 
-clone.name = "Pete";
 
-console.log(user.name); // John
-console.log(clone.name); // Pete
 
 // #endregion
