@@ -139,3 +139,42 @@ function multiplyNumeric(obj) {
 }
 
 // #endregion
+
+// #region 4.3 Garbage collection
+
+// Two references to the same object
+{
+    let user = { name: "John" };
+    let admin = user;
+
+    console.log(user === admin); // true
+    console.log(user); // { name: "John" }
+    console.log(admin); // { name: "John" }
+}
+
+// Interlinked objects
+{
+    function marry(man, woman) {
+        man.wife = woman;
+        woman.husband = man;
+
+        return {
+            father: man,
+            mother: woman
+        }
+    }
+
+    let family = marry({ name: "John" }, { name: "Ann" });
+
+    delete family.father; // remove the reference
+    delete family.mother; // remove the reference
+    // now family only has reference to Ann
+
+
+    // Unreachable island
+    family = null; // remove the reference to the family object
+
+}
+
+
+// #endregion
