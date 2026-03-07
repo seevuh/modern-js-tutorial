@@ -1,5 +1,7 @@
 "use strict";
 
+// #region 4.1 Objects
+
 function isEmpty(obj) {
     for (let key in obj) {
         // if the loop has started, there is a property
@@ -31,3 +33,25 @@ function multiplyNumeric(obj) {
         }
     }
 }
+// #endregion
+
+// #region 4.2 Object references and copying
+
+// Cloning the object
+let user = {
+    name: "John",
+    age: 30,
+}
+
+let clone = {};
+
+for (let key in user) {
+    clone[key] = user[key];
+}
+
+clone.name = "Pete";
+
+console.log(user.name); // John
+console.log(clone.name); // Pete
+
+// #endregion
