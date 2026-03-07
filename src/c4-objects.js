@@ -90,6 +90,52 @@ function multiplyNumeric(obj) {
     console.log(clone.name);
 }
 
+// Nested cloning
+{
+    let user = {
+        name: "John",
+        sizes: {
+            height: 182,
+            width: 50,
+        },
+    };
 
+    let clone = Object.assign({}, user);
+
+    console.log(user.sizes === clone.sizes); // true, the reference is copied
+
+    // user and clone share the same sizes
+    user.sizes.width = 60;
+    console.log(clone.sizes.width); // 60
+
+
+    let clone2 = structuredClone(user);
+
+    console.log(user.sizes === clone2.sizes); // false, the reference is not copied
+
+    // user and clone2 do not share the same sizes
+    user.sizes.width = 70;
+    console.log(clone2.sizes.width); // 60
+
+    // structuredClone method supports circular references
+    let user2 = {};
+    user2.me = user2; // circular reference
+
+    let clone3 = structuredClone(user2);
+    console.log(clone3.me === clone3); // true, circular reference is preserved
+
+    // function properties aren't supported by structuredClone
+    // let test = structuredClone({
+    //     f: function sayHi() {
+    //         console.log("Hello");
+    //     },
+    // });
+
+    // console.log(test.sayHi); // undefined
+
+    // structuredClone only clones data, not functions
+    // error, could not be cloned
+    
+}
 
 // #endregion
