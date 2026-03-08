@@ -394,3 +394,158 @@ function multiplyNumeric(obj) {
 }
 
 // #endregion
+
+// #region 4.5 Constructor, operator "new"
+
+// Constructor function
+{
+    function User(name) {
+        // this = {}; (implicitly)
+        this.name = name;
+        this.isAdmin = false;
+        // return this; (implicitly)
+    }
+
+    let user = new User("Jack");
+
+    console.log(user.name);
+    console.log(user.isAdmin);
+}
+
+// new function() { ... }
+{
+    // create a function and immediately call it with new
+    let user = new function() {
+        this.name = "John";
+        this.isAdmin = false;
+
+        // .. ohter code
+    };
+
+}
+
+// Constructor mode test: new.target
+{
+    function User() {
+        console.log(new.target);
+    }
+
+    // without "new":
+    User(); // undefined
+
+    // with "new":
+    new User(); // function User { ... }
+}
+{
+    function User(name) {
+        if (!new.target) {
+            return new User(name);
+        }
+        
+        this.name = name;
+    }
+
+    let john = User("John");
+    console.log(john.name);
+}
+
+// Return from constructors
+{
+    function BigUser(){
+        this.name = "John";
+
+        return { name: "Godzilla" };
+    }
+
+    console.log( new BigUser().name );
+
+    function SmallUser() {
+        this.name = "John";
+
+        return;
+    }
+
+    console.log( new SmallUser().name );
+}
+
+//Omitting parentheses
+{
+    function User(){
+        this.name = "Testing omitting parentheses";
+    }
+
+    let user1 = new User;
+
+    let user2 = new User();
+    console.log(user1.name, user2.name);
+}
+
+// Methods in constructors
+{
+    function User(name) {
+        this.name = name;
+
+        this.sayHi = function() {
+            console.log(`My name is: ${this.name}`);
+        };
+    }
+
+    let john = new User("John");
+
+    john.sayHi();
+    console.log(john);
+}
+
+// Tasks
+
+// Two funcions - one object
+{
+    let obj = {};
+
+    function A() { return obj; }
+    function B() { return obj; }
+
+    console.log( new A() == new B() );
+}
+
+// Create new Calculator
+{
+    function Calculator(){
+        this.read = function() {
+            this.a = +prompt("Enter the value of a", 0);
+            this.b = +prompt("Enter the value of b", 0);
+        };
+        
+        this.sum = function() {
+            return this.a + this.b
+        };
+
+        this.mul = function() {
+            return this.a * this.b;
+        };
+    }
+
+    let calculator = new Calculator();
+    // calculator.read();
+    console.log(`Sum = ${calculator.sum()}`);
+    console.log(`Mul = ${calculator.mul()}`);
+}
+
+// Create new Accumulator
+{
+    function Accumulator(startingValue) {
+        this.value = startingValue;
+        this.read = function() {
+            this.value += +prompt("Enter value", 0);
+        }
+    }
+
+    let accumulator = new Accumulator(1);
+
+    // accumulator.read();
+    // accumulator.read();
+
+    console.log( accumulator.value );
+}
+
+// #endregion
