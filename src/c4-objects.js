@@ -176,5 +176,221 @@ function multiplyNumeric(obj) {
 
 }
 
+// #endregion
+
+// #region 4.4 Object methods, "this"
+
+// Method examples
+{
+    let user = {
+        name: "John",
+        age: 30,
+    };
+
+    user.sayHi = function() {
+        console.log("Hello, object method!");
+    }
+
+    user.sayHi(); // Hello!
+}
+
+{
+    let user = {
+        name: "John",
+        age: 30,
+    };
+
+    function sayHi() {
+        console.log("Hello, external function!");
+    }
+    
+    user.sayHi = sayHi;
+    user.sayHi(); // Hello!
+}
+
+{
+    let user = {
+        sayHi: function() {
+            console.log("Hello, object literal!");
+        }
+    };
+
+    let admin = {
+        sayHi() {
+            console.log("Hello, method shorthand in object literal!");
+        }
+    };
+
+    user.sayHi(); // Hello!
+    admin.sayHi(); // Hello!
+
+}
+
+// "this" in methods
+{
+    let user = {
+        name: "John",
+        age: 30,
+        sayHi() {
+            console.log(this.name);
+        }
+    };
+
+    user.sayHi(); // John
+}
+
+{
+    function sayHi() {
+        console.log(this.name);
+    }
+
+    let user = { name: "John" };
+    let admin = { name: "Admin" };
+
+    user.f = sayHi;
+    admin.f = sayHi;
+    
+    user.f(); // John
+    admin.f(); // Admin
+    admin["f"](); // Admin
+}
+
+{
+    function sayHi() {
+        console.log(this.name);
+    }
+
+    let user = { name: "John", sayHi };
+    let admin = { name: "Admin", sayHi };
+
+    user.sayHi(); // John
+    admin.sayHi(); // Admin
+
+    admin["sayHi"](); // Admin
+}
+
+// calling without an object: this == undefined
+{
+    function sayHi() {
+        console.log(this);
+    }
+
+    sayHi(); // undefined
+
+}
+
+// Arrow functions do not have their own "this"
+{
+    let user = {
+        firstName: "Ilya",
+        sayHi() {
+            let arrow = () => console.log(this.firstName);
+            arrow();
+        }
+    };
+
+    user.sayHi(); // Ilya
+}
+
+// Tasks
+{
+    function makeUser() {
+        return {
+            name: "John",
+            ref: this,
+        };
+    }
+
+    let user = makeUser();
+
+    // console.log(user.ref.name); // What is the result?
+
+    // an error
+
+    // That's because rules that set 'this' do not look at object definition
+    // Only the moment of call matters
+
+    // Here the value of 'this' inside makeUser() is undefined, because it is called as a function,
+    // not as a method with "dot" syntax
+
+    // The value of 'this' is one for the whole function, code blocks and object literals do not affect it
+
+    // So ref: this actually takes current 'this' of the function
+
+    // We can rewrite the function and return the same 'this' with undefined value
+
+    function makeUser2() {
+        return this; // this time there's no object literal
+    }
+
+    // console.log(makeUser2().name); // Error: Cannot read property 'name' of undefined
+
+    // As you can see the result of console.log( makeUser2().name ) is the same
+    // as the result of console.log( user.ref.name ) from the previous example
+
+    // Here's the opposite case:
+    function makeUser3() {
+        return {
+            name: "John",
+            ref() {
+                return this;
+            },
+        };
+    }
+
+    let user3 = makeUser3();
+
+    console.log(user3.ref().name); // John
+
+    // Now it works, because user.ref() is a method
+    // And the value of 'this' is set to the object before dot .
+}
+
+// Create a calculator
+{
+    let calculator = {
+        read() {
+            this.a = +prompt("a?", 0);
+            this.b = +prompt("b?", 0);
+        },
+        sum() {
+            return this.a + this.b;
+        },
+        mul() {
+            return this.a * this.b;
+        },
+    };
+
+    // calculator.read();
+    // console.log(calculator.sum());
+    // console.log(calculator.mul());
+}
+
+// Chaining
+{
+    let ladder = {
+        step: 0,
+        up() {
+            this.step++;
+            return this;
+        },
+        down() {
+            this.step--;
+            return this;
+        },
+        showStep: function() {
+            console.log(this.step);
+            return this;
+        }
+    };
+
+    ladder
+        .up()
+        .up()
+        .down()
+        .showStep() // 1
+        .down()
+        .showStep(); // 0
+}
 
 // #endregion
