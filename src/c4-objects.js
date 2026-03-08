@@ -549,3 +549,86 @@ function multiplyNumeric(obj) {
 }
 
 // #endregion
+
+// #region 4.6 Optional chaining '?.'
+
+{
+    let user = {}; // a user without "address" property
+
+    // alert(user.address.street); // Error!
+}
+
+{
+    let user = {};
+
+    console.log(user.address ? user.address.street : undefined);
+
+}
+
+{
+    let user = {};
+
+    console.log(user.address && user.address.street && user.address.street.name );
+}
+
+// optional chaining
+{
+    let user = {};
+
+    console.log( user?.address?.street );
+}
+
+//Short-circuiting
+{
+    let user = null;
+    let x = 0;
+
+    user?.sayHi(x++);
+    console.log(x);
+}
+
+//Other variants: ?.(), ?.[]
+{
+    let userAdmin = {
+        admin() {
+            console.log("I am admin");
+        }
+    };
+
+    let userGuest = {};
+
+    userAdmin.admin?.(); // I am admin
+
+    userGuest.admin?.(); // nothing happens (no such method)
+
+
+    let key = "firstName";
+
+    let user1 = {
+        firstName: "John"
+    };
+
+    let user2 = null;
+
+    console.log( user1?.[key] ); // John
+    console.log( user2?.[key] ); // undefined
+
+    let user = null;
+    delete user?.name; // delete user.name if user exists
+}
+
+// we can use ?. for safe reading and deleting, but not writing
+{
+    let user = null;
+
+    // user?.name = "John";
+}
+// #endregion
+
+
+
+
+
+
+
+
