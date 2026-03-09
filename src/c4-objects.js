@@ -625,7 +625,101 @@ function multiplyNumeric(obj) {
 }
 // #endregion
 
+// #region 4.7 Symbol type
 
+{
+    let id0 = Symbol();
+
+    let id = Symbol("id");
+
+    let id1 = Symbol("id");
+    let id2 = Symbol("id");
+
+    console.log(id1 == id2); //false
+
+    // alert(id); //Type Error: Cannot convert to a Symbol value to a string
+
+    console.log(id); // this works, just outputs Symbol(id)
+
+    // alert(id.toString()); // Symbol(id), now it works
+    // alert(id.description); //id
+}
+
+// "Hidden" properties
+{
+    let user = {
+        name: "John"
+    };
+
+    let id = Symbol("id");
+
+    user[id] = 1;
+
+    console.log( user[id] ); // we can access the data using the symbol as the key
+}
+
+// Symbols in an object literal
+{
+    let id = Symbol("id");
+
+    let user = {
+        name: "John",
+        [id]: 123 // not "id": 123
+    };
+}
+
+// Symbols are skipped by for...in
+{
+    let id = Symbol("id");
+    let user = {
+        name: "John",
+        age: 30,
+        [id]: 123
+    };
+
+    for (let key in user) console.log(key); // name, age (no symbols)
+    console.log(`Direct: ${user[id]}`); // Direct: 123
+}
+
+// Object.assing
+{
+    let id = Symbol("id");
+    let user = {
+        [id]: 123
+    };
+
+    let clone = Object.assign({}, user);
+
+    console.log( clone[id] ); //123
+}
+
+// Global symbols
+{
+    // Symbol.for
+    let id = Symbol.for("id");
+
+    let idAgain = Symbol.for("id");
+
+    console.log( id === idAgain ); // true
+
+    // Symbol.keyFor
+    let sym = Symbol.for("name");
+    let sym2 = Symbol.for("id");
+
+    console.log( Symbol.keyFor(sym) ); // name
+    console.log( Symbol.keyFor(sym2) ); // id
+
+    // undefined if symbol not in global registry
+    let globalSymbol = Symbol.for("name");
+    let localSymbol = Symbol("name");
+
+    console.log( Symbol.keyFor(globalSymbol) ); // name, global symbol
+    console.log( Symbol.keyFor(localSymbol) ); // undefined, not global
+
+    console.log( localSymbol.description ); //name
+}
+
+// #endregion
 
 
 
