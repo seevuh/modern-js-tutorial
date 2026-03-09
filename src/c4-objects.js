@@ -721,8 +721,110 @@ function multiplyNumeric(obj) {
 
 // #endregion
 
+// #region 4.8 Object to primitive conversion
 
+// string
+{
+    // // output
+    // alert(obj);
 
+    // // using object as a property key
+    // anotherObj[obj] = 123;
+}
 
+// number
+{
+    // // explicit conversion
+    // let num = Number(obj);
 
+    // // maths (except binary plus)
+    // let n = +obj; // unary plus
+    // let delta = data1 - date2;
 
+    // // less/greater comparison
+    // let greater = user1 > user2;
+}
+
+// default
+{
+    // // binary plus uses the "default" hint
+    // let total = obj1 + obj2;
+
+    // // obj == number uses the "default" hint
+    // if (user == 1) { ... };
+}
+
+// Symbol.toPrimitive
+{
+    let user = {
+        name: "John",
+        money: 1000,
+
+        [Symbol.toPrimitive](hint) {
+            console.log(`hint: ${hint}`);
+            return hint == "string" ? '{name: "${this.name}"}' : this.money;
+        }
+    };
+
+    // conversons demo:
+    // alert(user); // hint: string -> {name: "John"}
+    console.log(`${user}`); // hint: string -> {name: "John"}
+    console.log(+user); // hint: number -> 1000
+    console.log(user + 500); // hint: default -> 1500
+}
+
+// toString/valueOf
+{
+    let user = { name: "John" };
+
+    console.log(`${user}`); // [object Object]
+    console.log(user.valueOf() === user); // true
+}
+{
+    let user = {
+        name: "John",
+        money: 1000,
+
+        // for hint="string"
+        toString() {
+            return `{name: "${this.name}"}`;
+        },
+
+        // for hint="number" or "default"
+        valueOf() {
+            return this.money;
+        }
+    };
+
+    console.log(`${user}`); // toString -> {name: "John"}
+    console.log(+user); // valueOf -> 1000
+    console.log(user + 500); // valueOf -> 1500
+}
+
+// toString - catch-all
+{
+    let user = {
+        name: "John",
+
+        toString() {
+            return this.name;
+        }
+    };
+
+    console.log(`${user}`); // toString -> John
+    console.log(user + 500); // toString -> John500
+}
+
+// further conversions
+{
+    let obj = {
+        toString() {
+            return "2";
+        }
+    };
+
+    console.log(obj * 2); // 4
+    console.log(obj + 2); // 22
+}
+
+// #endregion
