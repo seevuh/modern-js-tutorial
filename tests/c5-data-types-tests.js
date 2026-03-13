@@ -33,9 +33,7 @@ describe("readNumber", function() {
 
 describe("randomNumber", function() {
     it("should equal get a random number between 1 and 5", function() {
-
         expect( Chapter_5_2_Tasks.random(1,5) ).to.be.within(1, 5);
-
     });
 
 });
