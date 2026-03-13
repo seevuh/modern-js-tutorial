@@ -49,4 +49,247 @@
 }
 // #endregion
 
+// #region 5.2 Numbers
+console.log("\n#### 5.2 Numbers ####");
+// More ways to write a number
+{
+    let billion = 1000000000;
 
+    let billion_u = 1_000_000_000;
+
+    let billion_e = 1e9;
+    let seven3b = 7.3e9;
+
+    let mcs = 0.000001;
+
+    let mcs_e = 1e-6;
+
+    let ms_e = 1e-3;
+    let mc123_e = 1.23e-6;
+    let twelve34_e = 1234e-2;
+}
+
+// Hex, binary and octal numbers
+{
+    // hex
+    console.log( 0xff ); // 255
+    console.log( 0xFF ); // 255
+
+    // binary & octal
+    let a = 0b1111_1111; // binary form of 255
+    let b = 0o377; // octal form of 255
+    console.log(a == b, a, b); // true, the same number 255 at both sides
+}
+
+// toString(base)
+{
+    let num = 255;
+    console.log( num.toString(16) ); //ff
+    console.log( num.toString(2) ); // 11111111
+    console.log( 123456..toString(36) ); // 2n9c
+}
+
+// Rounding
+
+{
+    // multiply and divide
+    let num_md = 1.23456;
+    console.log( Math.round(num_md * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
+
+    // toFixed(n)
+    let num_f = 12.34;
+    console.log( num_f.toFixed(1) ); // "12.3"
+
+    let num_f2 = 12.36;
+    console.log( num_f2.toFixed(1) ); // "12.4"
+
+    //add zeros
+    let num_z = 12.34;
+    console.log( num_z.toFixed(5) ); // "12.34000", added zeroes to make exactly 5 digits
+    console.log( +num_z.toFixed(5) ); // convert to number
+}
+
+// Imprecise calculations
+{
+    console.log( 1e500 ); // Infinity
+
+    console.log(0.1 + 0.2 == 0.3 ); // false
+
+    console.log( 0.1 + 0.2 ); // 0.3000000000000004
+
+    console.log( 0.1.toString(2) ); // 0.00011001100...
+    console.log( 0.2.toString(2) ); // 0.001100110011...
+    console.log( (0.1 + 0.2).toString(2) ); // 0.0100110011001100...
+
+    console.log( 0.1.toFixed(20) ); // 0.100000000000000555
+
+    let sum = 0.1 + 0.2;
+    console.log( sum.toFixed(2) ); // "0.30"
+    console.log( +sum.toFixed(2) ); // 0.3
+
+    console.log( (0.1 * 10 + 0.2 * 10) / 10 ); // 0.3
+    console.log( (0.28 * 100 + 0.14 * 100) / 100 ); // 0.420000000000001
+
+    //the funny thing
+    // self-increasing number
+    console.log( 999_999_999_999_999_9 );
+}
+
+// Tests: isFinite and isNaN
+{
+    console.log( isNaN(NaN) ); // true
+    console.log( isNaN("str") ); // true
+
+    console.log( NaN === NaN, NaN == NaN );
+
+    console.log( isFinite("15") ); // true
+    console.log( isFinite("str") ); // false
+    console.log( isFinite(Infinity) ); // false
+
+    // let num = +prompt("Enter a number", '');
+    let num = +"90";
+
+    console.log( isFinite(num) );
+}
+
+// Number.isNaN and Number.isFinite
+{
+    // Number.isNaN
+    console.log("\n*** Number.isNaN ***");
+    console.log( Number.isNaN(NaN) ); // true
+    console.log( Number.isNaN("str" / 2) ); // true, here math operator converts it to NaN
+
+    console.log( Number.isNaN("str") ); // false
+    console.log( isNaN("str") ); // true
+
+    // Number.isFinite
+    console.log("\n*** Number.isFinite ***");
+    console.log( Number.isFinite(123) ); // true
+    console.log( Number.isFinite(Infinity) ); // false
+    console.log( Number.isFinite(2 / 0) ); // false
+
+    console.log( Number.isFinite("123") ); // false
+    console.log( isFinite("123") ); // true, converts
+}
+
+// Comparison with Object.is
+{
+    console.log("\n*** Comparison with Object.is ***");
+    console.log( Object.is(NaN, NaN) === true );
+    console.log( Object.is(0, -0) === false );
+}
+
+// parseInt and parseFloat
+{
+    console.log("\n*** parseInt and parseFloat ***");
+    console.log( +"100px" ); // NaN
+
+    console.log( parseInt('100px') ); // 100
+    console.log( parseFloat('12.5em') ); // 12.5
+
+    console.log( parseInt('12.3') ); // 12
+    console.log( parseFloat('12.3.4') ); // 12.3
+
+    console.log( parseInt('a123') ); // NaN
+}
+// The second argument of parseInt(str, radix)
+{
+    console.log("\n*** second argument of parseInt ***");
+    console.log( parseInt('0xff', 16) ); // 255
+    console.log( parseInt('ff', 16) ); // 255
+
+    console.log( parseInt('2n9c', 36) ); // 123456
+}
+
+// Other math functions
+{
+    console.log("\n*** Other math functions ***");
+
+    // Math.random
+    console.log("\n Math.random");
+    console.log( Math.random() );
+    console.log( Math.random() );
+    console.log( Math.random() );
+
+    // Math.max(a, b, c...) and Math.min(a, b, c...)
+    console.log("\n Math.max and Math.min");
+    console.log( Math.max(3, 5, -10, 0, 1) ); // 5
+    console.log( Math.min(1,2) ); // 1
+
+    // Math.pow(n, power)
+    console.log("\n Math.pow");
+    console.log( Math.pow(2, 10) ); // 2 in power 10 = 1024
+}
+
+// Tasks
+const Chapter_5_2_Tasks = {
+    // Sum numbers from the visitor
+    sumNumbers: () => {
+        // let a = +prompt("Enter a", "");
+        // let b = +prompt("Enter b", "");
+
+        // console.log(a + b);
+    },
+
+    // Why 6.35.toFixed(1) == 6.3?
+    toFixed6_35: () => {
+        // Internally the decimal fraction 6.35 is an endless binary. 
+        // As always in such cases, it is stored with a precision loss
+        console.log( 6.35.toFixed(20) ); // 6.3499999999999964473
+        // The precision loss can cause both increase and decrease of a number
+        // In this particular case the number becomes a tiny bit less,
+        // That's why it rounded down
+
+        // And what's for 1.35?
+        console.log( 1.35.toFixed(20) ); // 1.350000000000000008882
+        // Here the precison loss made the number a little bit greater, so it rounded up
+
+        // How can we fix the problem with 6.35 if we want it to be rounded the right way?
+        // We should bring it closer to an integer prior to rounding:
+        console.log( (6.35 * 10).toFixed(20) );
+
+        // Note that 63.5 has no precision loss at all
+        // That's because the decimal part 0.5 is actually 1/2
+        // Fractions divided by powers of 2 are exactly represented in the binary system
+        // Now we can round it:
+        console.log( Math.round(6.35 * 10) / 10 ); // 6.35 -> 63.5 -> 64(rounded) -> 6.4
+
+        // Using mathjs library (imported)
+        console.log( math.round(6.35, 1) );
+    },
+
+    // Repeat until the input is a number
+    readNumber: () => {
+        let num;
+
+        do {
+            num = prompt("Enter a number please?", "0");
+        } while ( !isFinite(num) );
+
+        if(num === null || num ===  '') return null;
+
+        return +num;
+    },
+
+    // A random number from min to max
+
+    random(min, max) {
+        return min + Math.random() * (max - min);
+    },
+
+    // A random integer from min to max
+    randomInteger: (min, max) => {
+        // return Math.round(min + Math.random() * (max - min));
+        // return Math.round( min - 0.5 + Math.random() * (max - min + 1) );
+
+        return Math.floor( min + Math.random() * (max + 1 - min) );
+    },
+
+}
+
+console.log(Chapter_5_2_Tasks.random(2, 6));
+console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
+
+
+
+// #endregion
