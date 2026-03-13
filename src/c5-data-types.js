@@ -289,7 +289,4 @@ const Chapter_5_2_Tasks = {
 
 console.log(Chapter_5_2_Tasks.random(2, 6));
 console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
-
-
-
 // #endregion
