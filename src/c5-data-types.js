@@ -472,6 +472,44 @@ console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
         // Correct comparisons
         console.log( 'Österreich'.localeCompare('Zealand') ); // -1
     }
+
+
+    // Tasks
+
+    const c53_Tasks = {
+        ucFirst(str) {
+            if (!str) return str;
+
+            return str[0].toUpperCase() + str.slice(1);
+        },
+
+        checkSpam: (str) => {
+            let lowerStr = str.toLowerCase();
+
+            return lowerStr.includes('viagra') || lowerStr.includes('xxx');
+        },
+
+        truncate: (str, maxlength) => {
+            return (str.length > maxlength) ?
+            str.slice(0, maxlength-1) + "\u2026" : str;
+        },
+
+        extractCurrencyValue: (str) => {
+            return +str.slice(1);
+
+        },
+
+    };
+
+    console.log( c53_Tasks.ucFirst("") );
+    console.log( c53_Tasks.checkSpam('buy ViAgRA now') );
+    console.log( c53_Tasks.checkSpam('free xxxx') );
+    console.log( c53_Tasks.checkSpam("innocent rabbit") );
+
+    console.log( c53_Tasks.truncate("Hi everyone!", 20) );
+    console.log( c53_Tasks.truncate("What I'd like to tell on this topic is: ", 20) );
+
+    console.log( c53_Tasks.extractCurrencyValue('$120') ); // 120
 }
 
 // #endregion
