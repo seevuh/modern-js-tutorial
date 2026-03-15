@@ -290,3 +290,188 @@ const Chapter_5_2_Tasks = {
 console.log(Chapter_5_2_Tasks.random(2, 6));
 console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
 // #endregion
+
+// #region 5.3 Strings
+{
+    // Quotes
+    let single = 'single-quoted';
+    let double = "double-quoted";
+
+    let backticks = `backticks`;
+
+    let guestList = `Guests:
+    * John
+    * Pete
+    * Mary
+    `;
+
+
+    // Template literals
+    const person = "Mike";
+    const age = 28;
+
+    function myTag(strings, personExp, ageExp) {
+
+        const str0 = strings[0];
+        const str1 = strings[1];
+        const str2 = strings[2];
+
+        const ageStr = ageExp < 100 ? "youngster" : "centenarian";
+
+        return `${str0}${personExp}${str1}${ageStr}${str2}`;
+    }
+
+    const output = myTag`That ${person} is a ${age}.`;
+    console.log(output);
+
+
+    // Special characters
+    // \n - New line, \r - Windows \r\n new break
+    // \', \", \` - Quotes
+    // \\ - Backslash
+    // \t - Tab
+
+
+    // Unicode, String internals
+
+    // \xXX, \uXXXX - 4 hex digits (\u00A9)
+    // \u{X...XXXXXX} 1 to 6 bytes
+    
+    let s1 = 'S\u0307\u0323'; // Ṩ, S + dot above + dot below
+    let s2 = 'S\u0323\u0307'; // Ṩ, S + dot below + dot above
+
+    console.log( `s1: ${s1}, s2: ${s2}` );
+
+    console.log( s1 == s2 ); // false though the characters look identical (?!)
+    console.log( s1.normalize() == s2.normalize() ); // true
+    console.log( s1.localeCompare(s2) ); // 0, means same string
+
+
+    // String length
+    console.log( `My\n`.length ); // 3
+
+
+    // Accessing characters
+    {
+        let str = `Hello`;
+
+        console.log( str[0], str.at(0) ); // H H
+        console.log( str[str.length-1], str.at(-1) ); // o o
+    }
+
+    // Strings are immutable
+    {
+        let str = 'Hi';
+        // str[0] = 'h';
+        console.log(str, str[0]);
+    }
+
+    // Changing the case
+    {
+        console.log( 'Interface'.toUpperCase() ); // INTERFACE
+        console.log( 'Interface'.toLowerCase() ); // interface
+
+        console.log( 'Interface'[0].toLowerCase() ); // 'i'
+    }
+
+    // Searching for a substring
+    {
+        let str = 'Widget with id';
+
+        console.log( str.indexOf('Widget') ); // 0
+        console.log( str.indexOf('widget') ); // -1
+
+        console.log( str.indexOf("id") ); // 1
+
+        console.log( str.indexOf('id', 2) ); // 12
+
+        // all occurrences
+        str = 'As sly as a fox, as strong as an ox';
+
+        let target = 'as';
+
+        let pos = 0;
+        while (true) {
+            let foundPos = str.indexOf(target, pos);
+            if (foundPos == -1) break;
+
+            console.log( `Found at ${foundPos}` );
+            pos = foundPos + 1;
+        }
+
+        // shorter
+        pos = -1;
+        while ((pos = str.indexOf(target, pos+1)) != -1) {
+            console.log(pos);
+        }
+
+        str = "Widget with id";
+
+        if (str.indexOf("Widget") != -1) {
+            console.log("We found it");
+        }
+    }
+
+
+    // includes, startsWith, endsWith
+    {
+        console.log( "Widget with id".includes("Widget") ); // true
+        console.log( "Hello".includes("Bye") ); // false
+
+        console.log( "Widget".includes("id") ); // true
+        console.log( "Widget".includes("id", 3) ); // false
+
+        console.log( "Widget".startsWith("Wid") ); // true
+        console.log( "Widget".endsWith("get") ); // true
+    }
+
+    // Getting a substring
+    {
+        // str.slice(start [, end])
+        let str = "stringify";
+        console.log( str.slice(0, 5) ); // 'strin'
+        console.log( str.slice(0, 1) ); // 's'
+
+        console.log( str.slice(2) ); // 'ringify'
+
+        console.log( str.slice(-4, -1) ); // 'gif'
+
+        // str. substring(start [, end])
+        console.log( str.substring(2, 6) ); // "ring"
+        console.log( str.substring(6, 2) ); // "ring"
+        // negative arguments are not supported, they are treated as 0
+
+        // str.substr(start [, length])
+        console.log( str.substr(2, 4) );
+
+        console.log( str.substr(-4, 2) );
+    }
+
+    // Comparing strings
+    {
+        console.log( 'a' > 'Z' ); // true
+
+        console.log( 'Österreich' > 'Zealand' ); // true
+
+        // str.codePointAt(pos)
+        console.log( "Z".codePointAt(0) ); // 90
+        console.log( "z".codePointAt(0) ); // 122
+        console.log( "z".codePointAt(0).toString(16) ); // 7a
+
+        // String.fromCodePoint(code)
+        console.log( String.fromCodePoint(88, 89, 90) ); // XYZ
+        console.log( String.fromCodePoint(0x5a) ); // Z
+
+        let str = '';
+        
+        for (let i = 65; i <= 220; i++) {
+            str += String.fromCodePoint(i);
+        }
+        console.log(str);
+
+        // Correct comparisons
+        console.log( 'Österreich'.localeCompare('Zealand') ); // -1
+    }
+}
+
+// #endregion
