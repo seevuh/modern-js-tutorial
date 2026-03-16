@@ -746,7 +746,7 @@ console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
             //         subMatrices.push( (i == j) ? arr[j] : arr[j] + subMatrices.at(-1) );              
             //     }
             // }
-            // return Math.max(...subMatrices);
+            // return Math.max(...subMatrices, 0);
             // let maxSum = 0;
             // for (let i = 0; i < arr.length; i++) {
             //     let sum = 0;
@@ -783,4 +783,5 @@ console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
     console.log(a);
 
 }
-// 
+// #endregion
+
