@@ -357,6 +357,10 @@ console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
 
         console.log( str[0], str.at(0) ); // H H
         console.log( str[str.length-1], str.at(-1) ); // o o
+
+        for (let char of str) {
+            console.log(char);
+        }
     }
 
     // Strings are immutable
@@ -513,3 +517,270 @@ console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
 }
 
 // #endregion
+
+// #region 5.4 Arrays
+{
+    console.log("#### 5.4 Arrays ####");
+
+    // Declaration
+    {
+        console.log('*** Declaration ***');
+
+        let arr = new Array();
+        let arr1 = [];
+
+        let fruits = ["Apple", "Orange", "Plum"];
+
+        console.log( fruits[0], fruits[1], fruits[2] );
+
+        fruits[2] = 'Pear';
+        fruits[3] = 'Lemon';
+        console.log( fruits.length, `${fruits}` );
+
+        let arrMix = [ 'Apple', { name: 'John' }, true, function() { return 'hello'; } ];
+        console.log(arrMix[1].name, arrMix[3]() );
+    }
+
+    // Get last elements with "at"
+    {
+        console.log('*** Get last elements with at ***');
+
+        let fruits = ["Apple", "Orange", "Plum"];
+
+        console.log( fruits[fruits.length-1] ); // Plum
+
+        console.log( fruits.at(-1) ); // Plum
+    }
+
+    // Methods pop/push, shift/unshift
+    {
+        console.log('*** Methods pop/push, shift/unshift ***');
+
+        // pop
+        let fruits = ["Apple", "Orange", "Pear"];
+
+        console.log( fruits.pop() ); // remove "Pear" and return it
+
+        console.log( `${fruits}` );
+
+        // push
+        fruits.push("Pear");
+        console.log( `${fruits}` );
+
+        // shift
+        console.log( fruits.shift() ); // remove Apple and return it
+        console.log( `${fruits}` );
+
+        // unshift
+        fruits.unshift("Apple");
+        console.log( `${fruits}` );
+
+        // Methods push and unshift can add multiple elements at once:
+        fruits.length = 1;
+        console.log( `${fruits}` );
+
+        fruits.push("Orange", "Peach");
+        fruits.unshift("Pineapple", "Lemon");
+
+        console.log( `${fruits}` );
+    }
+
+    // Internals
+    {
+        console.log('*** Internals ***');
+
+        let fruits = ["Banana"];
+
+        let arr = fruits;
+
+        console.log( arr == fruits ); // true
+
+        arr.push("Pear"); // modify the array by reference
+
+        console.log( `${fruits}` );
+
+        // objects
+        fruits.length = 0;
+        fruits[99] = 5;
+        fruits.age = 25;
+        console.log( fruits, `${fruits}` );
+    }
+
+    // Loops
+    {
+        console.log('*** Loops ***');
+
+        let arr = ["Apple", "Orange", "Pear"];
+
+        for (let i = 0; i < arr.length; i++) {
+            console.log( arr[i] );
+        }
+
+        // iterates over array elements
+        for (let fruit of arr) {
+            console.log( fruit );
+        }
+
+        // bad idea for..in for arrays
+        for (let key in arr) {
+            console.log( arr[key] );
+        }
+    }
+
+    // A word about "length"
+    {
+        console.log('*** A word about length ***');
+
+        let fruits = [];
+        fruits[123] = "Apple";
+
+        console.log( fruits.length );
+
+        let arr = [1, 2, 3, 4, 5];
+
+        arr.length = 2;
+        console.log( `${arr}` );
+
+        arr.length = 5;
+        console.log( arr[3] );
+
+        // the simplest way to clear the array is: arr.length = 0;
+        arr.length = 0;
+        console.log( arr, `${arr}` );
+    }
+
+    // new Array()
+    {
+        console.log('*** new Array() ***');
+
+        let arr0 = new Array("Apple", "Pear", "etc");
+
+        let arr = new Array(2);
+        console.log( arr[0] ); // undefined
+        console.log( arr.length );
+    }
+
+    // Multidimensional arrays
+    {
+        console.log('*** Multidimensional arrays ***');
+
+        let matrix = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ];
+
+        console.log( matrix[0][1] ); // 2
+    }
+
+    // toString
+    {
+        console.log('*** toString ***');
+
+        let arr = [1, 2, 3];
+
+        console.log( `${arr}` ); // same as alert(arr) or console.log(String(arr)), // 1,2,3
+        console.log(String(arr) === '1,2,3');
+
+        console.log( String([] + 1) );
+        console.log( String([1] + 1) );
+        console.log( String([1, 2]) + 1 );
+    }
+
+    // Don't compare arrays with ==
+    {
+        console.log("*** Don't compare arrays with === ***");
+
+        console.log( [] == [] ); // false
+        console.log( [0] == [0] ); // false
+
+        console.log( 0 == [] ); // true
+        console.log( '0' == [] ); // false
+    }
+
+    const c54_Tasks = {
+        arrayOperations: () => {
+            let styles = ["Jazz", "Blues"];
+
+            styles.push("Rock-n-Roll");
+
+            let middle = Math.floor(styles.length/2);
+            styles[middle] = "Classics";
+
+            console.log( styles.shift() );
+
+            styles.unshift("Rap", "Reggae");
+            console.log( String(styles) );
+        },
+
+        arrayContext: () => {
+            let arr = ["a", "b"];
+
+            arr.push(function() {
+                console.log( this );
+            });
+
+            arr[2]();
+        },
+
+        sumInput() {
+            let arr = [];
+
+            while(true) {
+                let num = prompt("Enter a new value", 0);
+                if(num == null || num == '' || !isFinite(num)) break;
+                arr.push(+num);
+            }
+
+            let arrSum = 0;
+            for (let elem of arr) {
+                arrSum += elem;
+            }
+            return arrSum;
+        },
+
+        getMaxSubSum: (arr) => {
+            // let subMatrices = [];
+            // for (let i = 0; i < arr.length; i++) {
+            //     for (let j = i; j < arr.length; j++) {
+            //         subMatrices.push( (i == j) ? arr[j] : arr[j] + subMatrices.at(-1) );              
+            //     }
+            // }
+            // return Math.max(...subMatrices);
+            // let maxSum = 0;
+            // for (let i = 0; i < arr.length; i++) {
+            //     let sum = 0;
+            //     for (let j = i; j < arr.length; j++) {
+            //         sum += arr[j];
+            //         maxSum = Math.max(sum, maxSum);
+            //     }
+            // }
+            // return maxSum;
+
+            let max = 0;
+            let ps = 0;
+            for (let item of arr) {
+                ps += item;
+                ps = Math.max(ps, 0);
+                max = Math.max(ps, max);
+            }
+
+            // let max = 0;
+            // let sum = 0
+            // for (let item of arr) {
+            //     sum += item;
+            //     max = Math.max(max, sum);
+            //     if (sum < 0) sum = 0;
+            // }
+            return max;
+        },
+    }
+
+    c54_Tasks.arrayOperations();
+    c54_Tasks.arrayContext();
+    // console.log( c54_Tasks.sumInput() );
+    let a = c54_Tasks.getMaxSubSum( [2, -1, 2, 3, -9] );
+    console.log(a);
+
+}
+// 
