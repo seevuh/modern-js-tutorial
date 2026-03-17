@@ -45,3 +45,34 @@ function getMaxSubSum(arr) {
     
     return maxSum;
 }
+
+// O(n) : Kadane's algorithm for indices for max sub Array for (-Infinity to Infinity)
+function getMaxSubSumArray(arr) {
+    let maxSum = 0;
+    let partialSum = 0;
+    let maxIndices = { i: 0, j: 0 };
+    let partialIndices = { i: 0, j: 0 };
+    let allNegative = true;
+
+    if( arr.length === 0) return [];
+    
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] >= 0) allNegative = false;
+        partialSum += arr[i];
+        partialIndices.j = i;
+
+        if (partialSum > maxSum){
+            maxIndices.i = partialIndices.i;
+            maxIndices.j = partialIndices.j;
+            maxSum = partialSum;
+        }
+
+        if (partialSum < 0){
+            partialIndices.i = i+1;
+            partialSum = 0;
+        }
+    }
+
+    if (allNegative) return arr;
+    return arr.slice(maxIndices.i, maxIndices.j+1);
+}
