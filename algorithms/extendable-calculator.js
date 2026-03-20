@@ -23,7 +23,7 @@ function Calculator () {
 
     this.addMethod = (op, func) => {
         this.methods[op] = func;
-    }
+    };
 }
 
 let calc = new Calculator;
