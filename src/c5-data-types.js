@@ -785,3 +785,416 @@ console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
 }
 // #endregion
 
+// #region 5.5 Array methods
+{
+    console.log('#### 5.5 Array methods ####');
+
+    // Add/remove items
+    console.log('*** Add/remove items ***');
+
+    // splice
+    {
+        // delete like an object
+        let arr = ["I", "go", "home"];
+        delete arr[1];
+        console.log( arr[1] ); // undefined
+        console.log( arr.length ); // 3
+
+        // deletion using splice
+        arr = ["I", "go", "home"];
+        arr.splice(1, 1);
+        console.log( arr );
+
+        // remove & replace and return removed elements
+        arr = ["I", "study", "JavaScript", "right", "now"];
+        let removed = arr.splice(0, 3, "Let's", "dance");
+        console.log( arr );
+        console.log( removed );
+
+        // insert elements without removal
+        arr = ["I", "study", "JavaScript"];
+        arr.splice(2, 0, "complex", "language");
+        console.log( arr );
+
+        // negative indexes allowed
+        arr = [1, 2, 5];
+        arr.splice(-1, 0, 3, 4);
+        console.log( arr );
+    }
+
+    // slice
+    {
+        let arr = ["t", "e", "s", "t"];
+        console.log( arr.slice(1, 3) ); // e,s array
+        console.log( arr.slice(-2) ); // s,t array
+    }
+
+    // concat
+    {
+        let arr = [1, 2];
+        console.log( arr.concat([3, 4]));
+        console.log( arr );
+        console.log( arr.concat([3,4], [5,6]) );
+        console.log( arr.concat([3,4], 5, 6) );
+
+        let arrayLike = {
+            0: "something",
+            length: 1
+        };
+        console.log( arr.concat(arrayLike) );
+
+        arrayLike = {
+            0: "something",
+            1: "else",
+            [Symbol.isConcatSpreadable]: true,
+            length: 2 // length must be present
+        };
+        console.log( arr.concat(arrayLike) );
+    }
+
+    // Iterate:forEach
+    console.log('*** Iterate:forEach ***');
+    // forEach
+    {
+        let arr = ["Bilbo", "Gandalf", "Nazgul"];
+        
+        arr.forEach(console.log);
+
+        arr.forEach((item, index, array) => {
+            console.log(`${item} is at index ${index} in ${array}`);
+        });
+    }
+
+
+    // Searching in array
+    console.log('*** Searching in array ***');
+
+    // indexOf/lastIndexOf and includes
+    {
+        let arr = [1, 0, false];
+        console.log( arr.indexOf(0) );
+        console.log( arr.indexOf(false) );
+        console.log( arr.indexOf(null) );
+
+        console.log( arr.includes(1) );
+
+        let fruits = ['Apple', 'Orange', 'Apple'];
+        console.log( fruits.indexOf('Apple') );
+        console.log( fruits.lastIndexOf('Apple') );
+    }
+    // includes method handles NaN correctly
+    {
+        const arr = [NaN];
+        console.log( arr.indexOf(NaN) ); // -1
+        console.log( arr.includes(NaN) ); // true
+    }
+
+    // find and findIndex/findLastIndex
+    {
+        let users = [
+            {id: 1, name: "John"},
+            {id: 2, name: "Pete"},
+            {id: 3, name: "Mary"},
+            {id: 4, name: "John"},
+        ];
+
+        let user = users.find(item => item.id == 1);
+        console.log(user.name);
+
+        console.log(users.findIndex(user => user.name == 'John'));
+        console.log(users.findLastIndex(user => user.name == 'John'));
+    }
+
+    // filter
+    {
+        let users = [
+            {id: 1, name: "John"},
+            {id: 2, name: "Pete"},
+            {id: 3, name: "Mary"},
+        ];
+
+        let someUsers = users.filter(user => user.id < 3);
+        console.log( someUsers.length );
+    }
+
+
+    // Transform an array
+    console.log('*** Transform an array ***');
+
+    // map
+    {
+        let lengths = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
+        console.log(lengths);
+    }
+
+    // sort(fn)
+    {
+        let arr = [1, 2, 15];
+        arr.sort();
+        console.log( arr );
+
+        function compareNumeric(a, b) {
+            if (a > b) return 1;
+            if (a == b) return 0;
+            if (a < b) return -1;
+        }
+
+        arr.sort(compareNumeric);
+        console.log( arr );
+
+        [1, -2, 15, 2, 0, 8].sort(function(a, b) {
+            console.log( a + " <> " + b);
+            return a -b;
+        });
+
+        arr.sort(function(a, b) { return a - b; });
+        console.log( arr );
+        
+        arr.sort( (a, b) => a -b );
+
+        let countries = ['Österreich', 'Andorra', 'Vietnam'];
+        console.log( countries.sort( (a, b) => a > b ? 1 : -1 )); 
+        console.log( countries.sort( (a, b) => a.localeCompare(b) ));
+    }
+
+    // reverse
+    {
+        let arr = [1, 2, 3, 4, 5];
+        arr.reverse();
+        console.log( arr );
+    }
+
+    // split and join
+    {
+        let names = 'Bilbo, Gandalf, Nazgul, Saruman';
+        let arr = names.split(', ');
+        console.log( arr );
+
+        for (let name of arr) {
+            console.log( `A message to ${name}.` );
+        }
+
+        // optional second numeric argument -  a limit on the array length
+        arr = names.split(', ', 3);
+        console.log( arr );
+
+        // split the string into an array of letters: split(s) with an empty s
+        let str = "test";
+        console.log( str.split('') );
+
+        // arr.join(glue)
+        str = arr.join(';');
+        console.log( str );
+    }
+
+    // reduce/reduceRight
+    {
+        let arr = [1, 2, 3, 4, 5];
+        let result = arr.reduce( (sum, current) => sum + current, 0 );
+        console.log( result );
+
+        // works but gives an error if arr is empty
+        result = arr.reduce((sum, current) => sum + current);
+        console.log( result );
+
+        // always use initial value
+        arr = [];
+        result = arr.reduce((sum, current) => sum + current, 0);
+        console.log( result );
+    }
+
+    // Array.isArray
+    console.log('*** Array.isArray ***');
+    {
+        console.log( typeof {} ); // object
+        console.log( typeof [] ); // object (same)
+        console.log( Array.isArray({}));
+        console.log( Array.isArray([]));
+    }
+
+    // Most methods support "thisArg"
+    console.log('*** thisArg ***');
+    {
+        let army = {
+            minAge: 18,
+            maxAge: 27,
+            canJoin(user) {
+                return user.age >= this.minAge && user.age < this.maxAge;
+            }
+        };
+
+        let users = [
+            {age: 16},
+            {age: 20},
+            {age: 23},
+            {age: 30},
+        ];
+
+        let soldiers = users.filter(army.canJoin, army);
+
+        console.log( soldiers.length );
+        console.log( soldiers[0].age );
+        console.log( soldiers[1].age );
+
+        soldiers = users.filter( user => army.canJoin(user) );
+        console.log( soldiers );
+    }
+
+    // Summary: arr.every
+    console.log('*** summary: arr.every ***');
+    {
+        function arraysEqual(arr1, arr2) {
+            return arr1.length === arr2.length && 
+            arr1.every( (value, index) => value === arr2[index] );
+        }
+
+        console.log( arraysEqual( [1, 2], [1, 2] ));
+    }
+
+    // Tasks
+    const c55_Tasks = {
+        camelize: (str) => {
+            let arr = str.split('-');
+            let arrMap = arr.map( (item, index) => index == 0 ? item :  item[0].toUpperCase() + item.slice(1) );
+            return arrMap.join('');
+        },
+
+        filterRange: (arr, a, b) => {
+            return arr.filter( item => (item >= a &&  item <= b) );
+        },
+
+        filterRangeInPlace: (arr, a, b) => {
+            // let result = arr.filter( item => (item >= a && item <= b ));
+            // arr.splice(0, arr.length, ...result);
+            for (let i = 0; i < arr.length; i++) {
+                let item = arr[i];
+                if( item < a || item > b) {
+                    arr.splice(i, 1);
+                    i--;
+                }
+            }
+            return arr;
+        },
+        
+        sortInDescending: (arr) => {
+            return arr.sort( (a, b) => b -a );
+        },
+
+        copySorted : (arr) => {
+            return arr.slice().sort();
+        },
+
+        calculator: (arr) => {
+
+        },
+
+    };
+
+    console.log( c55_Tasks.camelize("background-color") );
+    console.log( c55_Tasks.camelize("list-style-image") );
+    console.log( c55_Tasks.camelize("-webkit-transition") );
+
+    console.log( c55_Tasks.filterRange([5, 3, 8, 1], 1, 4));
+
+    let arr = [5, 3, 8, 1]; 
+    c55_Tasks.filterRangeInPlace(arr, 1, 4);
+    console.log(arr);
+
+    arr = [5, 2, 1, -10, 8];
+    console.log( c55_Tasks.sortInDescending(arr) );
+
+    arr = ["HTML", "JAVASCRIPT", "CSS"];
+    console.log( c55_Tasks.copySorted(arr), arr );
+
+    function Calculator(str) {
+        this.methods  = {
+            "+": (a, b) => a + b,
+            "-": (a, b) => a - b,
+        };
+
+        this.calculate = function(str) {
+            let array = str.split(' ');
+            let a = +array[0];
+            let op = array[1];
+            let b = +array[2];
+
+            if(isNaN(a) || isNaN(b) || !this.methods[op]){
+                return NaN;
+            }
+
+            return this.methods[op](a, b);
+        };
+
+        this.addMethod = function (name, func) {
+            this.methods[name] = func
+        };
+
+    }
+
+    let cal = new Calculator;
+    console.log( cal.calculate("3 - 7") );
+
+    let john = { name: "John", age: 25 };
+    let pete = { name: "Pete", age: 30 };
+    let mary = { name: "Mary", age: 28 };
+
+    let users = [ john, pete, mary ];
+
+    console.log( users.map(user => user.name) );
+
+    // let john = { name: "John", surname: "Smith", id: 1 };
+    // let pete = { name: "Pete", surname: "Hunt", id: 2 };
+    // let mary = { name: "Mary", surname: "Key", id: 3 };
+
+    // let users = [ john, pete, mary ];
+
+    // let usersMapped = users.map(user => ({
+    //     fullName: `${user.name} ${user.surname}`,
+    //     id: user.id 
+    // }));
+    // console.log( usersMapped );
+
+    function sortByAge(arr) {
+        arr.sort((a, b) => a.age - b.age);
+    }
+    sortByAge(users);
+    console.log(users);
+
+    function getAverageAge(arr) {
+        console.log(arr);
+        return arr.reduce( (prev, user) => prev + user.age, 0)/ arr.length;
+    }
+
+    console.log( getAverageAge(users) );
+
+    users = [
+        {id: 'john', name: "John Smith", age: 20},
+        {id: 'ann', name: "Ann Smith", age: 24},
+        {id: 'pete', name: "Pete Peterson", age: 31},
+    ];
+
+    function groupById(users) {
+        return users.reduce((obj, user) => {
+             obj[user.id] = user;
+             return obj;
+        }, {})
+    }
+
+    let usersById = groupById(users);
+    console.log( usersById );
+
+
+    arr = [1, 2, 3];
+
+    function shuffle(arr) {
+        return arr.sort(() => Math.random() - 0.5);
+    }
+
+    console.log(arr);
+    console.log(shuffle(arr));
+    console.log(shuffle(arr));
+    console.log(shuffle(arr));
+    console.log(shuffle(arr));
+
+}
+// #endregion
