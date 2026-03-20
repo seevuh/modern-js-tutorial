@@ -81,9 +81,9 @@ describe("Maximal SubArray", function() {
         assert.deepEqual(getMaxSubSumArray(arr), [1, 2, 3]);
     });
 
-    it("should return [-1, -2, -3] for array [-1, -2, -3]", function() {
+    it("should return [-1] for array [-1, -2, -3]", function() {
         let arr = [-1, -2, -3];
-        assert.deepEqual(getMaxSubSumArray(arr), [-1, -2, -3]);
+        assert.deepEqual(getMaxSubSumArray(arr), [-1]);
     });
 
 });

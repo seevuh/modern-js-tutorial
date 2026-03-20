@@ -39,8 +39,8 @@ function getMaxSubSum(arr) {
     
     for (let elem of arr) {
         partialSum += elem;
-        maxSum = Math.max(maxSum, partialSum);
         partialSum = Math.max(partialSum, 0);
+        maxSum = Math.max(maxSum, partialSum);
     }
     
     return maxSum;
@@ -48,31 +48,34 @@ function getMaxSubSum(arr) {
 
 // O(n) : Kadane's algorithm for indices for max sub Array for (-Infinity to Infinity)
 function getMaxSubSumArray(arr) {
-    let maxSum = 0;
-    let partialSum = 0;
-    let maxIndices = { i: 0, j: 0 };
-    let partialIndices = { i: 0, j: 0 };
-    let allNegative = true;
+    let maxSum = -Infinity;
+    let partialSum = -Infinity;
+    let maxIndexes = { i: 0, j: 0 };
+    let partialIndexes = { i: 0, j: 0 };
 
     if( arr.length === 0) return [];
     
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i] >= 0) allNegative = false;
-        partialSum += arr[i];
-        partialIndices.j = i;
+        if(arr[i] >= (partialSum + arr[i])){
+            partialSum = arr[i];
+            partialIndexes.i = i;
+            partialIndexes.j = i;
+        } else {
+            partialSum = partialSum + arr[i];
+            partialIndexes.j = i;
+        }
 
         if (partialSum > maxSum){
-            maxIndices.i = partialIndices.i;
-            maxIndices.j = partialIndices.j;
+            maxIndexes.i = partialIndexes.i;
+            maxIndexes.j = partialIndexes.j;
             maxSum = partialSum;
         }
 
-        if (partialSum < 0){
-            partialIndices.i = i+1;
-            partialSum = 0;
-        }
+        // if (partialSum < 0){
+        //     partialIndexes.i = i+1;
+        //     partialSum = 0;
+        // }
     }
 
-    if (allNegative) return arr;
-    return arr.slice(maxIndices.i, maxIndices.j+1);
+    return arr.slice(maxIndexes.i, maxIndexes.j+1);
 }
