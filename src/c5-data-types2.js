@@ -335,7 +335,6 @@
         console.log( acleanObj(arr) );
 
         // 3
-
         let map = new Map();
         map.set("name", "John");
 
