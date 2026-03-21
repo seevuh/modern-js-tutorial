@@ -1,6 +1,6 @@
 "use strict";
 
-//#region #### 5.6 Iterables ####
+// #region #### 5.6 Iterables ####
 {
     console.log(`#### 5.6 Iterables ####\n\n`);
 
@@ -135,7 +135,7 @@
 }
 // #endregion
 
-// #region Map
+// #region #### 5.7 Map and Set ####
 {
     // Map
     console.log('\n*** Map ***');
@@ -346,3 +346,224 @@
     }
 }
 // #endregion
+
+// #region #### 5.8 WeakMap and WeakSet ####
+{
+    // garbage collection
+    {
+        let john = { name: "John" };
+
+        // the object can be accessed, john is the reference to it
+
+        // overwrite the reference
+        john = null;
+        // the object will be removed from memory
+    }
+    {
+        let john = { name: "John" };
+
+        let array = [ john ];
+
+        john = null; // overwrite the reference
+
+        // the object previously referenced by john is stored inside the array
+        // therefore it won't be garbage-collected
+        // we can get it as array[0]
+    }
+
+    // Map: garbage collection
+    {
+        let john = { name: "John" };
+
+        let map = new Map();
+        map.set(john, "...");
+
+        john = null; // overwrites the reference
+
+        // john is stored inside the map,
+        // we can get it by using map.keys()
+    }
+
+    // WeakMap
+    // only objects as keys, not primitive values
+    {
+        let weakMap = new WeakMap();
+
+        let obj = {};
+
+        weakMap.set(obj, "ok"); // works fine (object key)
+
+        // can't use a string as the key
+        // weakMap.set("test", "Whoops"); // Error, because "test" is not an object
+    }
+    // WeakMap: garbage collection
+    {
+        let john = { name: "John" };
+
+        let weakMap = new WeakMap();
+        weakMap.set(john, "...");
+
+        john = null; // overwrite the reference
+
+        // john is removed from memory!
+    }
+
+    // Examples
+    // Use case: additional data
+    //Map
+    {
+        // 📁 visitsCount.js
+        let visitsCountMap = new Map(); // map: user => visits count
+
+        // increase the visits count
+        function countUser(user) {
+            let count = visitsCountMap.get(user) || 0;
+            visitsCountMap.set(user, count + 1);
+        }
+
+        // 📁 main.js
+        let john = { name: "John" };
+
+        countUser(john); // count his visits
+
+        // later john leaves us
+        john = null;
+    }
+    //WeakMap
+    {
+        // 📁 visitsCount.js
+        let visitsCountMap = new WeakMap(); // weakmap: user => visits count
+
+        // increase the visits count
+        function countUser(user) {
+            let count = visitsCountMap.get(user) || 0;
+            visitsCountMap.set(user, count + 1);
+        }
+    }
+
+    // Use case: caching
+    // Map
+    {
+        // 📁 cache.js
+        let cache = new Map();
+
+        // calculate and remember the result
+        function process(obj) {
+            if (!cache.has(obj)) {
+                let result = /* calculations of the result for */ obj;
+
+                cache.set(obj, result);
+                return result;
+            }
+
+            return cache.get(obj);
+        }
+
+        // Now we use process() in another file:
+
+        // 📁 main.js
+        let obj = {/*let's say we have an object */};
+
+        let result1 = process(obj); // calculated
+
+        // ...later, from another place of the code...
+        let result2 = process(obj); // remembered result taken from cache
+
+        // ...later, when the object is not needed anymore:
+        obj = null;
+
+        console.log(cache.size); // 1 (Ouch! The object is still in cache, taking memory!)
+    }
+
+    // WeakMap
+    {
+        // 📁 cache.js
+        let cache = new WeakMap();
+
+        // calculate and remember the result
+        function process(obj) {
+            if (!cache.has(obj)) {
+                let result = /* calculate the result for */ obj;
+
+                cache.set(obj, result);
+                return result;
+            }
+
+            return cache.get(obj);
+        }
+
+        // 📁 main.js
+        let obj = {/* some object */};
+
+        let result1 = process(obj);
+        let result2 = process(obj);
+
+        // ...later, when the object is not needed anymore:
+        obj = null;
+
+        // Can't get cache.size, as it's a WeakMap,
+        // but it's 0 or soon be 0
+        // When obj gets garbage collected, cached data will be removed as well
+    }
+
+
+    // WeakSet
+    {
+        let visitedSet = new WeakSet();
+
+        let john = { name: "John" };
+        let pete = { name: "Pete" };
+        let mary = { name: "Mary" };
+
+        visitedSet.add(john); // John visited us
+        visitedSet.add(pete); // Then Pete
+        visitedSet.add(john); // John again
+
+        // visitedSet has 2 users now
+
+        // check if John visited?
+        console.log( visitedSet.has(john) ); // true
+
+        // check if Mary visited?
+        console.log( visitedSet.has(mary) ); // false
+
+        john = null
+
+        // visitedSet will be cleaned automatically
+    }
+
+    // Tasks
+    {
+        // 1
+        let messages = [
+            {text: "Hello", from: "John"},
+            {text: "How goes?", from: "John"},
+            {text: "See you soon", from: "Alice"}
+        ];
+
+        let readMessages = new WeakSet();
+
+        readMessages.add(messages[0]);
+        readMessages.add(messages[1]);
+
+        readMessages.add(messages[0]);
+
+        console.log("Read message 0: " + readMessages.has(messages[0]));
+
+        messages.shift();    
+        // now readMessages has 1 element (technically memory may be cleaned later)
+        
+        let isRead = Symbol("isRead");
+        messages[0][isRead] = true;
+
+        console.log(messages);
+
+        // 2
+        let messagesReadAt = new WeakMap();
+        messagesReadAt.set(messages[0], new Date(2026, 2, 21));
+
+        console.log(messagesReadAt);
+    }
+}
+// #endregion
+
