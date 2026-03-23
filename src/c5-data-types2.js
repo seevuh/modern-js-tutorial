@@ -657,3 +657,353 @@
 }
 // #endregion
 
+// #region #### 5.10 Destructuring assignment ####
+{
+    console.log('\n#### Destructuring assignment');
+
+    // Testing
+    console.log('\n*** Testing ***');
+    {
+        let options = {
+            title: "Menu"
+        };
+
+        let { width, height, title} = options;
+
+        console.log(width, height, title);
+    }
+    {
+        let options = {
+            size: {
+                width: 100,
+                height: 200
+            },
+            items: ["Cake", "Donut"],
+            extra: true
+        };
+
+        let {
+            size: {width, height}, items: [item1, item2], title = "Menu"
+        } = options;
+
+        console.log(width, height, item1, title);
+    }
+
+    // Array destructuring
+    {
+        console.log('\n*** Array destructuring ***');
+
+        let arr = ["John", "Smith"];
+
+        let [firstName, surname] = arr;
+        // let firstName = arr[0];
+        // let surname = arr[1];
+        console.log(firstName, surname);
+    }
+    {
+        let [firstName, surname] = "John Smith".split(' ');
+        console.log(firstName, surname);
+    }
+
+    // Ignore elements using commas
+    {
+        console.log('\n*** Ignore elements using commas');
+
+        let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+        console.log( title );
+    }
+
+    // Works with any iterable on the right-side
+    {
+        console.log('\n*** Works with any iterable on the right-side');
+
+        let [a, b, c] = "abc";
+        let [one, two, three] = new Set([1, 2, 3]);
+
+        console.log(a, b, c, one, two, three);
+    }
+
+    // Assign to anything on the left-side
+    {
+        console.log('\n*** Assign to anything on the left-side ***');
+
+        let user = {};
+        [user.name, user.surname] = "John Smith".split(' ');
+
+        console.log(user.name, user.surname);
+    }
+
+    // Looping with .entries()
+    {
+        console.log('\n*** Looping with .entries() ***');
+
+        let user = {
+            name: "John",
+            age: 30
+        };
+
+        // loop over the keys-and-values
+        for (let [key, value] of Object.entries(user)) {
+            console.log( `${key}:${value}` );
+        }
+
+        // Similar code for a Map is simpler, as it's iterable
+        user = new Map();
+        user.set("name", "John");
+        user.set("age", 30);
+
+        // Map iterates as [key, value] pairs, very convenient for destructuring
+        for (let [key, value] of user) {
+            console.log( `${key}:${value}` );
+        }
+    }
+
+    // Swap varialbes trick
+    {
+        console.log('\n*** Swap variables trick ***');
+
+        let guest = "Jane";
+        let admin = "Pete";
+
+        [guest, admin] = [admin, guest];
+
+        console.log( `${guest} ${admin}` );
+    }
+
+    // The rest '...'
+    {
+        console.log("\n*** The rest '...' ***");
+
+        let [name1, name2] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+        console.log(name1, name2);
+    }
+    // ...rest
+    {
+        let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+
+        console.log( rest[0], rest[1] );
+        console.log( rest.length );
+    }
+    // ...titles
+    {
+        let [name1, name2, ...titles] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+    }
+
+    // Default values
+    {
+        console.log('\n*** Default values ***');
+
+        let [firstName, surname] = [];
+        console.log(firstName, surname);
+    }
+    // default values
+    {
+        let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+        console.log(name, surname);
+    }
+    // default values can be complex expressions or even functions
+    {
+        let [name = prompt('name?'), surname = prompt('surname?')] = ["Julius", "Caesar"];
+        console.log(name, surname);
+    }
+
+    // Object destructuring
+    {
+        console.log('\n### Object destructuring ###');
+
+        let options = {
+            title: "Menu",
+            width: 100,
+            height: 200
+        };
+
+        let {title, width, height} = options;
+        console.log(title, width, height);
+    }
+    // The order does not matter
+    {
+        let {height, width, title} = { title: "Menu", height: 200, width: 100 };
+    }
+    // complex pattern matching between properties and variables
+    {
+        let options = {
+            title: "Menu",
+            width: 100,
+            height: 200
+        };
+
+        // { sourceProperty: targetVariable}
+        let {width: w, height: h, title} = options;
+        // what: goes where
+
+        console.log(title, w, h);
+    }
+    // set default values using "=" for missing properties
+    {
+        let options = {
+            title: "Menu"
+        };
+
+        let {width = 100, height = 200, title} = options;
+        console.log(title, width, height);
+    }
+    // Default values can be expressions or even function calls
+    {
+        let options = {
+            title: "Menu",
+            width: 100
+        };
+
+        let {width = prompt('width?'), title = prompt('title?')} = options;
+        console.log(title, width);
+    }
+    // can combine both the colon and equality
+    {
+        let options = {
+            title: "Menu"
+        };
+
+        let {width: w = 100, height: h = 200, title} = options;
+        console.log(title, w, h);
+    }
+    // only extract what we need
+    {
+        let options = {
+            title: "Menu",
+            width: 100,
+            height: 200
+        };
+
+        let { title } = options;
+        console.log(title);
+    }
+
+    // The rest pattern "..."
+    {
+        let options = {
+            title: "Menu",
+            height: 200,
+            width: 100
+        };
+
+        // title = property named title
+        // rest = object with the rest of properties
+        let {title, ...rest} = options;
+
+        // now title="Menu", rest={height: 200, width: 100}
+        console.log(rest.height, rest.width);
+    }
+
+    // Gotcha if there's no let
+    {
+        console.log("\n*** Gotcha if there's no let ***");
+        let title, width, height;
+
+        ({title, width, height} = {title: "Menu", width: 200, height: 100});
+        console.log( title );
+    }
+
+    // Nested destructuring
+    {
+        console.log('\n*** Nested destructuring ***');
+
+        let options = {
+            size: {
+                width: 100,
+                height: 200
+            },
+            items: ["Cake", "Donut"],
+            extra: true
+        };
+
+        let {
+            size: {
+                width,
+                height
+            },
+            items: [item1, item2],
+            title = "Menu"
+        } = options;
+
+        console.log(title, width, height, item1, item2);
+    }
+
+    // Smart function parameters
+    {
+        console.log('\n*** Smart function parameters ***');
+
+        function showMenu(title = "Untitled", width = 200, height = 100, items = []) {
+            // ...
+        }
+
+        showMenu("My Menu", undefined, undefined, ["Item1", "Item2"]);
+
+        // we pass object to function
+        let options = {
+            title: "MY Menu",
+            items: ["Item1", "Item2"]
+        };
+
+        function showMenu1({title = "Untitled", width = 200, height = 100, items = []}) {
+            console.log( `${title} ${width} ${height}` );
+            console.log( items );
+        }
+        showMenu1(options);
+
+        // complex destructuring with nested objects and colon mapping
+        function showMenu2({
+            title = "Untitled",
+            width: w = 100, // width goes to w
+            height: h = 200, // height goes to h
+            items: [item1, item2] // items first element goes to item1, second to item2
+        }) {
+            console.log( `${title} ${w} ${h}`);
+            console.log( item1, item2);
+        }
+        showMenu2(options);
+
+        // make {} the default value for the whole object of parameters
+        function showMenu3({ title = "Menu", width = 100, height = 200 } = {}){
+            console.log( `${title} ${width} ${height}` );
+        }
+        showMenu3();
+    }
+
+    // Tasks
+    {
+        console.log('*** Tasks ***');
+
+        // 1
+        let user = {
+            name: "John",
+            years: 30
+        };
+
+        let {name, years: age, isAdmin = false} = user;
+        console.log(name, age, isAdmin);
+
+        // 2
+        let salaries = {
+            "John": 100,
+            "Pete": 300,
+            "Mary": 250
+        };
+
+        function topSalary(salaries) {
+            let maxSalary = 0
+            let maxName = null;
+
+            for (let [name, salary] of Object.entries(salaries)) {
+                if (maxSalary < salary) {
+                    maxSalary = salary;
+                    maxName = name;
+                }
+            }
+            return maxName;
+        }
+
+        console.log( topSalary(salaries) );
+    }
+}
+// #endregion
+
