@@ -2,1008 +2,1008 @@
 
 // #region #### 5.6 Iterables ####
 {
-    console.log(`#### 5.6 Iterables ####\n\n`);
+  console.log(`#### 5.6 Iterables ####\n\n`);
 
-    // Symbol.iterator
-    console.log(`*** Symbol.iterator ***`);
+  // Symbol.iterator
+  console.log(`*** Symbol.iterator ***`);
 
-    let range = {
-        from: 1,
-        to: 5
-    };
+  let range = {
+    from: 1,
+    to: 5
+  };
 
-    range[Symbol.iterator] = function() {
-        return {
-            current: this.from,
-            last: this.to,
+  range[Symbol.iterator] = function () {
+    return {
+      current: this.from,
+      last: this.to,
 
-            next() {
-                if (this.current <= this.last) {
-                    return { done: false, value: this.current++ };
-                } else {
-                    return { done: true };
-                }
-            },
-        };
-    };
-
-    for (let num of range) {
-        console.log(num);
-    }
-
-    // merging iterator with range object
-    let range2 = {
-        from: 1,
-        to: 5,
-
-        [Symbol.iterator]: function() {
-            this.current = this.from;
-            return this;
-        },
-
-        next () {
-            if (this.current <= this.to) {
-                return { done: false, value: this.current++ };
-            } else {
-                return { done: true };
-            }
+      next() {
+        if (this.current <= this.last) {
+          return { done: false, value: this.current++ };
+        } else {
+          return { done: true };
         }
-    }
-
-    // String is iterable
-    console.log('\n*** String is iterable ***');
-    for (let char of "test") {
-        console.log( char );
-    }
-
-    let str = '😂𝒳';
-    for (let char of str) {
-        console.log( char );
-    }
-
-    // Calling an iterator explicitly
-    console.log('\n*** Calling an iterator explicitly ***');
-    str = "Hello";
-
-    let iterator = str[Symbol.iterator]();
-
-    while (true) {
-        let result = iterator.next();
-        if (result.done) break;
-        console.log(result.value);
-    }
-
-    // Iterables and array-likes
-    console.log('\n*** Iterables and array-likes ***');
-    let arrayLike = { // has indexes and length => array-like
-        0: "Hello",
-        1: "World",
-        length: 2,
-
-        // [Symbol.iterator]: function () {
-        //     return {
-        //         index: 0,
-        //         self: this,
-        //         next: function () {
-        //             if (this.index < this.self.length) {
-        //                 return { done: false, value: this.self[this.index++] };
-        //             } else {
-        //                 return { done: true };
-        //             }
-        //         }
-        //     }
-        // },
+      },
     };
+  };
 
-    // Error (no Symbol.iterator) or arrayLike is not iterable
-    // if [Symbol.iterator] is not implemented
-    // for (let item of arrayLike) {}
+  for (let num of range) {
+    console.log(num);
+  }
 
-    // Array.from
-    console.log('\n*** Array.from ***');
+  // merging iterator with range object
+  let range2 = {
+    from: 1,
+    to: 5,
 
-    let arr = Array.from(arrayLike);
-    console.log(arr.pop());
+    [Symbol.iterator]: function () {
+      this.current = this.from;
+      return this;
+    },
 
-    arr = Array.from(range);
-    console.log(arr);
-
-    arr = Array.from(range, num => num * num);
-    console.log(arr);
-
-    str = '😂𝒳';
-    // splits str into array of characters
-    let chars = Array.from(str);
-    console.log(chars);
-
-    // same as above, but above is shorter
-    chars = [];
-    for (let char of str) {
-        chars.push(char);
+    next() {
+      if (this.current <= this.to) {
+        return { done: false, value: this.current++ };
+      } else {
+        return { done: true };
+      }
     }
-    console.log(chars);
+  }
 
-    // surrogate-aware slice
-    function slice(str, start, end) {
-        return Array.from(str).slice(start, end).join('');
-    }
+  // String is iterable
+  console.log('\n*** String is iterable ***');
+  for (let char of "test") {
+    console.log(char);
+  }
 
-    str = '😂𝒳𩷶';
-    console.log( slice(str, 1, 3) );
-    // the native method does not support surrogate pairs
-    console.log( str.slice(1, 3) ); // garbage
+  let str = '😂𝒳';
+  for (let char of str) {
+    console.log(char);
+  }
+
+  // Calling an iterator explicitly
+  console.log('\n*** Calling an iterator explicitly ***');
+  str = "Hello";
+
+  let iterator = str[Symbol.iterator]();
+
+  while (true) {
+    let result = iterator.next();
+    if (result.done) break;
+    console.log(result.value);
+  }
+
+  // Iterables and array-likes
+  console.log('\n*** Iterables and array-likes ***');
+  let arrayLike = { // has indexes and length => array-like
+    0: "Hello",
+    1: "World",
+    length: 2,
+
+    // [Symbol.iterator]: function () {
+    //     return {
+    //         index: 0,
+    //         self: this,
+    //         next: function () {
+    //             if (this.index < this.self.length) {
+    //                 return { done: false, value: this.self[this.index++] };
+    //             } else {
+    //                 return { done: true };
+    //             }
+    //         }
+    //     }
+    // },
+  };
+
+  // Error (no Symbol.iterator) or arrayLike is not iterable
+  // if [Symbol.iterator] is not implemented
+  // for (let item of arrayLike) {}
+
+  // Array.from
+  console.log('\n*** Array.from ***');
+
+  let arr = Array.from(arrayLike);
+  console.log(arr.pop());
+
+  arr = Array.from(range);
+  console.log(arr);
+
+  arr = Array.from(range, num => num * num);
+  console.log(arr);
+
+  str = '😂𝒳';
+  // splits str into array of characters
+  let chars = Array.from(str);
+  console.log(chars);
+
+  // same as above, but above is shorter
+  chars = [];
+  for (let char of str) {
+    chars.push(char);
+  }
+  console.log(chars);
+
+  // surrogate-aware slice
+  function slice(str, start, end) {
+    return Array.from(str).slice(start, end).join('');
+  }
+
+  str = '😂𝒳𩷶';
+  console.log(slice(str, 1, 3));
+  // the native method does not support surrogate pairs
+  console.log(str.slice(1, 3)); // garbage
 }
 // #endregion
 
 // #region #### 5.7 Map and Set ####
 {
-    // Map
-    console.log('\n*** Map ***');
+  // Map
+  console.log('\n*** Map ***');
+  let map = new Map();
+
+  map.set('1', 'str1'); // a string key
+  map.set(1, 'num1'); // a numeric key
+  map.set(true, 'bool1'); // a boolean key
+
+  // remember the regular Object? it would convert keys to string
+  // Map keeps the type, so these two are different:
+  console.log(map.get(1)); // 'num1'
+  console.log(map.get('1')); // 'str1'
+
+  console.log(map.size); // 3
+
+  console.log('\n*** Map can also use object as keys ***');
+  let john1 = { name: "John" };
+
+  // for every user, let's store their visits count
+  let visitsCountMap = new Map();
+
+  // john is the key for the map
+  visitsCountMap.set(john1, 123);
+
+  console.log(visitsCountMap.get(john1)); // 123
+
+  // Object
+  console.log('\n*** visitsCountObj ***');
+  let john2 = { name: "John" };
+  let ben2 = { name: "Ben" };
+
+  let visitsCountObj = {};
+
+  visitsCountObj[ben2] = 234;
+  visitsCountObj[john2] = 123;
+
+  console.log(visitsCountObj["[object Object]"]);
+
+  // chaining
+  map.clear();
+  map.set('1', 'str1')
+    .set(1, 'num1')
+    .set(true, 'bool1');
+
+
+  // Iteration over Map
+  console.log('\n*** Iteration over Map ***');
+
+  let recipeMap = new Map();
+  recipeMap.set('cucumber', 500)
+    .set('tomatoes', 350)
+    .set('onion', 50);
+
+  let a = recipeMap.set('carrot', 100);
+  let b = recipeMap.get('carrot');
+  let c = recipeMap.has('carrot');
+  let d = recipeMap.delete('carrot');
+  let e = recipeMap.size;
+  // let f = recipeMap.clear();
+  console.log(a, b, c, d, e);
+
+  // iterate over keys (vegetables)
+  for (let vegetable of recipeMap.keys()) {
+    console.log(vegetable);  // cucumber, tomatoes, onion
+  }
+
+  // iterate over values (amounts)
+  for (let amount of recipeMap.values()) {
+    console.log(amount); // 500, 350, 50
+  }
+
+  // iterate over [key, value] entries
+  for (let entry of recipeMap) {
+    console.log(entry); // cucumber, 500
+  }
+
+  // runs the function for each (key, value) pair
+  recipeMap.forEach((value, key, map) => {
+    console.log(`${key}: ${value}`); // cucumber: 500 etc
+  })
+
+  // Object.entries: Map from Object
+  console.log('\n*** Object.entries: Map from Object ***');
+  // array of [key, value] pairs
+  let map1 = new Map([
+    ['1', 'str1'],
+    [1, 'num1'],
+    [true, 'bool1']
+  ]);
+
+  console.log(map.get('1')); // str1
+
+  let obj = {
+    name: "John",
+    age: 30
+  };
+  let map2 = new Map(Object.entries(obj));
+  console.log(map2.get('name'));
+
+
+  // Object.fromEntries: Object from Map
+  console.log('\n*** Object.fromEntries: Object from map ***');
+  let prices = Object.fromEntries([
+    ['banana', 1],
+    ['orange', 2],
+    ['meat', 4]
+  ]);
+
+  // now prices = { banana: 1, orange: 2, meat: 4 }
+  console.log(prices.orange); // 2
+
+  let map3 = new Map();
+  map3.set('banana', 1);
+  map3.set('orange', 2);
+  map3.set('meat', 4);
+
+
+  let obj2 = Object.fromEntries(map3.entries()); // make a plain object (*)
+
+  console.log(obj2.orange);
+
+  let obj3 = Object.fromEntries(map3);
+  console.log(obj3);
+
+
+  // Set
+  console.log('\n*** Set ***');
+
+  let set = new Set();
+
+  let john = { name: "John" };
+  let pete = { name: "Pete" };
+  let mary = { name: "Mary" };
+
+  // visits, some users come multiple times
+  set.add(john);
+  set.add(pete);
+  set.add(mary);
+  set.add(john);
+  set.add(mary);
+
+  // set keeps only unique values
+  console.log(set.size); // 3
+
+  for (let user of set) {
+    console.log(user.name);
+  }
+
+  // Iteration over Set
+  console.log('\n*** Iteration over Set ***');
+
+  let set2 = new Set(["oranges", "apples", "bananas"]);
+
+  for (let value of set2) console.log(value);
+
+  set2.forEach((value, valueAgain, set) => {
+    console.log(value, set);
+  });
+
+  // Tasks
+  console.log('\n*** Tasks ***');
+  {
+    // 1
+    function unique(arr) {
+      return Array.from(new Set(arr));
+    }
+
+    let values = ["Hare", "Krishna", "Hare", "Krishna",
+      "Krishna", "Krishna", "Hare", "Hare", ":-O"];
+
+    console.log(unique(values));
+
+    // 2
+    function aclean(arr) {
+      let map = new Map();
+      for (let word of arr) {
+        map.set(word.toLowerCase().split('').sort().join(''), word);
+      }
+      return Array.from(map.values());
+    }
+
+    function acleanObj(arr) {
+      let obj = {};
+      for (let word of arr) {
+        let sorted = word.toLowerCase()
+          .split('')
+          .sort()
+          .join('');
+        obj[sorted] = sorted;
+      }
+      return Object.values(obj);
+    }
+
+    let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+    console.log(aclean(arr));
+    console.log(acleanObj(arr));
+
+    // 3
     let map = new Map();
+    map.set("name", "John");
 
-    map.set('1', 'str1'); // a string key
-    map.set(1, 'num1'); // a numeric key
-    map.set(true, 'bool1'); // a boolean key
+    let keys = Array.from(map.keys());
 
-    // remember the regular Object? it would convert keys to string
-    // Map keeps the type, so these two are different:
-    console.log( map.get(1) ); // 'num1'
-    console.log( map.get('1') ); // 'str1'
+    keys.push("more");
 
-    console.log( map.size ); // 3
-
-    console.log('\n*** Map can also use object as keys ***');
-    let john1 = { name: "John" };
-
-    // for every user, let's store their visits count
-    let visitsCountMap = new Map();
-
-    // john is the key for the map
-    visitsCountMap.set(john1, 123);
-
-    console.log( visitsCountMap.get(john1) ); // 123
-
-    // Object
-    console.log('\n*** visitsCountObj ***');
-    let john2 = { name: "John" };
-    let ben2 = { name: "Ben" };
-
-    let visitsCountObj = {};
-
-    visitsCountObj[ben2] = 234;
-    visitsCountObj[john2] = 123;
-
-    console.log( visitsCountObj["[object Object]"] );
-
-    // chaining
-    map.clear();
-    map.set('1', 'str1')
-       .set(1, 'num1')
-       .set(true, 'bool1');
-
-
-    // Iteration over Map
-    console.log('\n*** Iteration over Map ***');
-
-    let recipeMap = new Map();
-    recipeMap.set('cucumber', 500)
-             .set('tomatoes', 350)
-             .set('onion', 50);
-
-    let a = recipeMap.set('carrot', 100);
-    let b = recipeMap.get('carrot');
-    let c = recipeMap.has('carrot');
-    let d = recipeMap.delete('carrot');
-    let e = recipeMap.size;
-    // let f = recipeMap.clear();
-    console.log(a, b, c, d, e);
-
-    // iterate over keys (vegetables)
-    for (let vegetable of recipeMap.keys()) {
-        console.log( vegetable);  // cucumber, tomatoes, onion
-    }
-
-    // iterate over values (amounts)
-    for (let amount of recipeMap.values()) {
-        console.log(amount); // 500, 350, 50
-    }
-
-    // iterate over [key, value] entries
-    for (let entry of recipeMap) {
-        console.log( entry ); // cucumber, 500
-    }
-
-    // runs the function for each (key, value) pair
-    recipeMap.forEach( (value, key, map) => {
-        console.log(`${key}: ${value}`); // cucumber: 500 etc
-    })
-
-    // Object.entries: Map from Object
-    console.log('\n*** Object.entries: Map from Object ***');
-    // array of [key, value] pairs
-    let map1 = new Map([
-        ['1', 'str1'],
-        [1, 'num1'],
-        [true, 'bool1']
-    ]);
-
-    console.log( map.get('1') ); // str1
-
-    let obj = {
-        name: "John",
-        age: 30
-    };
-    let map2 = new Map( Object.entries(obj) );
-    console.log( map2.get('name') );
-
-
-    // Object.fromEntries: Object from Map
-    console.log('\n*** Object.fromEntries: Object from map ***');
-    let prices = Object.fromEntries([
-        ['banana', 1],
-        ['orange', 2],
-        ['meat', 4]
-    ]);
-
-    // now prices = { banana: 1, orange: 2, meat: 4 }
-    console.log(prices.orange); // 2
-
-    let map3 = new Map();
-    map3.set('banana', 1);
-    map3.set('orange', 2);
-    map3.set('meat', 4);
-
-
-    let obj2 = Object.fromEntries( map3.entries() ); // make a plain object (*)
-
-    console.log( obj2.orange );
-
-    let obj3 = Object.fromEntries(map3);
-    console.log(obj3);
-
-
-    // Set
-    console.log('\n*** Set ***');
-
-    let set = new Set();
-
-    let john = { name: "John" };
-    let pete = { name: "Pete" };
-    let mary = { name: "Mary" };
-
-    // visits, some users come multiple times
-    set.add(john);
-    set.add(pete);
-    set.add(mary);
-    set.add(john);
-    set.add(mary);
-
-    // set keeps only unique values
-    console.log( set.size ); // 3
-
-    for (let user of set) {
-        console.log( user.name ); 
-    }
-
-    // Iteration over Set
-    console.log('\n*** Iteration over Set ***');
-
-    let set2 = new Set(["oranges", "apples", "bananas"]);
-
-    for (let value of set2 ) console.log(value);
-
-    set2.forEach((value, valueAgain, set) => {
-        console.log(value, set);
-    });
-
-    // Tasks
-    console.log('\n*** Tasks ***');
-    {
-        // 1
-        function unique(arr) {
-            return Array.from(new Set(arr));
-        }
-
-        let values = ["Hare", "Krishna", "Hare", "Krishna",
-            "Krishna", "Krishna", "Hare", "Hare", ":-O"];
-        
-        console.log( unique(values) );
-
-        // 2
-        function aclean(arr) {
-            let map = new Map();
-            for (let word of arr) {
-                map.set(word.toLowerCase().split('').sort().join(''), word);
-            }
-            return Array.from(map.values());
-        }
-
-        function acleanObj(arr) {
-            let obj = {};
-            for (let word of arr) {
-                let sorted = word.toLowerCase()
-                                 .split('')
-                                 .sort()
-                                 .join('');
-                obj[sorted] = sorted;
-            }
-            return Object.values(obj);
-        }
-
-        let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
-        console.log( aclean(arr) );
-        console.log( acleanObj(arr) );
-
-        // 3
-        let map = new Map();
-        map.set("name", "John");
-
-        let keys = Array.from(map.keys());
-        
-        keys.push("more");
-        
-        console.log(keys);
-    }
+    console.log(keys);
+  }
 }
 // #endregion
 
 // #region #### 5.8 WeakMap and WeakSet ####
 {
-    // garbage collection
-    {
-        let john = { name: "John" };
+  // garbage collection
+  {
+    let john = { name: "John" };
 
-        // the object can be accessed, john is the reference to it
+    // the object can be accessed, john is the reference to it
 
-        // overwrite the reference
-        john = null;
-        // the object will be removed from memory
-    }
-    {
-        let john = { name: "John" };
+    // overwrite the reference
+    john = null;
+    // the object will be removed from memory
+  }
+  {
+    let john = { name: "John" };
 
-        let array = [ john ];
+    let array = [john];
 
-        john = null; // overwrite the reference
+    john = null; // overwrite the reference
 
-        // the object previously referenced by john is stored inside the array
-        // therefore it won't be garbage-collected
-        // we can get it as array[0]
-    }
+    // the object previously referenced by john is stored inside the array
+    // therefore it won't be garbage-collected
+    // we can get it as array[0]
+  }
 
-    // Map: garbage collection
-    {
-        let john = { name: "John" };
+  // Map: garbage collection
+  {
+    let john = { name: "John" };
 
-        let map = new Map();
-        map.set(john, "...");
+    let map = new Map();
+    map.set(john, "...");
 
-        john = null; // overwrites the reference
+    john = null; // overwrites the reference
 
-        // john is stored inside the map,
-        // we can get it by using map.keys()
-    }
+    // john is stored inside the map,
+    // we can get it by using map.keys()
+  }
 
-    // WeakMap
-    // only objects as keys, not primitive values
-    {
-        let weakMap = new WeakMap();
+  // WeakMap
+  // only objects as keys, not primitive values
+  {
+    let weakMap = new WeakMap();
 
-        let obj = {};
+    let obj = {};
 
-        weakMap.set(obj, "ok"); // works fine (object key)
+    weakMap.set(obj, "ok"); // works fine (object key)
 
-        // can't use a string as the key
-        // weakMap.set("test", "Whoops"); // Error, because "test" is not an object
-    }
-    // WeakMap: garbage collection
-    {
-        let john = { name: "John" };
+    // can't use a string as the key
+    // weakMap.set("test", "Whoops"); // Error, because "test" is not an object
+  }
+  // WeakMap: garbage collection
+  {
+    let john = { name: "John" };
 
-        let weakMap = new WeakMap();
-        weakMap.set(john, "...");
+    let weakMap = new WeakMap();
+    weakMap.set(john, "...");
 
-        john = null; // overwrite the reference
+    john = null; // overwrite the reference
 
-        // john is removed from memory!
-    }
+    // john is removed from memory!
+  }
 
-    // Examples
-    // Use case: additional data
-    //Map
-    {
-        // 📁 visitsCount.js
-        let visitsCountMap = new Map(); // map: user => visits count
+  // Examples
+  // Use case: additional data
+  //Map
+  {
+    // 📁 visitsCount.js
+    let visitsCountMap = new Map(); // map: user => visits count
 
-        // increase the visits count
-        function countUser(user) {
-            let count = visitsCountMap.get(user) || 0;
-            visitsCountMap.set(user, count + 1);
-        }
-
-        // 📁 main.js
-        let john = { name: "John" };
-
-        countUser(john); // count his visits
-
-        // later john leaves us
-        john = null;
-    }
-    //WeakMap
-    {
-        // 📁 visitsCount.js
-        let visitsCountMap = new WeakMap(); // weakmap: user => visits count
-
-        // increase the visits count
-        function countUser(user) {
-            let count = visitsCountMap.get(user) || 0;
-            visitsCountMap.set(user, count + 1);
-        }
+    // increase the visits count
+    function countUser(user) {
+      let count = visitsCountMap.get(user) || 0;
+      visitsCountMap.set(user, count + 1);
     }
 
-    // Use case: caching
-    // Map
-    {
-        // 📁 cache.js
-        let cache = new Map();
+    // 📁 main.js
+    let john = { name: "John" };
 
-        // calculate and remember the result
-        function process(obj) {
-            if (!cache.has(obj)) {
-                let result = /* calculations of the result for */ obj;
+    countUser(john); // count his visits
 
-                cache.set(obj, result);
-                return result;
-            }
+    // later john leaves us
+    john = null;
+  }
+  //WeakMap
+  {
+    // 📁 visitsCount.js
+    let visitsCountMap = new WeakMap(); // weakmap: user => visits count
 
-            return cache.get(obj);
-        }
+    // increase the visits count
+    function countUser(user) {
+      let count = visitsCountMap.get(user) || 0;
+      visitsCountMap.set(user, count + 1);
+    }
+  }
 
-        // Now we use process() in another file:
+  // Use case: caching
+  // Map
+  {
+    // 📁 cache.js
+    let cache = new Map();
 
-        // 📁 main.js
-        let obj = {/*let's say we have an object */};
+    // calculate and remember the result
+    function process(obj) {
+      if (!cache.has(obj)) {
+        let result = /* calculations of the result for */ obj;
 
-        let result1 = process(obj); // calculated
+        cache.set(obj, result);
+        return result;
+      }
 
-        // ...later, from another place of the code...
-        let result2 = process(obj); // remembered result taken from cache
-
-        // ...later, when the object is not needed anymore:
-        obj = null;
-
-        console.log(cache.size); // 1 (Ouch! The object is still in cache, taking memory!)
+      return cache.get(obj);
     }
 
-    // WeakMap
-    {
-        // 📁 cache.js
-        let cache = new WeakMap();
+    // Now we use process() in another file:
 
-        // calculate and remember the result
-        function process(obj) {
-            if (!cache.has(obj)) {
-                let result = /* calculate the result for */ obj;
+    // 📁 main.js
+    let obj = {/*let's say we have an object */ };
 
-                cache.set(obj, result);
-                return result;
-            }
+    let result1 = process(obj); // calculated
 
-            return cache.get(obj);
-        }
+    // ...later, from another place of the code...
+    let result2 = process(obj); // remembered result taken from cache
 
-        // 📁 main.js
-        let obj = {/* some object */};
+    // ...later, when the object is not needed anymore:
+    obj = null;
 
-        let result1 = process(obj);
-        let result2 = process(obj);
+    console.log(cache.size); // 1 (Ouch! The object is still in cache, taking memory!)
+  }
 
-        // ...later, when the object is not needed anymore:
-        obj = null;
+  // WeakMap
+  {
+    // 📁 cache.js
+    let cache = new WeakMap();
 
-        // Can't get cache.size, as it's a WeakMap,
-        // but it's 0 or soon be 0
-        // When obj gets garbage collected, cached data will be removed as well
+    // calculate and remember the result
+    function process(obj) {
+      if (!cache.has(obj)) {
+        let result = /* calculate the result for */ obj;
+
+        cache.set(obj, result);
+        return result;
+      }
+
+      return cache.get(obj);
     }
 
+    // 📁 main.js
+    let obj = {/* some object */ };
 
-    // WeakSet
-    {
-        let visitedSet = new WeakSet();
+    let result1 = process(obj);
+    let result2 = process(obj);
 
-        let john = { name: "John" };
-        let pete = { name: "Pete" };
-        let mary = { name: "Mary" };
+    // ...later, when the object is not needed anymore:
+    obj = null;
 
-        visitedSet.add(john); // John visited us
-        visitedSet.add(pete); // Then Pete
-        visitedSet.add(john); // John again
+    // Can't get cache.size, as it's a WeakMap,
+    // but it's 0 or soon be 0
+    // When obj gets garbage collected, cached data will be removed as well
+  }
 
-        // visitedSet has 2 users now
 
-        // check if John visited?
-        console.log( visitedSet.has(john) ); // true
+  // WeakSet
+  {
+    let visitedSet = new WeakSet();
 
-        // check if Mary visited?
-        console.log( visitedSet.has(mary) ); // false
+    let john = { name: "John" };
+    let pete = { name: "Pete" };
+    let mary = { name: "Mary" };
 
-        john = null
+    visitedSet.add(john); // John visited us
+    visitedSet.add(pete); // Then Pete
+    visitedSet.add(john); // John again
 
-        // visitedSet will be cleaned automatically
-    }
+    // visitedSet has 2 users now
 
-    // Tasks
-    {
-        // 1
-        let messages = [
-            {text: "Hello", from: "John"},
-            {text: "How goes?", from: "John"},
-            {text: "See you soon", from: "Alice"}
-        ];
+    // check if John visited?
+    console.log(visitedSet.has(john)); // true
 
-        let readMessages = new WeakSet();
+    // check if Mary visited?
+    console.log(visitedSet.has(mary)); // false
 
-        readMessages.add(messages[0]);
-        readMessages.add(messages[1]);
+    john = null
 
-        readMessages.add(messages[0]);
+    // visitedSet will be cleaned automatically
+  }
 
-        console.log("Read message 0: " + readMessages.has(messages[0]));
+  // Tasks
+  {
+    // 1
+    let messages = [
+      { text: "Hello", from: "John" },
+      { text: "How goes?", from: "John" },
+      { text: "See you soon", from: "Alice" }
+    ];
 
-        messages.shift();    
-        // now readMessages has 1 element (technically memory may be cleaned later)
-        
-        let isRead = Symbol("isRead");
-        messages[0][isRead] = true;
+    let readMessages = new WeakSet();
 
-        console.log(messages);
+    readMessages.add(messages[0]);
+    readMessages.add(messages[1]);
 
-        // 2
-        let messagesReadAt = new WeakMap();
-        messagesReadAt.set(messages[0], new Date(2026, 2, 21));
+    readMessages.add(messages[0]);
 
-        console.log(messagesReadAt);
-    }
+    console.log("Read message 0: " + readMessages.has(messages[0]));
+
+    messages.shift();
+    // now readMessages has 1 element (technically memory may be cleaned later)
+
+    let isRead = Symbol("isRead");
+    messages[0][isRead] = true;
+
+    console.log(messages);
+
+    // 2
+    let messagesReadAt = new WeakMap();
+    messagesReadAt.set(messages[0], new Date(2026, 2, 21));
+
+    console.log(messagesReadAt);
+  }
 }
 // #endregion
 
 // #region #### 5.9 Object.keys, values, entries ####
 {
-    console.log('#### 5.9 Object.keys, values, entries ####');
+  console.log('#### 5.9 Object.keys, values, entries ####');
 
-    // Testing
-    console.log('\n*** Testing ***');
-    let a = {
-        name: "John",
-        age: 35
+  // Testing
+  console.log('\n*** Testing ***');
+  let a = {
+    name: "John",
+    age: 35
+  };
+
+  let b = ["John", "Pete", "Mary"];
+  let c = new Map([
+    ["name", "John"],
+    ["age", 35]
+  ]);
+
+  console.log(b.keys().next(), b.values().next(), b.entries().next());
+  console.log(c.keys(), c.values(), c.entries());
+  console.log(Object.keys(a), Object.values(a), Object.entries(a));
+  console.log(Reflect.ownKeys(a), Object.getOwnPropertySymbols(a));
+
+  let d = new Set(b);
+  // won't work, Object.fromEntries needs a key/value pair array
+  // console.log(Object.fromEntries(d));
+
+  // Loop over property values:
+  console.log('\n*** loop over property values ***');
+  let user = {
+    name: "John",
+    age: 30
+  };
+
+  for (let value of Object.values(user)) {
+    console.log(value);
+  }
+
+  // Transforming objects
+  console.log('\n*** Transforming objects ***');
+
+  let prices = {
+    banana: 1,
+    orange: 2,
+    meat: 4,
+  };
+
+  let doublePrices = Object.fromEntries(
+    Object.entries(prices).map(entry => [entry[0], entry[1] * 2])
+  );
+
+  console.log(doublePrices.meat);
+
+  // Tasks
+  {
+    console.log('\n*** Tasks ***');
+
+    // 1
+    let salaries = {
+      "John": 100,
+      "Pete": 300,
+      "Mary": 250
     };
 
-    let b = ["John", "Pete", "Mary"];
-    let c = new Map([
-        ["name", "John"],
-        ["age", 35]
-    ]);
+    console.log(sumSalaries(salaries)); // 650
 
-    console.log(b.keys().next(), b.values().next(), b.entries().next());
-    console.log(c.keys(), c.values(), c.entries());
-    console.log(Object.keys(a), Object.values(a), Object.entries(a));
-    console.log(Reflect.ownKeys(a), Object.getOwnPropertySymbols(a));
+    function sumSalaries(salaries) {
 
-    let d = new Set(b);
-    // won't work, Object.fromEntries needs a key/value pair array
-    // console.log(Object.fromEntries(d));
+      let sum = 0;
+      for (let salary of Object.values(salaries)) {
+        sum += salary;
+      }
 
-    // Loop over property values:
-    console.log('\n*** loop over property values ***');
+      return sum;
+    }
+
+    // 2
     let user = {
-        name: "John",
-        age: 30
+      name: 'John',
+      age: 30
     };
 
-    for (let value of Object.values(user)) {
-        console.log(value);
+    console.log(count(user)); // 2
+
+    function count(obj) {
+      return Object.keys(obj).length;
     }
-
-    // Transforming objects
-    console.log('\n*** Transforming objects ***');
-    
-    let prices = {
-        banana: 1,
-        orange: 2,
-        meat: 4,
-    };
-
-    let doublePrices = Object.fromEntries(
-        Object.entries(prices).map(entry => [entry[0], entry[1] * 2])
-    );
-
-    console.log( doublePrices.meat );
-
-    // Tasks
-    {
-        console.log('\n*** Tasks ***');
-
-        // 1
-        let salaries = {
-            "John": 100,
-            "Pete": 300,
-            "Mary": 250
-        };
-
-        console.log( sumSalaries(salaries) ); // 650
-
-        function sumSalaries(salaries) {
-
-            let sum = 0;
-            for (let salary of Object.values(salaries)) {
-                sum += salary;
-            }
-
-            return sum;
-        }
-
-        // 2
-        let user = {
-            name: 'John',
-            age: 30
-        };
-
-        console.log( count(user) ); // 2
-
-        function count(obj) {
-            return Object.keys(obj).length;
-        }
-    }
+  }
 }
 // #endregion
 
 // #region #### 5.10 Destructuring assignment ####
 {
-    console.log('\n#### Destructuring assignment');
+  console.log('\n#### Destructuring assignment');
 
-    // Testing
-    console.log('\n*** Testing ***');
-    {
-        let options = {
-            title: "Menu"
-        };
+  // Testing
+  console.log('\n*** Testing ***');
+  {
+    let options = {
+      title: "Menu"
+    };
 
-        let { width, height, title} = options;
+    let { width, height, title } = options;
 
-        console.log(width, height, title);
+    console.log(width, height, title);
+  }
+  {
+    let options = {
+      size: {
+        width: 100,
+        height: 200
+      },
+      items: ["Cake", "Donut"],
+      extra: true
+    };
+
+    let {
+      size: { width, height }, items: [item1, item2], title = "Menu"
+    } = options;
+
+    console.log(width, height, item1, title);
+  }
+
+  // Array destructuring
+  {
+    console.log('\n*** Array destructuring ***');
+
+    let arr = ["John", "Smith"];
+
+    let [firstName, surname] = arr;
+    // let firstName = arr[0];
+    // let surname = arr[1];
+    console.log(firstName, surname);
+  }
+  {
+    let [firstName, surname] = "John Smith".split(' ');
+    console.log(firstName, surname);
+  }
+
+  // Ignore elements using commas
+  {
+    console.log('\n*** Ignore elements using commas');
+
+    let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+    console.log(title);
+  }
+
+  // Works with any iterable on the right-side
+  {
+    console.log('\n*** Works with any iterable on the right-side');
+
+    let [a, b, c] = "abc";
+    let [one, two, three] = new Set([1, 2, 3]);
+
+    console.log(a, b, c, one, two, three);
+  }
+
+  // Assign to anything on the left-side
+  {
+    console.log('\n*** Assign to anything on the left-side ***');
+
+    let user = {};
+    [user.name, user.surname] = "John Smith".split(' ');
+
+    console.log(user.name, user.surname);
+  }
+
+  // Looping with .entries()
+  {
+    console.log('\n*** Looping with .entries() ***');
+
+    let user = {
+      name: "John",
+      age: 30
+    };
+
+    // loop over the keys-and-values
+    for (let [key, value] of Object.entries(user)) {
+      console.log(`${key}:${value}`);
     }
-    {
-        let options = {
-            size: {
-                width: 100,
-                height: 200
-            },
-            items: ["Cake", "Donut"],
-            extra: true
-        };
 
-        let {
-            size: {width, height}, items: [item1, item2], title = "Menu"
-        } = options;
+    // Similar code for a Map is simpler, as it's iterable
+    user = new Map();
+    user.set("name", "John");
+    user.set("age", 30);
 
-        console.log(width, height, item1, title);
+    // Map iterates as [key, value] pairs, very convenient for destructuring
+    for (let [key, value] of user) {
+      console.log(`${key}:${value}`);
+    }
+  }
+
+  // Swap varialbes trick
+  {
+    console.log('\n*** Swap variables trick ***');
+
+    let guest = "Jane";
+    let admin = "Pete";
+
+    [guest, admin] = [admin, guest];
+
+    console.log(`${guest} ${admin}`);
+  }
+
+  // The rest '...'
+  {
+    console.log("\n*** The rest '...' ***");
+
+    let [name1, name2] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+    console.log(name1, name2);
+  }
+  // ...rest
+  {
+    let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+
+    console.log(rest[0], rest[1]);
+    console.log(rest.length);
+  }
+  // ...titles
+  {
+    let [name1, name2, ...titles] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+  }
+
+  // Default values
+  {
+    console.log('\n*** Default values ***');
+
+    let [firstName, surname] = [];
+    console.log(firstName, surname);
+  }
+  // default values
+  {
+    let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+    console.log(name, surname);
+  }
+  // default values can be complex expressions or even functions
+  {
+    let [name = prompt('name?'), surname = prompt('surname?')] = ["Julius", "Caesar"];
+    console.log(name, surname);
+  }
+
+  // Object destructuring
+  {
+    console.log('\n### Object destructuring ###');
+
+    let options = {
+      title: "Menu",
+      width: 100,
+      height: 200
+    };
+
+    let { title, width, height } = options;
+    console.log(title, width, height);
+  }
+  // The order does not matter
+  {
+    let { height, width, title } = { title: "Menu", height: 200, width: 100 };
+  }
+  // complex pattern matching between properties and variables
+  {
+    let options = {
+      title: "Menu",
+      width: 100,
+      height: 200
+    };
+
+    // { sourceProperty: targetVariable}
+    let { width: w, height: h, title } = options;
+    // what: goes where
+
+    console.log(title, w, h);
+  }
+  // set default values using "=" for missing properties
+  {
+    let options = {
+      title: "Menu"
+    };
+
+    let { width = 100, height = 200, title } = options;
+    console.log(title, width, height);
+  }
+  // Default values can be expressions or even function calls
+  {
+    let options = {
+      title: "Menu",
+      width: 100
+    };
+
+    let { width = prompt('width?'), title = prompt('title?') } = options;
+    console.log(title, width);
+  }
+  // can combine both the colon and equality
+  {
+    let options = {
+      title: "Menu"
+    };
+
+    let { width: w = 100, height: h = 200, title } = options;
+    console.log(title, w, h);
+  }
+  // only extract what we need
+  {
+    let options = {
+      title: "Menu",
+      width: 100,
+      height: 200
+    };
+
+    let { title } = options;
+    console.log(title);
+  }
+
+  // The rest pattern "..."
+  {
+    let options = {
+      title: "Menu",
+      height: 200,
+      width: 100
+    };
+
+    // title = property named title
+    // rest = object with the rest of properties
+    let { title, ...rest } = options;
+
+    // now title="Menu", rest={height: 200, width: 100}
+    console.log(rest.height, rest.width);
+  }
+
+  // Gotcha if there's no let
+  {
+    console.log("\n*** Gotcha if there's no let ***");
+    let title, width, height;
+
+    ({ title, width, height } = { title: "Menu", width: 200, height: 100 });
+    console.log(title);
+  }
+
+  // Nested destructuring
+  {
+    console.log('\n*** Nested destructuring ***');
+
+    let options = {
+      size: {
+        width: 100,
+        height: 200
+      },
+      items: ["Cake", "Donut"],
+      extra: true
+    };
+
+    let {
+      size: {
+        width,
+        height
+      },
+      items: [item1, item2],
+      title = "Menu"
+    } = options;
+
+    console.log(title, width, height, item1, item2);
+  }
+
+  // Smart function parameters
+  {
+    console.log('\n*** Smart function parameters ***');
+
+    function showMenu(title = "Untitled", width = 200, height = 100, items = []) {
+      // ...
     }
 
-    // Array destructuring
-    {
-        console.log('\n*** Array destructuring ***');
+    showMenu("My Menu", undefined, undefined, ["Item1", "Item2"]);
 
-        let arr = ["John", "Smith"];
+    // we pass object to function
+    let options = {
+      title: "MY Menu",
+      items: ["Item1", "Item2"]
+    };
 
-        let [firstName, surname] = arr;
-        // let firstName = arr[0];
-        // let surname = arr[1];
-        console.log(firstName, surname);
+    function showMenu1({ title = "Untitled", width = 200, height = 100, items = [] }) {
+      console.log(`${title} ${width} ${height}`);
+      console.log(items);
     }
-    {
-        let [firstName, surname] = "John Smith".split(' ');
-        console.log(firstName, surname);
+    showMenu1(options);
+
+    // complex destructuring with nested objects and colon mapping
+    function showMenu2({
+      title = "Untitled",
+      width: w = 100, // width goes to w
+      height: h = 200, // height goes to h
+      items: [item1, item2] // items first element goes to item1, second to item2
+    }) {
+      console.log(`${title} ${w} ${h}`);
+      console.log(item1, item2);
     }
+    showMenu2(options);
 
-    // Ignore elements using commas
-    {
-        console.log('\n*** Ignore elements using commas');
-
-        let [firstName, , title] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
-        console.log( title );
+    // make {} the default value for the whole object of parameters
+    function showMenu3({ title = "Menu", width = 100, height = 200 } = {}) {
+      console.log(`${title} ${width} ${height}`);
     }
+    showMenu3();
+  }
 
-    // Works with any iterable on the right-side
-    {
-        console.log('\n*** Works with any iterable on the right-side');
+  // Tasks
+  {
+    console.log('*** Tasks ***');
 
-        let [a, b, c] = "abc";
-        let [one, two, three] = new Set([1, 2, 3]);
+    // 1
+    let user = {
+      name: "John",
+      years: 30
+    };
 
-        console.log(a, b, c, one, two, three);
-    }
+    let { name, years: age, isAdmin = false } = user;
+    console.log(name, age, isAdmin);
 
-    // Assign to anything on the left-side
-    {
-        console.log('\n*** Assign to anything on the left-side ***');
+    // 2
+    let salaries = {
+      "John": 100,
+      "Pete": 300,
+      "Mary": 250
+    };
 
-        let user = {};
-        [user.name, user.surname] = "John Smith".split(' ');
+    function topSalary(salaries) {
+      let maxSalary = 0
+      let maxName = null;
 
-        console.log(user.name, user.surname);
-    }
-
-    // Looping with .entries()
-    {
-        console.log('\n*** Looping with .entries() ***');
-
-        let user = {
-            name: "John",
-            age: 30
-        };
-
-        // loop over the keys-and-values
-        for (let [key, value] of Object.entries(user)) {
-            console.log( `${key}:${value}` );
+      for (let [name, salary] of Object.entries(salaries)) {
+        if (maxSalary < salary) {
+          maxSalary = salary;
+          maxName = name;
         }
-
-        // Similar code for a Map is simpler, as it's iterable
-        user = new Map();
-        user.set("name", "John");
-        user.set("age", 30);
-
-        // Map iterates as [key, value] pairs, very convenient for destructuring
-        for (let [key, value] of user) {
-            console.log( `${key}:${value}` );
-        }
+      }
+      return maxName;
     }
 
-    // Swap varialbes trick
-    {
-        console.log('\n*** Swap variables trick ***');
-
-        let guest = "Jane";
-        let admin = "Pete";
-
-        [guest, admin] = [admin, guest];
-
-        console.log( `${guest} ${admin}` );
-    }
-
-    // The rest '...'
-    {
-        console.log("\n*** The rest '...' ***");
-
-        let [name1, name2] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
-        console.log(name1, name2);
-    }
-    // ...rest
-    {
-        let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
-
-        console.log( rest[0], rest[1] );
-        console.log( rest.length );
-    }
-    // ...titles
-    {
-        let [name1, name2, ...titles] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
-    }
-
-    // Default values
-    {
-        console.log('\n*** Default values ***');
-
-        let [firstName, surname] = [];
-        console.log(firstName, surname);
-    }
-    // default values
-    {
-        let [name = "Guest", surname = "Anonymous"] = ["Julius"];
-        console.log(name, surname);
-    }
-    // default values can be complex expressions or even functions
-    {
-        let [name = prompt('name?'), surname = prompt('surname?')] = ["Julius", "Caesar"];
-        console.log(name, surname);
-    }
-
-    // Object destructuring
-    {
-        console.log('\n### Object destructuring ###');
-
-        let options = {
-            title: "Menu",
-            width: 100,
-            height: 200
-        };
-
-        let {title, width, height} = options;
-        console.log(title, width, height);
-    }
-    // The order does not matter
-    {
-        let {height, width, title} = { title: "Menu", height: 200, width: 100 };
-    }
-    // complex pattern matching between properties and variables
-    {
-        let options = {
-            title: "Menu",
-            width: 100,
-            height: 200
-        };
-
-        // { sourceProperty: targetVariable}
-        let {width: w, height: h, title} = options;
-        // what: goes where
-
-        console.log(title, w, h);
-    }
-    // set default values using "=" for missing properties
-    {
-        let options = {
-            title: "Menu"
-        };
-
-        let {width = 100, height = 200, title} = options;
-        console.log(title, width, height);
-    }
-    // Default values can be expressions or even function calls
-    {
-        let options = {
-            title: "Menu",
-            width: 100
-        };
-
-        let {width = prompt('width?'), title = prompt('title?')} = options;
-        console.log(title, width);
-    }
-    // can combine both the colon and equality
-    {
-        let options = {
-            title: "Menu"
-        };
-
-        let {width: w = 100, height: h = 200, title} = options;
-        console.log(title, w, h);
-    }
-    // only extract what we need
-    {
-        let options = {
-            title: "Menu",
-            width: 100,
-            height: 200
-        };
-
-        let { title } = options;
-        console.log(title);
-    }
-
-    // The rest pattern "..."
-    {
-        let options = {
-            title: "Menu",
-            height: 200,
-            width: 100
-        };
-
-        // title = property named title
-        // rest = object with the rest of properties
-        let {title, ...rest} = options;
-
-        // now title="Menu", rest={height: 200, width: 100}
-        console.log(rest.height, rest.width);
-    }
-
-    // Gotcha if there's no let
-    {
-        console.log("\n*** Gotcha if there's no let ***");
-        let title, width, height;
-
-        ({title, width, height} = {title: "Menu", width: 200, height: 100});
-        console.log( title );
-    }
-
-    // Nested destructuring
-    {
-        console.log('\n*** Nested destructuring ***');
-
-        let options = {
-            size: {
-                width: 100,
-                height: 200
-            },
-            items: ["Cake", "Donut"],
-            extra: true
-        };
-
-        let {
-            size: {
-                width,
-                height
-            },
-            items: [item1, item2],
-            title = "Menu"
-        } = options;
-
-        console.log(title, width, height, item1, item2);
-    }
-
-    // Smart function parameters
-    {
-        console.log('\n*** Smart function parameters ***');
-
-        function showMenu(title = "Untitled", width = 200, height = 100, items = []) {
-            // ...
-        }
-
-        showMenu("My Menu", undefined, undefined, ["Item1", "Item2"]);
-
-        // we pass object to function
-        let options = {
-            title: "MY Menu",
-            items: ["Item1", "Item2"]
-        };
-
-        function showMenu1({title = "Untitled", width = 200, height = 100, items = []}) {
-            console.log( `${title} ${width} ${height}` );
-            console.log( items );
-        }
-        showMenu1(options);
-
-        // complex destructuring with nested objects and colon mapping
-        function showMenu2({
-            title = "Untitled",
-            width: w = 100, // width goes to w
-            height: h = 200, // height goes to h
-            items: [item1, item2] // items first element goes to item1, second to item2
-        }) {
-            console.log( `${title} ${w} ${h}`);
-            console.log( item1, item2);
-        }
-        showMenu2(options);
-
-        // make {} the default value for the whole object of parameters
-        function showMenu3({ title = "Menu", width = 100, height = 200 } = {}){
-            console.log( `${title} ${width} ${height}` );
-        }
-        showMenu3();
-    }
-
-    // Tasks
-    {
-        console.log('*** Tasks ***');
-
-        // 1
-        let user = {
-            name: "John",
-            years: 30
-        };
-
-        let {name, years: age, isAdmin = false} = user;
-        console.log(name, age, isAdmin);
-
-        // 2
-        let salaries = {
-            "John": 100,
-            "Pete": 300,
-            "Mary": 250
-        };
-
-        function topSalary(salaries) {
-            let maxSalary = 0
-            let maxName = null;
-
-            for (let [name, salary] of Object.entries(salaries)) {
-                if (maxSalary < salary) {
-                    maxSalary = salary;
-                    maxName = name;
-                }
-            }
-            return maxName;
-        }
-
-        console.log( topSalary(salaries) );
-    }
+    console.log(topSalary(salaries));
+  }
 }
 // #endregion
 

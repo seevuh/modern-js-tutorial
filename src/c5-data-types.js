@@ -4,48 +4,48 @@
 
 // a primitive as an object
 {
-    let str = "Hello";
+  let str = "Hello";
 
-    console.log( str.toUpperCase() ); // HELLO
+  console.log(str.toUpperCase()); // HELLO
 
-    let n = 1.23456;
+  let n = 1.23456;
 
-    console.log( n.toFixed(2) ); // 1.23
+  console.log(n.toFixed(2)); // 1.23
 }
 
 // constructors String/Number/Boolean are for internal use only
 {
-    console.log( typeof 0 ); // number
-    console.log( typeof new Number(0) ); // object
+  console.log(typeof 0); // number
+  console.log(typeof new Number(0)); // object
 
-    //objects are always truthy in if
-    let zero = new Number(0);
-    if(zero) { // zero is true, because it's an object
-        console.log("zero is truthy!?!");
-    }
+  //objects are always truthy in if
+  let zero = new Number(0);
+  if (zero) { // zero is true, because it's an object
+    console.log("zero is truthy!?!");
+  }
 
-    // using the same functions String/Number/Boolean without
-    // new is totally fine and useful thing
-    let number = Number("123"); // convert a string to number
-    console.log(number);
+  // using the same functions String/Number/Boolean without
+  // new is totally fine and useful thing
+  let number = Number("123"); // convert a string to number
+  console.log(number);
 
-    let num = new Number(0);
+  let num = new Number(0);
 
-    console.log(typeof 0, typeof num, `${num}`, +num, num );
+  console.log(typeof 0, typeof num, `${num}`, +num, num);
 }
 
 // null/undefined have no methods
 {
-    // console.log(null.test);
+  // console.log(null.test);
 }
 
 // Tasks
 {
-    let str = "Hello";
+  let str = "Hello";
 
-    // str.test = 5;
+  // str.test = 5;
 
-    // console.log(str.test);
+  // console.log(str.test);
 }
 // #endregion
 
@@ -53,237 +53,237 @@
 console.log("\n#### 5.2 Numbers ####");
 // More ways to write a number
 {
-    let billion = 1000000000;
+  let billion = 1000000000;
 
-    let billion_u = 1_000_000_000;
+  let billion_u = 1_000_000_000;
 
-    let billion_e = 1e9;
-    let seven3b = 7.3e9;
+  let billion_e = 1e9;
+  let seven3b = 7.3e9;
 
-    let mcs = 0.000001;
+  let mcs = 0.000001;
 
-    let mcs_e = 1e-6;
+  let mcs_e = 1e-6;
 
-    let ms_e = 1e-3;
-    let mc123_e = 1.23e-6;
-    let twelve34_e = 1234e-2;
+  let ms_e = 1e-3;
+  let mc123_e = 1.23e-6;
+  let twelve34_e = 1234e-2;
 }
 
 // Hex, binary and octal numbers
 {
-    // hex
-    console.log( 0xff ); // 255
-    console.log( 0xFF ); // 255
+  // hex
+  console.log(0xff); // 255
+  console.log(0xFF); // 255
 
-    // binary & octal
-    let a = 0b1111_1111; // binary form of 255
-    let b = 0o377; // octal form of 255
-    console.log(a == b, a, b); // true, the same number 255 at both sides
+  // binary & octal
+  let a = 0b1111_1111; // binary form of 255
+  let b = 0o377; // octal form of 255
+  console.log(a == b, a, b); // true, the same number 255 at both sides
 }
 
 // toString(base)
 {
-    let num = 255;
-    console.log( num.toString(16) ); //ff
-    console.log( num.toString(2) ); // 11111111
-    console.log( 123456..toString(36) ); // 2n9c
+  let num = 255;
+  console.log(num.toString(16)); //ff
+  console.log(num.toString(2)); // 11111111
+  console.log(123456..toString(36)); // 2n9c
 }
 
 // Rounding
 
 {
-    // multiply and divide
-    let num_md = 1.23456;
-    console.log( Math.round(num_md * 100) / 100 ); // 1.23456 -> 123.456 -> 123 -> 1.23
+  // multiply and divide
+  let num_md = 1.23456;
+  console.log(Math.round(num_md * 100) / 100); // 1.23456 -> 123.456 -> 123 -> 1.23
 
-    // toFixed(n)
-    let num_f = 12.34;
-    console.log( num_f.toFixed(1) ); // "12.3"
+  // toFixed(n)
+  let num_f = 12.34;
+  console.log(num_f.toFixed(1)); // "12.3"
 
-    let num_f2 = 12.36;
-    console.log( num_f2.toFixed(1) ); // "12.4"
+  let num_f2 = 12.36;
+  console.log(num_f2.toFixed(1)); // "12.4"
 
-    //add zeros
-    let num_z = 12.34;
-    console.log( num_z.toFixed(5) ); // "12.34000", added zeroes to make exactly 5 digits
-    console.log( +num_z.toFixed(5) ); // convert to number
+  //add zeros
+  let num_z = 12.34;
+  console.log(num_z.toFixed(5)); // "12.34000", added zeroes to make exactly 5 digits
+  console.log(+num_z.toFixed(5)); // convert to number
 }
 
 // Imprecise calculations
 {
-    console.log( 1e500 ); // Infinity
+  console.log(1e500); // Infinity
 
-    console.log(0.1 + 0.2 == 0.3 ); // false
+  console.log(0.1 + 0.2 == 0.3); // false
 
-    console.log( 0.1 + 0.2 ); // 0.3000000000000004
+  console.log(0.1 + 0.2); // 0.3000000000000004
 
-    console.log( 0.1.toString(2) ); // 0.00011001100...
-    console.log( 0.2.toString(2) ); // 0.001100110011...
-    console.log( (0.1 + 0.2).toString(2) ); // 0.0100110011001100...
+  console.log(0.1.toString(2)); // 0.00011001100...
+  console.log(0.2.toString(2)); // 0.001100110011...
+  console.log((0.1 + 0.2).toString(2)); // 0.0100110011001100...
 
-    console.log( 0.1.toFixed(20) ); // 0.100000000000000555
+  console.log(0.1.toFixed(20)); // 0.100000000000000555
 
-    let sum = 0.1 + 0.2;
-    console.log( sum.toFixed(2) ); // "0.30"
-    console.log( +sum.toFixed(2) ); // 0.3
+  let sum = 0.1 + 0.2;
+  console.log(sum.toFixed(2)); // "0.30"
+  console.log(+sum.toFixed(2)); // 0.3
 
-    console.log( (0.1 * 10 + 0.2 * 10) / 10 ); // 0.3
-    console.log( (0.28 * 100 + 0.14 * 100) / 100 ); // 0.420000000000001
+  console.log((0.1 * 10 + 0.2 * 10) / 10); // 0.3
+  console.log((0.28 * 100 + 0.14 * 100) / 100); // 0.420000000000001
 
-    //the funny thing
-    // self-increasing number
-    console.log( 999_999_999_999_999_9 );
+  //the funny thing
+  // self-increasing number
+  console.log(999_999_999_999_999_9);
 }
 
 // Tests: isFinite and isNaN
 {
-    console.log( isNaN(NaN) ); // true
-    console.log( isNaN("str") ); // true
+  console.log(isNaN(NaN)); // true
+  console.log(isNaN("str")); // true
 
-    console.log( NaN === NaN, NaN == NaN );
+  console.log(NaN === NaN, NaN == NaN);
 
-    console.log( isFinite("15") ); // true
-    console.log( isFinite("str") ); // false
-    console.log( isFinite(Infinity) ); // false
+  console.log(isFinite("15")); // true
+  console.log(isFinite("str")); // false
+  console.log(isFinite(Infinity)); // false
 
-    // let num = +prompt("Enter a number", '');
-    let num = +"90";
+  // let num = +prompt("Enter a number", '');
+  let num = +"90";
 
-    console.log( isFinite(num) );
+  console.log(isFinite(num));
 }
 
 // Number.isNaN and Number.isFinite
 {
-    // Number.isNaN
-    console.log("\n*** Number.isNaN ***");
-    console.log( Number.isNaN(NaN) ); // true
-    console.log( Number.isNaN("str" / 2) ); // true, here math operator converts it to NaN
+  // Number.isNaN
+  console.log("\n*** Number.isNaN ***");
+  console.log(Number.isNaN(NaN)); // true
+  console.log(Number.isNaN("str" / 2)); // true, here math operator converts it to NaN
 
-    console.log( Number.isNaN("str") ); // false
-    console.log( isNaN("str") ); // true
+  console.log(Number.isNaN("str")); // false
+  console.log(isNaN("str")); // true
 
-    // Number.isFinite
-    console.log("\n*** Number.isFinite ***");
-    console.log( Number.isFinite(123) ); // true
-    console.log( Number.isFinite(Infinity) ); // false
-    console.log( Number.isFinite(2 / 0) ); // false
+  // Number.isFinite
+  console.log("\n*** Number.isFinite ***");
+  console.log(Number.isFinite(123)); // true
+  console.log(Number.isFinite(Infinity)); // false
+  console.log(Number.isFinite(2 / 0)); // false
 
-    console.log( Number.isFinite("123") ); // false
-    console.log( isFinite("123") ); // true, converts
+  console.log(Number.isFinite("123")); // false
+  console.log(isFinite("123")); // true, converts
 }
 
 // Comparison with Object.is
 {
-    console.log("\n*** Comparison with Object.is ***");
-    console.log( Object.is(NaN, NaN) === true );
-    console.log( Object.is(0, -0) === false );
+  console.log("\n*** Comparison with Object.is ***");
+  console.log(Object.is(NaN, NaN) === true);
+  console.log(Object.is(0, -0) === false);
 }
 
 // parseInt and parseFloat
 {
-    console.log("\n*** parseInt and parseFloat ***");
-    console.log( +"100px" ); // NaN
+  console.log("\n*** parseInt and parseFloat ***");
+  console.log(+"100px"); // NaN
 
-    console.log( parseInt('100px') ); // 100
-    console.log( parseFloat('12.5em') ); // 12.5
+  console.log(parseInt('100px')); // 100
+  console.log(parseFloat('12.5em')); // 12.5
 
-    console.log( parseInt('12.3') ); // 12
-    console.log( parseFloat('12.3.4') ); // 12.3
+  console.log(parseInt('12.3')); // 12
+  console.log(parseFloat('12.3.4')); // 12.3
 
-    console.log( parseInt('a123') ); // NaN
+  console.log(parseInt('a123')); // NaN
 }
 // The second argument of parseInt(str, radix)
 {
-    console.log("\n*** second argument of parseInt ***");
-    console.log( parseInt('0xff', 16) ); // 255
-    console.log( parseInt('ff', 16) ); // 255
+  console.log("\n*** second argument of parseInt ***");
+  console.log(parseInt('0xff', 16)); // 255
+  console.log(parseInt('ff', 16)); // 255
 
-    console.log( parseInt('2n9c', 36) ); // 123456
+  console.log(parseInt('2n9c', 36)); // 123456
 }
 
 // Other math functions
 {
-    console.log("\n*** Other math functions ***");
+  console.log("\n*** Other math functions ***");
 
-    // Math.random
-    console.log("\n Math.random");
-    console.log( Math.random() );
-    console.log( Math.random() );
-    console.log( Math.random() );
+  // Math.random
+  console.log("\n Math.random");
+  console.log(Math.random());
+  console.log(Math.random());
+  console.log(Math.random());
 
-    // Math.max(a, b, c...) and Math.min(a, b, c...)
-    console.log("\n Math.max and Math.min");
-    console.log( Math.max(3, 5, -10, 0, 1) ); // 5
-    console.log( Math.min(1,2) ); // 1
+  // Math.max(a, b, c...) and Math.min(a, b, c...)
+  console.log("\n Math.max and Math.min");
+  console.log(Math.max(3, 5, -10, 0, 1)); // 5
+  console.log(Math.min(1, 2)); // 1
 
-    // Math.pow(n, power)
-    console.log("\n Math.pow");
-    console.log( Math.pow(2, 10) ); // 2 in power 10 = 1024
+  // Math.pow(n, power)
+  console.log("\n Math.pow");
+  console.log(Math.pow(2, 10)); // 2 in power 10 = 1024
 }
 
 // Tasks
 const Chapter_5_2_Tasks = {
-    // Sum numbers from the visitor
-    sumNumbers: () => {
-        // let a = +prompt("Enter a", "");
-        // let b = +prompt("Enter b", "");
+  // Sum numbers from the visitor
+  sumNumbers: () => {
+    // let a = +prompt("Enter a", "");
+    // let b = +prompt("Enter b", "");
 
-        // console.log(a + b);
-    },
+    // console.log(a + b);
+  },
 
-    // Why 6.35.toFixed(1) == 6.3?
-    toFixed6_35: () => {
-        // Internally the decimal fraction 6.35 is an endless binary. 
-        // As always in such cases, it is stored with a precision loss
-        console.log( 6.35.toFixed(20) ); // 6.3499999999999964473
-        // The precision loss can cause both increase and decrease of a number
-        // In this particular case the number becomes a tiny bit less,
-        // That's why it rounded down
+  // Why 6.35.toFixed(1) == 6.3?
+  toFixed6_35: () => {
+    // Internally the decimal fraction 6.35 is an endless binary. 
+    // As always in such cases, it is stored with a precision loss
+    console.log(6.35.toFixed(20)); // 6.3499999999999964473
+    // The precision loss can cause both increase and decrease of a number
+    // In this particular case the number becomes a tiny bit less,
+    // That's why it rounded down
 
-        // And what's for 1.35?
-        console.log( 1.35.toFixed(20) ); // 1.350000000000000008882
-        // Here the precison loss made the number a little bit greater, so it rounded up
+    // And what's for 1.35?
+    console.log(1.35.toFixed(20)); // 1.350000000000000008882
+    // Here the precison loss made the number a little bit greater, so it rounded up
 
-        // How can we fix the problem with 6.35 if we want it to be rounded the right way?
-        // We should bring it closer to an integer prior to rounding:
-        console.log( (6.35 * 10).toFixed(20) );
+    // How can we fix the problem with 6.35 if we want it to be rounded the right way?
+    // We should bring it closer to an integer prior to rounding:
+    console.log((6.35 * 10).toFixed(20));
 
-        // Note that 63.5 has no precision loss at all
-        // That's because the decimal part 0.5 is actually 1/2
-        // Fractions divided by powers of 2 are exactly represented in the binary system
-        // Now we can round it:
-        console.log( Math.round(6.35 * 10) / 10 ); // 6.35 -> 63.5 -> 64(rounded) -> 6.4
+    // Note that 63.5 has no precision loss at all
+    // That's because the decimal part 0.5 is actually 1/2
+    // Fractions divided by powers of 2 are exactly represented in the binary system
+    // Now we can round it:
+    console.log(Math.round(6.35 * 10) / 10); // 6.35 -> 63.5 -> 64(rounded) -> 6.4
 
-        // Using mathjs library (imported)
-        console.log( math.round(6.35, 1) );
-    },
+    // Using mathjs library (imported)
+    console.log(math.round(6.35, 1));
+  },
 
-    // Repeat until the input is a number
-    readNumber: () => {
-        let num;
+  // Repeat until the input is a number
+  readNumber: () => {
+    let num;
 
-        do {
-            num = prompt("Enter a number please?", "0");
-        } while ( !isFinite(num) );
+    do {
+      num = prompt("Enter a number please?", "0");
+    } while (!isFinite(num));
 
-        if(num === null || num ===  '') return null;
+    if (num === null || num === '') return null;
 
-        return +num;
-    },
+    return +num;
+  },
 
-    // A random number from min to max
+  // A random number from min to max
 
-    random(min, max) {
-        return min + Math.random() * (max - min);
-    },
+  random(min, max) {
+    return min + Math.random() * (max - min);
+  },
 
-    // A random integer from min to max
-    randomInteger: (min, max) => {
-        // return Math.round(min + Math.random() * (max - min));
-        // return Math.round( min - 0.5 + Math.random() * (max - min + 1) );
+  // A random integer from min to max
+  randomInteger: (min, max) => {
+    // return Math.round(min + Math.random() * (max - min));
+    // return Math.round( min - 0.5 + Math.random() * (max - min + 1) );
 
-        return Math.floor( min + Math.random() * (max + 1 - min) );
-    },
+    return Math.floor(min + Math.random() * (max + 1 - min));
+  },
 
 }
 
@@ -293,908 +293,908 @@ console.log(Chapter_5_2_Tasks.randomInteger(2, 8));
 
 // #region 5.3 Strings
 {
-    // Quotes
-    let single = 'single-quoted';
-    let double = "double-quoted";
+  // Quotes
+  let single = 'single-quoted';
+  let double = "double-quoted";
 
-    let backticks = `backticks`;
+  let backticks = `backticks`;
 
-    let guestList = `Guests:
+  let guestList = `Guests:
     * John
     * Pete
     * Mary
     `;
 
 
-    // Template literals
-    const person = "Mike";
-    const age = 28;
+  // Template literals
+  const person = "Mike";
+  const age = 28;
 
-    function myTag(strings, personExp, ageExp) {
+  function myTag(strings, personExp, ageExp) {
 
-        const str0 = strings[0];
-        const str1 = strings[1];
-        const str2 = strings[2];
+    const str0 = strings[0];
+    const str1 = strings[1];
+    const str2 = strings[2];
 
-        const ageStr = ageExp < 100 ? "youngster" : "centenarian";
+    const ageStr = ageExp < 100 ? "youngster" : "centenarian";
 
-        return `${str0}${personExp}${str1}${ageStr}${str2}`;
+    return `${str0}${personExp}${str1}${ageStr}${str2}`;
+  }
+
+  const output = myTag`That ${person} is a ${age}.`;
+  console.log(output);
+
+
+  // Special characters
+  // \n - New line, \r - Windows \r\n new break
+  // \', \", \` - Quotes
+  // \\ - Backslash
+  // \t - Tab
+
+
+  // Unicode, String internals
+
+  // \xXX, \uXXXX - 4 hex digits (\u00A9)
+  // \u{X...XXXXXX} 1 to 6 bytes
+
+  let s1 = 'S\u0307\u0323'; // Ṩ, S + dot above + dot below
+  let s2 = 'S\u0323\u0307'; // Ṩ, S + dot below + dot above
+
+  console.log(`s1: ${s1}, s2: ${s2}`);
+
+  console.log(s1 == s2); // false though the characters look identical (?!)
+  console.log(s1.normalize() == s2.normalize()); // true
+  console.log(s1.localeCompare(s2)); // 0, means same string
+
+
+  // String length
+  console.log(`My\n`.length); // 3
+
+
+  // Accessing characters
+  {
+    let str = `Hello`;
+
+    console.log(str[0], str.at(0)); // H H
+    console.log(str[str.length - 1], str.at(-1)); // o o
+
+    for (let char of str) {
+      console.log(char);
+    }
+  }
+
+  // Strings are immutable
+  {
+    let str = 'Hi';
+    // str[0] = 'h';
+    console.log(str, str[0]);
+  }
+
+  // Changing the case
+  {
+    console.log('Interface'.toUpperCase()); // INTERFACE
+    console.log('Interface'.toLowerCase()); // interface
+
+    console.log('Interface'[0].toLowerCase()); // 'i'
+  }
+
+  // Searching for a substring
+  {
+    let str = 'Widget with id';
+
+    console.log(str.indexOf('Widget')); // 0
+    console.log(str.indexOf('widget')); // -1
+
+    console.log(str.indexOf("id")); // 1
+
+    console.log(str.indexOf('id', 2)); // 12
+
+    // all occurrences
+    str = 'As sly as a fox, as strong as an ox';
+
+    let target = 'as';
+
+    let pos = 0;
+    while (true) {
+      let foundPos = str.indexOf(target, pos);
+      if (foundPos == -1) break;
+
+      console.log(`Found at ${foundPos}`);
+      pos = foundPos + 1;
     }
 
-    const output = myTag`That ${person} is a ${age}.`;
-    console.log(output);
-
-
-    // Special characters
-    // \n - New line, \r - Windows \r\n new break
-    // \', \", \` - Quotes
-    // \\ - Backslash
-    // \t - Tab
-
-
-    // Unicode, String internals
-
-    // \xXX, \uXXXX - 4 hex digits (\u00A9)
-    // \u{X...XXXXXX} 1 to 6 bytes
-    
-    let s1 = 'S\u0307\u0323'; // Ṩ, S + dot above + dot below
-    let s2 = 'S\u0323\u0307'; // Ṩ, S + dot below + dot above
-
-    console.log( `s1: ${s1}, s2: ${s2}` );
-
-    console.log( s1 == s2 ); // false though the characters look identical (?!)
-    console.log( s1.normalize() == s2.normalize() ); // true
-    console.log( s1.localeCompare(s2) ); // 0, means same string
-
-
-    // String length
-    console.log( `My\n`.length ); // 3
-
-
-    // Accessing characters
-    {
-        let str = `Hello`;
-
-        console.log( str[0], str.at(0) ); // H H
-        console.log( str[str.length-1], str.at(-1) ); // o o
-
-        for (let char of str) {
-            console.log(char);
-        }
+    // shorter
+    pos = -1;
+    while ((pos = str.indexOf(target, pos + 1)) != -1) {
+      console.log(pos);
     }
 
-    // Strings are immutable
-    {
-        let str = 'Hi';
-        // str[0] = 'h';
-        console.log(str, str[0]);
+    str = "Widget with id";
+
+    if (str.indexOf("Widget") != -1) {
+      console.log("We found it");
     }
+  }
 
-    // Changing the case
-    {
-        console.log( 'Interface'.toUpperCase() ); // INTERFACE
-        console.log( 'Interface'.toLowerCase() ); // interface
 
-        console.log( 'Interface'[0].toLowerCase() ); // 'i'
+  // includes, startsWith, endsWith
+  {
+    console.log("Widget with id".includes("Widget")); // true
+    console.log("Hello".includes("Bye")); // false
+
+    console.log("Widget".includes("id")); // true
+    console.log("Widget".includes("id", 3)); // false
+
+    console.log("Widget".startsWith("Wid")); // true
+    console.log("Widget".endsWith("get")); // true
+  }
+
+  // Getting a substring
+  {
+    // str.slice(start [, end])
+    let str = "stringify";
+    console.log(str.slice(0, 5)); // 'strin'
+    console.log(str.slice(0, 1)); // 's'
+
+    console.log(str.slice(2)); // 'ringify'
+
+    console.log(str.slice(-4, -1)); // 'gif'
+
+    // str. substring(start [, end])
+    console.log(str.substring(2, 6)); // "ring"
+    console.log(str.substring(6, 2)); // "ring"
+    // negative arguments are not supported, they are treated as 0
+
+    // str.substr(start [, length])
+    console.log(str.substr(2, 4));
+
+    console.log(str.substr(-4, 2));
+  }
+
+  // Comparing strings
+  {
+    console.log('a' > 'Z'); // true
+
+    console.log('Österreich' > 'Zealand'); // true
+
+    // str.codePointAt(pos)
+    console.log("Z".codePointAt(0)); // 90
+    console.log("z".codePointAt(0)); // 122
+    console.log("z".codePointAt(0).toString(16)); // 7a
+
+    // String.fromCodePoint(code)
+    console.log(String.fromCodePoint(88, 89, 90)); // XYZ
+    console.log(String.fromCodePoint(0x5a)); // Z
+
+    let str = '';
+
+    for (let i = 65; i <= 220; i++) {
+      str += String.fromCodePoint(i);
     }
+    console.log(str);
 
-    // Searching for a substring
-    {
-        let str = 'Widget with id';
-
-        console.log( str.indexOf('Widget') ); // 0
-        console.log( str.indexOf('widget') ); // -1
-
-        console.log( str.indexOf("id") ); // 1
-
-        console.log( str.indexOf('id', 2) ); // 12
-
-        // all occurrences
-        str = 'As sly as a fox, as strong as an ox';
-
-        let target = 'as';
-
-        let pos = 0;
-        while (true) {
-            let foundPos = str.indexOf(target, pos);
-            if (foundPos == -1) break;
-
-            console.log( `Found at ${foundPos}` );
-            pos = foundPos + 1;
-        }
-
-        // shorter
-        pos = -1;
-        while ((pos = str.indexOf(target, pos+1)) != -1) {
-            console.log(pos);
-        }
-
-        str = "Widget with id";
-
-        if (str.indexOf("Widget") != -1) {
-            console.log("We found it");
-        }
-    }
+    // Correct comparisons
+    console.log('Österreich'.localeCompare('Zealand')); // -1
+  }
 
 
-    // includes, startsWith, endsWith
-    {
-        console.log( "Widget with id".includes("Widget") ); // true
-        console.log( "Hello".includes("Bye") ); // false
+  // Tasks
 
-        console.log( "Widget".includes("id") ); // true
-        console.log( "Widget".includes("id", 3) ); // false
+  const c53_Tasks = {
+    ucFirst(str) {
+      if (!str) return str;
 
-        console.log( "Widget".startsWith("Wid") ); // true
-        console.log( "Widget".endsWith("get") ); // true
-    }
+      return str[0].toUpperCase() + str.slice(1);
+    },
 
-    // Getting a substring
-    {
-        // str.slice(start [, end])
-        let str = "stringify";
-        console.log( str.slice(0, 5) ); // 'strin'
-        console.log( str.slice(0, 1) ); // 's'
+    checkSpam: (str) => {
+      let lowerStr = str.toLowerCase();
 
-        console.log( str.slice(2) ); // 'ringify'
+      return lowerStr.includes('viagra') || lowerStr.includes('xxx');
+    },
 
-        console.log( str.slice(-4, -1) ); // 'gif'
+    truncate: (str, maxlength) => {
+      return (str.length > maxlength) ?
+        str.slice(0, maxlength - 1) + "\u2026" : str;
+    },
 
-        // str. substring(start [, end])
-        console.log( str.substring(2, 6) ); // "ring"
-        console.log( str.substring(6, 2) ); // "ring"
-        // negative arguments are not supported, they are treated as 0
+    extractCurrencyValue: (str) => {
+      return +str.slice(1);
 
-        // str.substr(start [, length])
-        console.log( str.substr(2, 4) );
+    },
 
-        console.log( str.substr(-4, 2) );
-    }
+  };
 
-    // Comparing strings
-    {
-        console.log( 'a' > 'Z' ); // true
+  console.log(c53_Tasks.ucFirst(""));
+  console.log(c53_Tasks.checkSpam('buy ViAgRA now'));
+  console.log(c53_Tasks.checkSpam('free xxxx'));
+  console.log(c53_Tasks.checkSpam("innocent rabbit"));
 
-        console.log( 'Österreich' > 'Zealand' ); // true
+  console.log(c53_Tasks.truncate("Hi everyone!", 20));
+  console.log(c53_Tasks.truncate("What I'd like to tell on this topic is: ", 20));
 
-        // str.codePointAt(pos)
-        console.log( "Z".codePointAt(0) ); // 90
-        console.log( "z".codePointAt(0) ); // 122
-        console.log( "z".codePointAt(0).toString(16) ); // 7a
-
-        // String.fromCodePoint(code)
-        console.log( String.fromCodePoint(88, 89, 90) ); // XYZ
-        console.log( String.fromCodePoint(0x5a) ); // Z
-
-        let str = '';
-        
-        for (let i = 65; i <= 220; i++) {
-            str += String.fromCodePoint(i);
-        }
-        console.log(str);
-
-        // Correct comparisons
-        console.log( 'Österreich'.localeCompare('Zealand') ); // -1
-    }
-
-
-    // Tasks
-
-    const c53_Tasks = {
-        ucFirst(str) {
-            if (!str) return str;
-
-            return str[0].toUpperCase() + str.slice(1);
-        },
-
-        checkSpam: (str) => {
-            let lowerStr = str.toLowerCase();
-
-            return lowerStr.includes('viagra') || lowerStr.includes('xxx');
-        },
-
-        truncate: (str, maxlength) => {
-            return (str.length > maxlength) ?
-            str.slice(0, maxlength-1) + "\u2026" : str;
-        },
-
-        extractCurrencyValue: (str) => {
-            return +str.slice(1);
-
-        },
-
-    };
-
-    console.log( c53_Tasks.ucFirst("") );
-    console.log( c53_Tasks.checkSpam('buy ViAgRA now') );
-    console.log( c53_Tasks.checkSpam('free xxxx') );
-    console.log( c53_Tasks.checkSpam("innocent rabbit") );
-
-    console.log( c53_Tasks.truncate("Hi everyone!", 20) );
-    console.log( c53_Tasks.truncate("What I'd like to tell on this topic is: ", 20) );
-
-    console.log( c53_Tasks.extractCurrencyValue('$120') ); // 120
+  console.log(c53_Tasks.extractCurrencyValue('$120')); // 120
 }
 
 // #endregion
 
 // #region 5.4 Arrays
 {
-    console.log("#### 5.4 Arrays ####");
+  console.log("#### 5.4 Arrays ####");
 
-    // Declaration
-    {
-        console.log('*** Declaration ***');
+  // Declaration
+  {
+    console.log('*** Declaration ***');
 
-        let arr = new Array();
-        let arr1 = [];
+    let arr = new Array();
+    let arr1 = [];
 
-        let fruits = ["Apple", "Orange", "Plum"];
+    let fruits = ["Apple", "Orange", "Plum"];
 
-        console.log( fruits[0], fruits[1], fruits[2] );
+    console.log(fruits[0], fruits[1], fruits[2]);
 
-        fruits[2] = 'Pear';
-        fruits[3] = 'Lemon';
-        console.log( fruits.length, `${fruits}` );
+    fruits[2] = 'Pear';
+    fruits[3] = 'Lemon';
+    console.log(fruits.length, `${fruits}`);
 
-        let arrMix = [ 'Apple', { name: 'John' }, true, function() { return 'hello'; } ];
-        console.log(arrMix[1].name, arrMix[3]() );
+    let arrMix = ['Apple', { name: 'John' }, true, function () { return 'hello'; }];
+    console.log(arrMix[1].name, arrMix[3]());
+  }
+
+  // Get last elements with "at"
+  {
+    console.log('*** Get last elements with at ***');
+
+    let fruits = ["Apple", "Orange", "Plum"];
+
+    console.log(fruits[fruits.length - 1]); // Plum
+
+    console.log(fruits.at(-1)); // Plum
+  }
+
+  // Methods pop/push, shift/unshift
+  {
+    console.log('*** Methods pop/push, shift/unshift ***');
+
+    // pop
+    let fruits = ["Apple", "Orange", "Pear"];
+
+    console.log(fruits.pop()); // remove "Pear" and return it
+
+    console.log(`${fruits}`);
+
+    // push
+    fruits.push("Pear");
+    console.log(`${fruits}`);
+
+    // shift
+    console.log(fruits.shift()); // remove Apple and return it
+    console.log(`${fruits}`);
+
+    // unshift
+    fruits.unshift("Apple");
+    console.log(`${fruits}`);
+
+    // Methods push and unshift can add multiple elements at once:
+    fruits.length = 1;
+    console.log(`${fruits}`);
+
+    fruits.push("Orange", "Peach");
+    fruits.unshift("Pineapple", "Lemon");
+
+    console.log(`${fruits}`);
+  }
+
+  // Internals
+  {
+    console.log('*** Internals ***');
+
+    let fruits = ["Banana"];
+
+    let arr = fruits;
+
+    console.log(arr == fruits); // true
+
+    arr.push("Pear"); // modify the array by reference
+
+    console.log(`${fruits}`);
+
+    // objects
+    fruits.length = 0;
+    fruits[99] = 5;
+    fruits.age = 25;
+    console.log(fruits, `${fruits}`);
+  }
+
+  // Loops
+  {
+    console.log('*** Loops ***');
+
+    let arr = ["Apple", "Orange", "Pear"];
+
+    for (let i = 0; i < arr.length; i++) {
+      console.log(arr[i]);
     }
 
-    // Get last elements with "at"
-    {
-        console.log('*** Get last elements with at ***');
-
-        let fruits = ["Apple", "Orange", "Plum"];
-
-        console.log( fruits[fruits.length-1] ); // Plum
-
-        console.log( fruits.at(-1) ); // Plum
+    // iterates over array elements
+    for (let fruit of arr) {
+      console.log(fruit);
     }
 
-    // Methods pop/push, shift/unshift
-    {
-        console.log('*** Methods pop/push, shift/unshift ***');
-
-        // pop
-        let fruits = ["Apple", "Orange", "Pear"];
-
-        console.log( fruits.pop() ); // remove "Pear" and return it
-
-        console.log( `${fruits}` );
-
-        // push
-        fruits.push("Pear");
-        console.log( `${fruits}` );
-
-        // shift
-        console.log( fruits.shift() ); // remove Apple and return it
-        console.log( `${fruits}` );
-
-        // unshift
-        fruits.unshift("Apple");
-        console.log( `${fruits}` );
-
-        // Methods push and unshift can add multiple elements at once:
-        fruits.length = 1;
-        console.log( `${fruits}` );
-
-        fruits.push("Orange", "Peach");
-        fruits.unshift("Pineapple", "Lemon");
-
-        console.log( `${fruits}` );
+    // bad idea for..in for arrays
+    for (let key in arr) {
+      console.log(arr[key]);
     }
+  }
 
-    // Internals
-    {
-        console.log('*** Internals ***');
+  // A word about "length"
+  {
+    console.log('*** A word about length ***');
 
-        let fruits = ["Banana"];
+    let fruits = [];
+    fruits[123] = "Apple";
 
-        let arr = fruits;
+    console.log(fruits.length);
 
-        console.log( arr == fruits ); // true
+    let arr = [1, 2, 3, 4, 5];
 
-        arr.push("Pear"); // modify the array by reference
+    arr.length = 2;
+    console.log(`${arr}`);
 
-        console.log( `${fruits}` );
+    arr.length = 5;
+    console.log(arr[3]);
 
-        // objects
-        fruits.length = 0;
-        fruits[99] = 5;
-        fruits.age = 25;
-        console.log( fruits, `${fruits}` );
-    }
+    // the simplest way to clear the array is: arr.length = 0;
+    arr.length = 0;
+    console.log(arr, `${arr}`);
+  }
 
-    // Loops
-    {
-        console.log('*** Loops ***');
+  // new Array()
+  {
+    console.log('*** new Array() ***');
 
-        let arr = ["Apple", "Orange", "Pear"];
+    let arr0 = new Array("Apple", "Pear", "etc");
 
-        for (let i = 0; i < arr.length; i++) {
-            console.log( arr[i] );
-        }
+    let arr = new Array(2);
+    console.log(arr[0]); // undefined
+    console.log(arr.length);
+  }
 
-        // iterates over array elements
-        for (let fruit of arr) {
-            console.log( fruit );
-        }
+  // Multidimensional arrays
+  {
+    console.log('*** Multidimensional arrays ***');
 
-        // bad idea for..in for arrays
-        for (let key in arr) {
-            console.log( arr[key] );
-        }
-    }
+    let matrix = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+    ];
 
-    // A word about "length"
-    {
-        console.log('*** A word about length ***');
+    console.log(matrix[0][1]); // 2
+  }
 
-        let fruits = [];
-        fruits[123] = "Apple";
+  // toString
+  {
+    console.log('*** toString ***');
 
-        console.log( fruits.length );
+    let arr = [1, 2, 3];
 
-        let arr = [1, 2, 3, 4, 5];
+    console.log(`${arr}`); // same as alert(arr) or console.log(String(arr)), // 1,2,3
+    console.log(String(arr) === '1,2,3');
 
-        arr.length = 2;
-        console.log( `${arr}` );
+    console.log(String([] + 1));
+    console.log(String([1] + 1));
+    console.log(String([1, 2]) + 1);
+  }
 
-        arr.length = 5;
-        console.log( arr[3] );
+  // Don't compare arrays with ==
+  {
+    console.log("*** Don't compare arrays with === ***");
 
-        // the simplest way to clear the array is: arr.length = 0;
-        arr.length = 0;
-        console.log( arr, `${arr}` );
-    }
+    console.log([] == []); // false
+    console.log([0] == [0]); // false
 
-    // new Array()
-    {
-        console.log('*** new Array() ***');
+    console.log(0 == []); // true
+    console.log('0' == []); // false
+  }
 
-        let arr0 = new Array("Apple", "Pear", "etc");
+  const c54_Tasks = {
+    arrayOperations: () => {
+      let styles = ["Jazz", "Blues"];
 
-        let arr = new Array(2);
-        console.log( arr[0] ); // undefined
-        console.log( arr.length );
-    }
+      styles.push("Rock-n-Roll");
 
-    // Multidimensional arrays
-    {
-        console.log('*** Multidimensional arrays ***');
+      let middle = Math.floor(styles.length / 2);
+      styles[middle] = "Classics";
 
-        let matrix = [
-            [1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9],
-        ];
+      console.log(styles.shift());
 
-        console.log( matrix[0][1] ); // 2
-    }
+      styles.unshift("Rap", "Reggae");
+      console.log(String(styles));
+    },
 
-    // toString
-    {
-        console.log('*** toString ***');
+    arrayContext: () => {
+      let arr = ["a", "b"];
 
-        let arr = [1, 2, 3];
+      arr.push(function () {
+        console.log(this);
+      });
 
-        console.log( `${arr}` ); // same as alert(arr) or console.log(String(arr)), // 1,2,3
-        console.log(String(arr) === '1,2,3');
+      arr[2]();
+    },
 
-        console.log( String([] + 1) );
-        console.log( String([1] + 1) );
-        console.log( String([1, 2]) + 1 );
-    }
+    sumInput() {
+      let arr = [];
 
-    // Don't compare arrays with ==
-    {
-        console.log("*** Don't compare arrays with === ***");
+      while (true) {
+        let num = prompt("Enter a new value", 0);
+        if (num == null || num == '' || !isFinite(num)) break;
+        arr.push(+num);
+      }
 
-        console.log( [] == [] ); // false
-        console.log( [0] == [0] ); // false
+      let arrSum = 0;
+      for (let elem of arr) {
+        arrSum += elem;
+      }
+      return arrSum;
+    },
 
-        console.log( 0 == [] ); // true
-        console.log( '0' == [] ); // false
-    }
+    getMaxSubSum: (arr) => {
+      // let subMatrices = [];
+      // for (let i = 0; i < arr.length; i++) {
+      //     for (let j = i; j < arr.length; j++) {
+      //         subMatrices.push( (i == j) ? arr[j] : arr[j] + subMatrices.at(-1) );              
+      //     }
+      // }
+      // return Math.max(...subMatrices, 0);
+      // let maxSum = 0;
+      // for (let i = 0; i < arr.length; i++) {
+      //     let sum = 0;
+      //     for (let j = i; j < arr.length; j++) {
+      //         sum += arr[j];
+      //         maxSum = Math.max(sum, maxSum);
+      //     }
+      // }
+      // return maxSum;
 
-    const c54_Tasks = {
-        arrayOperations: () => {
-            let styles = ["Jazz", "Blues"];
+      let max = 0;
+      let ps = 0;
+      for (let item of arr) {
+        ps += item;
+        ps = Math.max(ps, 0);
+        max = Math.max(ps, max);
+      }
 
-            styles.push("Rock-n-Roll");
+      // let max = 0;
+      // let sum = 0
+      // for (let item of arr) {
+      //     sum += item;
+      //     max = Math.max(max, sum);
+      //     if (sum < 0) sum = 0;
+      // }
+      return max;
+    },
+  }
 
-            let middle = Math.floor(styles.length/2);
-            styles[middle] = "Classics";
-
-            console.log( styles.shift() );
-
-            styles.unshift("Rap", "Reggae");
-            console.log( String(styles) );
-        },
-
-        arrayContext: () => {
-            let arr = ["a", "b"];
-
-            arr.push(function() {
-                console.log( this );
-            });
-
-            arr[2]();
-        },
-
-        sumInput() {
-            let arr = [];
-
-            while(true) {
-                let num = prompt("Enter a new value", 0);
-                if(num == null || num == '' || !isFinite(num)) break;
-                arr.push(+num);
-            }
-
-            let arrSum = 0;
-            for (let elem of arr) {
-                arrSum += elem;
-            }
-            return arrSum;
-        },
-
-        getMaxSubSum: (arr) => {
-            // let subMatrices = [];
-            // for (let i = 0; i < arr.length; i++) {
-            //     for (let j = i; j < arr.length; j++) {
-            //         subMatrices.push( (i == j) ? arr[j] : arr[j] + subMatrices.at(-1) );              
-            //     }
-            // }
-            // return Math.max(...subMatrices, 0);
-            // let maxSum = 0;
-            // for (let i = 0; i < arr.length; i++) {
-            //     let sum = 0;
-            //     for (let j = i; j < arr.length; j++) {
-            //         sum += arr[j];
-            //         maxSum = Math.max(sum, maxSum);
-            //     }
-            // }
-            // return maxSum;
-
-            let max = 0;
-            let ps = 0;
-            for (let item of arr) {
-                ps += item;
-                ps = Math.max(ps, 0);
-                max = Math.max(ps, max);
-            }
-
-            // let max = 0;
-            // let sum = 0
-            // for (let item of arr) {
-            //     sum += item;
-            //     max = Math.max(max, sum);
-            //     if (sum < 0) sum = 0;
-            // }
-            return max;
-        },
-    }
-
-    c54_Tasks.arrayOperations();
-    c54_Tasks.arrayContext();
-    // console.log( c54_Tasks.sumInput() );
-    let a = c54_Tasks.getMaxSubSum( [2, -1, 2, 3, -9] );
-    console.log(a);
+  c54_Tasks.arrayOperations();
+  c54_Tasks.arrayContext();
+  // console.log( c54_Tasks.sumInput() );
+  let a = c54_Tasks.getMaxSubSum([2, -1, 2, 3, -9]);
+  console.log(a);
 
 }
 // #endregion
 
 // #region 5.5 Array methods
 {
-    console.log('#### 5.5 Array methods ####');
+  console.log('#### 5.5 Array methods ####');
 
-    // Add/remove items
-    console.log('*** Add/remove items ***');
+  // Add/remove items
+  console.log('*** Add/remove items ***');
 
-    // splice
-    {
-        // delete like an object
-        let arr = ["I", "go", "home"];
-        delete arr[1];
-        console.log( arr[1] ); // undefined
-        console.log( arr.length ); // 3
+  // splice
+  {
+    // delete like an object
+    let arr = ["I", "go", "home"];
+    delete arr[1];
+    console.log(arr[1]); // undefined
+    console.log(arr.length); // 3
 
-        // deletion using splice
-        arr = ["I", "go", "home"];
-        arr.splice(1, 1);
-        console.log( arr );
-
-        // remove & replace and return removed elements
-        arr = ["I", "study", "JavaScript", "right", "now"];
-        let removed = arr.splice(0, 3, "Let's", "dance");
-        console.log( arr );
-        console.log( removed );
-
-        // insert elements without removal
-        arr = ["I", "study", "JavaScript"];
-        arr.splice(2, 0, "complex", "language");
-        console.log( arr );
-
-        // negative indexes allowed
-        arr = [1, 2, 5];
-        arr.splice(-1, 0, 3, 4);
-        console.log( arr );
-    }
-
-    // slice
-    {
-        let arr = ["t", "e", "s", "t"];
-        console.log( arr.slice(1, 3) ); // e,s array
-        console.log( arr.slice(-2) ); // s,t array
-    }
-
-    // concat
-    {
-        let arr = [1, 2];
-        console.log( arr.concat([3, 4]));
-        console.log( arr );
-        console.log( arr.concat([3,4], [5,6]) );
-        console.log( arr.concat([3,4], 5, 6) );
-
-        let arrayLike = {
-            0: "something",
-            length: 1
-        };
-        console.log( arr.concat(arrayLike) );
-
-        arrayLike = {
-            0: "something",
-            1: "else",
-            [Symbol.isConcatSpreadable]: true,
-            length: 2 // length must be present
-        };
-        console.log( arr.concat(arrayLike) );
-    }
-
-    // Iterate:forEach
-    console.log('*** Iterate:forEach ***');
-    // forEach
-    {
-        let arr = ["Bilbo", "Gandalf", "Nazgul"];
-        
-        arr.forEach(console.log);
-
-        arr.forEach((item, index, array) => {
-            console.log(`${item} is at index ${index} in ${array}`);
-        });
-    }
-
-
-    // Searching in array
-    console.log('*** Searching in array ***');
-
-    // indexOf/lastIndexOf and includes
-    {
-        let arr = [1, 0, false];
-        console.log( arr.indexOf(0) );
-        console.log( arr.indexOf(false) );
-        console.log( arr.indexOf(null) );
-
-        console.log( arr.includes(1) );
-
-        let fruits = ['Apple', 'Orange', 'Apple'];
-        console.log( fruits.indexOf('Apple') );
-        console.log( fruits.lastIndexOf('Apple') );
-    }
-    // includes method handles NaN correctly
-    {
-        const arr = [NaN];
-        console.log( arr.indexOf(NaN) ); // -1
-        console.log( arr.includes(NaN) ); // true
-    }
-
-    // find and findIndex/findLastIndex
-    {
-        let users = [
-            {id: 1, name: "John"},
-            {id: 2, name: "Pete"},
-            {id: 3, name: "Mary"},
-            {id: 4, name: "John"},
-        ];
-
-        let user = users.find(item => item.id == 1);
-        console.log(user.name);
-
-        console.log(users.findIndex(user => user.name == 'John'));
-        console.log(users.findLastIndex(user => user.name == 'John'));
-    }
-
-    // filter
-    {
-        let users = [
-            {id: 1, name: "John"},
-            {id: 2, name: "Pete"},
-            {id: 3, name: "Mary"},
-        ];
-
-        let someUsers = users.filter(user => user.id < 3);
-        console.log( someUsers.length );
-    }
-
-
-    // Transform an array
-    console.log('*** Transform an array ***');
-
-    // map
-    {
-        let lengths = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
-        console.log(lengths);
-    }
-
-    // sort(fn)
-    {
-        let arr = [1, 2, 15];
-        arr.sort();
-        console.log( arr );
-
-        function compareNumeric(a, b) {
-            if (a > b) return 1;
-            if (a == b) return 0;
-            if (a < b) return -1;
-        }
-
-        arr.sort(compareNumeric);
-        console.log( arr );
-
-        [1, -2, 15, 2, 0, 8].sort(function(a, b) {
-            console.log( a + " <> " + b);
-            return a -b;
-        });
-
-        arr.sort(function(a, b) { return a - b; });
-        console.log( arr );
-        
-        arr.sort( (a, b) => a -b );
-
-        let countries = ['Österreich', 'Andorra', 'Vietnam'];
-        console.log( countries.sort( (a, b) => a > b ? 1 : -1 )); 
-        console.log( countries.sort( (a, b) => a.localeCompare(b) ));
-    }
-
-    // reverse
-    {
-        let arr = [1, 2, 3, 4, 5];
-        arr.reverse();
-        console.log( arr );
-    }
-
-    // split and join
-    {
-        let names = 'Bilbo, Gandalf, Nazgul, Saruman';
-        let arr = names.split(', ');
-        console.log( arr );
-
-        for (let name of arr) {
-            console.log( `A message to ${name}.` );
-        }
-
-        // optional second numeric argument -  a limit on the array length
-        arr = names.split(', ', 3);
-        console.log( arr );
-
-        // split the string into an array of letters: split(s) with an empty s
-        let str = "test";
-        console.log( str.split('') );
-
-        // arr.join(glue)
-        str = arr.join(';');
-        console.log( str );
-    }
-
-    // reduce/reduceRight
-    {
-        let arr = [1, 2, 3, 4, 5];
-        let result = arr.reduce( (sum, current) => sum + current, 0 );
-        console.log( result );
-
-        // works but gives an error if arr is empty
-        result = arr.reduce((sum, current) => sum + current);
-        console.log( result );
-
-        // always use initial value
-        arr = [];
-        result = arr.reduce((sum, current) => sum + current, 0);
-        console.log( result );
-    }
-
-    // Array.isArray
-    console.log('*** Array.isArray ***');
-    {
-        console.log( typeof {} ); // object
-        console.log( typeof [] ); // object (same)
-        console.log( Array.isArray({}));
-        console.log( Array.isArray([]));
-    }
-
-    // Most methods support "thisArg"
-    console.log('*** thisArg ***');
-    {
-        let army = {
-            minAge: 18,
-            maxAge: 27,
-            canJoin(user) {
-                return user.age >= this.minAge && user.age < this.maxAge;
-            }
-        };
-
-        let users = [
-            {age: 16},
-            {age: 20},
-            {age: 23},
-            {age: 30},
-        ];
-
-        let soldiers = users.filter(army.canJoin, army);
-
-        console.log( soldiers.length );
-        console.log( soldiers[0].age );
-        console.log( soldiers[1].age );
-
-        soldiers = users.filter( user => army.canJoin(user) );
-        console.log( soldiers );
-    }
-
-    // Summary: arr.every
-    console.log('*** summary: arr.every ***');
-    {
-        function arraysEqual(arr1, arr2) {
-            return arr1.length === arr2.length && 
-            arr1.every( (value, index) => value === arr2[index] );
-        }
-
-        console.log( arraysEqual( [1, 2], [1, 2] ));
-    }
-
-    // Tasks
-    const c55_Tasks = {
-        camelize: (str) => {
-            let arr = str.split('-');
-            let arrMap = arr.map( (item, index) => index == 0 ? item :  item[0].toUpperCase() + item.slice(1) );
-            return arrMap.join('');
-        },
-
-        filterRange: (arr, a, b) => {
-            return arr.filter( item => (item >= a &&  item <= b) );
-        },
-
-        filterRangeInPlace: (arr, a, b) => {
-            // let result = arr.filter( item => (item >= a && item <= b ));
-            // arr.splice(0, arr.length, ...result);
-            for (let i = 0; i < arr.length; i++) {
-                let item = arr[i];
-                if( item < a || item > b) {
-                    arr.splice(i, 1);
-                    i--;
-                }
-            }
-            return arr;
-        },
-        
-        sortInDescending: (arr) => {
-            return arr.sort( (a, b) => b -a );
-        },
-
-        copySorted : (arr) => {
-            return arr.slice().sort();
-        },
-
-        calculator: (arr) => {
-
-        },
-
-    };
-
-    console.log( c55_Tasks.camelize("background-color") );
-    console.log( c55_Tasks.camelize("list-style-image") );
-    console.log( c55_Tasks.camelize("-webkit-transition") );
-
-    console.log( c55_Tasks.filterRange([5, 3, 8, 1], 1, 4));
-
-    let arr = [5, 3, 8, 1]; 
-    c55_Tasks.filterRangeInPlace(arr, 1, 4);
+    // deletion using splice
+    arr = ["I", "go", "home"];
+    arr.splice(1, 1);
     console.log(arr);
 
-    arr = [5, 2, 1, -10, 8];
-    console.log( c55_Tasks.sortInDescending(arr) );
+    // remove & replace and return removed elements
+    arr = ["I", "study", "JavaScript", "right", "now"];
+    let removed = arr.splice(0, 3, "Let's", "dance");
+    console.log(arr);
+    console.log(removed);
 
-    arr = ["HTML", "JAVASCRIPT", "CSS"];
-    console.log( c55_Tasks.copySorted(arr), arr );
+    // insert elements without removal
+    arr = ["I", "study", "JavaScript"];
+    arr.splice(2, 0, "complex", "language");
+    console.log(arr);
 
-    function Calculator(str) {
-        this.methods  = {
-            "+": (a, b) => a + b,
-            "-": (a, b) => a - b,
-        };
+    // negative indexes allowed
+    arr = [1, 2, 5];
+    arr.splice(-1, 0, 3, 4);
+    console.log(arr);
+  }
 
-        this.calculate = function(str) {
-            let array = str.split(' ');
-            let a = +array[0];
-            let op = array[1];
-            let b = +array[2];
+  // slice
+  {
+    let arr = ["t", "e", "s", "t"];
+    console.log(arr.slice(1, 3)); // e,s array
+    console.log(arr.slice(-2)); // s,t array
+  }
 
-            if(isNaN(a) || isNaN(b) || !this.methods[op]){
-                return NaN;
-            }
+  // concat
+  {
+    let arr = [1, 2];
+    console.log(arr.concat([3, 4]));
+    console.log(arr);
+    console.log(arr.concat([3, 4], [5, 6]));
+    console.log(arr.concat([3, 4], 5, 6));
 
-            return this.methods[op](a, b);
-        };
+    let arrayLike = {
+      0: "something",
+      length: 1
+    };
+    console.log(arr.concat(arrayLike));
 
-        this.addMethod = function (name, func) {
-            this.methods[name] = func
-        };
+    arrayLike = {
+      0: "something",
+      1: "else",
+      [Symbol.isConcatSpreadable]: true,
+      length: 2 // length must be present
+    };
+    console.log(arr.concat(arrayLike));
+  }
 
-    }
+  // Iterate:forEach
+  console.log('*** Iterate:forEach ***');
+  // forEach
+  {
+    let arr = ["Bilbo", "Gandalf", "Nazgul"];
 
-    let cal = new Calculator;
-    console.log( cal.calculate("3 - 7") );
+    arr.forEach(console.log);
 
-    let john = { name: "John", age: 25 };
-    let pete = { name: "Pete", age: 30 };
-    let mary = { name: "Mary", age: 28 };
+    arr.forEach((item, index, array) => {
+      console.log(`${item} is at index ${index} in ${array}`);
+    });
+  }
 
-    let users = [ john, pete, mary ];
 
-    console.log( users.map(user => user.name) );
+  // Searching in array
+  console.log('*** Searching in array ***');
 
-    // let john = { name: "John", surname: "Smith", id: 1 };
-    // let pete = { name: "Pete", surname: "Hunt", id: 2 };
-    // let mary = { name: "Mary", surname: "Key", id: 3 };
+  // indexOf/lastIndexOf and includes
+  {
+    let arr = [1, 0, false];
+    console.log(arr.indexOf(0));
+    console.log(arr.indexOf(false));
+    console.log(arr.indexOf(null));
 
-    // let users = [ john, pete, mary ];
+    console.log(arr.includes(1));
 
-    // let usersMapped = users.map(user => ({
-    //     fullName: `${user.name} ${user.surname}`,
-    //     id: user.id 
-    // }));
-    // console.log( usersMapped );
+    let fruits = ['Apple', 'Orange', 'Apple'];
+    console.log(fruits.indexOf('Apple'));
+    console.log(fruits.lastIndexOf('Apple'));
+  }
+  // includes method handles NaN correctly
+  {
+    const arr = [NaN];
+    console.log(arr.indexOf(NaN)); // -1
+    console.log(arr.includes(NaN)); // true
+  }
 
-    function sortByAge(arr) {
-        arr.sort((a, b) => a.age - b.age);
-    }
-    sortByAge(users);
-    console.log(users);
-
-    function getAverageAge(arr) {
-        console.log(arr);
-        return arr.reduce( (prev, user) => prev + user.age, 0)/ arr.length;
-    }
-
-    console.log( getAverageAge(users) );
-
-    users = [
-        {id: 'john', name: "John Smith", age: 20},
-        {id: 'ann', name: "Ann Smith", age: 24},
-        {id: 'pete', name: "Pete Peterson", age: 31},
+  // find and findIndex/findLastIndex
+  {
+    let users = [
+      { id: 1, name: "John" },
+      { id: 2, name: "Pete" },
+      { id: 3, name: "Mary" },
+      { id: 4, name: "John" },
     ];
 
-    function groupById(users) {
-        return users.reduce((obj, user) => {
-             obj[user.id] = user;
-             return obj;
-        }, {})
-    }
+    let user = users.find(item => item.id == 1);
+    console.log(user.name);
 
-    let usersById = groupById(users);
-    console.log( usersById );
+    console.log(users.findIndex(user => user.name == 'John'));
+    console.log(users.findLastIndex(user => user.name == 'John'));
+  }
+
+  // filter
+  {
+    let users = [
+      { id: 1, name: "John" },
+      { id: 2, name: "Pete" },
+      { id: 3, name: "Mary" },
+    ];
+
+    let someUsers = users.filter(user => user.id < 3);
+    console.log(someUsers.length);
+  }
 
 
-    arr = [1, 2, 3];
+  // Transform an array
+  console.log('*** Transform an array ***');
 
-    function shuffle(arr) {
-        return arr.sort(() => Math.random() - 0.5);
-    }
+  // map
+  {
+    let lengths = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
+    console.log(lengths);
+  }
 
+  // sort(fn)
+  {
+    let arr = [1, 2, 15];
+    arr.sort();
     console.log(arr);
-    console.log(shuffle(arr));
-    console.log(shuffle(arr));
-    console.log(shuffle(arr));
-    console.log(shuffle(arr));
+
+    function compareNumeric(a, b) {
+      if (a > b) return 1;
+      if (a == b) return 0;
+      if (a < b) return -1;
+    }
+
+    arr.sort(compareNumeric);
+    console.log(arr);
+
+    [1, -2, 15, 2, 0, 8].sort(function (a, b) {
+      console.log(a + " <> " + b);
+      return a - b;
+    });
+
+    arr.sort(function (a, b) { return a - b; });
+    console.log(arr);
+
+    arr.sort((a, b) => a - b);
+
+    let countries = ['Österreich', 'Andorra', 'Vietnam'];
+    console.log(countries.sort((a, b) => a > b ? 1 : -1));
+    console.log(countries.sort((a, b) => a.localeCompare(b)));
+  }
+
+  // reverse
+  {
+    let arr = [1, 2, 3, 4, 5];
+    arr.reverse();
+    console.log(arr);
+  }
+
+  // split and join
+  {
+    let names = 'Bilbo, Gandalf, Nazgul, Saruman';
+    let arr = names.split(', ');
+    console.log(arr);
+
+    for (let name of arr) {
+      console.log(`A message to ${name}.`);
+    }
+
+    // optional second numeric argument -  a limit on the array length
+    arr = names.split(', ', 3);
+    console.log(arr);
+
+    // split the string into an array of letters: split(s) with an empty s
+    let str = "test";
+    console.log(str.split(''));
+
+    // arr.join(glue)
+    str = arr.join(';');
+    console.log(str);
+  }
+
+  // reduce/reduceRight
+  {
+    let arr = [1, 2, 3, 4, 5];
+    let result = arr.reduce((sum, current) => sum + current, 0);
+    console.log(result);
+
+    // works but gives an error if arr is empty
+    result = arr.reduce((sum, current) => sum + current);
+    console.log(result);
+
+    // always use initial value
+    arr = [];
+    result = arr.reduce((sum, current) => sum + current, 0);
+    console.log(result);
+  }
+
+  // Array.isArray
+  console.log('*** Array.isArray ***');
+  {
+    console.log(typeof {}); // object
+    console.log(typeof []); // object (same)
+    console.log(Array.isArray({}));
+    console.log(Array.isArray([]));
+  }
+
+  // Most methods support "thisArg"
+  console.log('*** thisArg ***');
+  {
+    let army = {
+      minAge: 18,
+      maxAge: 27,
+      canJoin(user) {
+        return user.age >= this.minAge && user.age < this.maxAge;
+      }
+    };
+
+    let users = [
+      { age: 16 },
+      { age: 20 },
+      { age: 23 },
+      { age: 30 },
+    ];
+
+    let soldiers = users.filter(army.canJoin, army);
+
+    console.log(soldiers.length);
+    console.log(soldiers[0].age);
+    console.log(soldiers[1].age);
+
+    soldiers = users.filter(user => army.canJoin(user));
+    console.log(soldiers);
+  }
+
+  // Summary: arr.every
+  console.log('*** summary: arr.every ***');
+  {
+    function arraysEqual(arr1, arr2) {
+      return arr1.length === arr2.length &&
+        arr1.every((value, index) => value === arr2[index]);
+    }
+
+    console.log(arraysEqual([1, 2], [1, 2]));
+  }
+
+  // Tasks
+  const c55_Tasks = {
+    camelize: (str) => {
+      let arr = str.split('-');
+      let arrMap = arr.map((item, index) => index == 0 ? item : item[0].toUpperCase() + item.slice(1));
+      return arrMap.join('');
+    },
+
+    filterRange: (arr, a, b) => {
+      return arr.filter(item => (item >= a && item <= b));
+    },
+
+    filterRangeInPlace: (arr, a, b) => {
+      // let result = arr.filter( item => (item >= a && item <= b ));
+      // arr.splice(0, arr.length, ...result);
+      for (let i = 0; i < arr.length; i++) {
+        let item = arr[i];
+        if (item < a || item > b) {
+          arr.splice(i, 1);
+          i--;
+        }
+      }
+      return arr;
+    },
+
+    sortInDescending: (arr) => {
+      return arr.sort((a, b) => b - a);
+    },
+
+    copySorted: (arr) => {
+      return arr.slice().sort();
+    },
+
+    calculator: (arr) => {
+
+    },
+
+  };
+
+  console.log(c55_Tasks.camelize("background-color"));
+  console.log(c55_Tasks.camelize("list-style-image"));
+  console.log(c55_Tasks.camelize("-webkit-transition"));
+
+  console.log(c55_Tasks.filterRange([5, 3, 8, 1], 1, 4));
+
+  let arr = [5, 3, 8, 1];
+  c55_Tasks.filterRangeInPlace(arr, 1, 4);
+  console.log(arr);
+
+  arr = [5, 2, 1, -10, 8];
+  console.log(c55_Tasks.sortInDescending(arr));
+
+  arr = ["HTML", "JAVASCRIPT", "CSS"];
+  console.log(c55_Tasks.copySorted(arr), arr);
+
+  function Calculator(str) {
+    this.methods = {
+      "+": (a, b) => a + b,
+      "-": (a, b) => a - b,
+    };
+
+    this.calculate = function (str) {
+      let array = str.split(' ');
+      let a = +array[0];
+      let op = array[1];
+      let b = +array[2];
+
+      if (isNaN(a) || isNaN(b) || !this.methods[op]) {
+        return NaN;
+      }
+
+      return this.methods[op](a, b);
+    };
+
+    this.addMethod = function (name, func) {
+      this.methods[name] = func
+    };
+
+  }
+
+  let cal = new Calculator;
+  console.log(cal.calculate("3 - 7"));
+
+  let john = { name: "John", age: 25 };
+  let pete = { name: "Pete", age: 30 };
+  let mary = { name: "Mary", age: 28 };
+
+  let users = [john, pete, mary];
+
+  console.log(users.map(user => user.name));
+
+  // let john = { name: "John", surname: "Smith", id: 1 };
+  // let pete = { name: "Pete", surname: "Hunt", id: 2 };
+  // let mary = { name: "Mary", surname: "Key", id: 3 };
+
+  // let users = [ john, pete, mary ];
+
+  // let usersMapped = users.map(user => ({
+  //     fullName: `${user.name} ${user.surname}`,
+  //     id: user.id 
+  // }));
+  // console.log( usersMapped );
+
+  function sortByAge(arr) {
+    arr.sort((a, b) => a.age - b.age);
+  }
+  sortByAge(users);
+  console.log(users);
+
+  function getAverageAge(arr) {
+    console.log(arr);
+    return arr.reduce((prev, user) => prev + user.age, 0) / arr.length;
+  }
+
+  console.log(getAverageAge(users));
+
+  users = [
+    { id: 'john', name: "John Smith", age: 20 },
+    { id: 'ann', name: "Ann Smith", age: 24 },
+    { id: 'pete', name: "Pete Peterson", age: 31 },
+  ];
+
+  function groupById(users) {
+    return users.reduce((obj, user) => {
+      obj[user.id] = user;
+      return obj;
+    }, {})
+  }
+
+  let usersById = groupById(users);
+  console.log(usersById);
+
+
+  arr = [1, 2, 3];
+
+  function shuffle(arr) {
+    return arr.sort(() => Math.random() - 0.5);
+  }
+
+  console.log(arr);
+  console.log(shuffle(arr));
+  console.log(shuffle(arr));
+  console.log(shuffle(arr));
+  console.log(shuffle(arr));
 
 }
 // #endregion

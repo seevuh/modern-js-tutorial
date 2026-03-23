@@ -31,11 +31,11 @@ n = 12.345; // can be a float
 console.log(1 / 0); // Infinity
 console.log(Infinity); // Infinity
 console.log("not a number" / 2); // NaN
-console.log(NaN**0);
-console.log(1/0);
+console.log(NaN ** 0);
+console.log(1 / 0);
 
-console.log(1n+2n);
-console.log(5n/2n); // 2n
+console.log(1n + 2n);
+console.log(5n / 2n); // 2n
 console.log("23", +"23");
 
 console.log(`Hello ${name}`); // Hello John
@@ -66,8 +66,8 @@ console.log(isBoss); */
 let str = '';
 console.log(Boolean(str)); // object
 
-for (let a = 1, b = 3, c = a*b; a < 5; a++, b++, c = a*b) {
-    console.log(a, b, c);
+for (let a = 1, b = 3, c = a * b; a < 5; a++, b++, c = a * b) {
+  console.log(a, b, c);
 }
 
 let a = + "1";
