@@ -567,3 +567,93 @@
 }
 // #endregion
 
+// #region #### 5.9 Object.keys, values, entries ####
+{
+    console.log('#### 5.9 Object.keys, values, entries ####');
+
+    // Testing
+    console.log('\n*** Testing ***');
+    let a = {
+        name: "John",
+        age: 35
+    };
+
+    let b = ["John", "Pete", "Mary"];
+    let c = new Map([
+        ["name", "John"],
+        ["age", 35]
+    ]);
+
+    console.log(b.keys().next(), b.values().next(), b.entries().next());
+    console.log(c.keys(), c.values(), c.entries());
+    console.log(Object.keys(a), Object.values(a), Object.entries(a));
+    console.log(Reflect.ownKeys(a), Object.getOwnPropertySymbols(a));
+
+    let d = new Set(b);
+    // won't work, Object.fromEntries needs a key/value pair array
+    // console.log(Object.fromEntries(d));
+
+    // Loop over property values:
+    console.log('\n*** loop over property values ***');
+    let user = {
+        name: "John",
+        age: 30
+    };
+
+    for (let value of Object.values(user)) {
+        console.log(value);
+    }
+
+    // Transforming objects
+    console.log('\n*** Transforming objects ***');
+    
+    let prices = {
+        banana: 1,
+        orange: 2,
+        meat: 4,
+    };
+
+    let doublePrices = Object.fromEntries(
+        Object.entries(prices).map(entry => [entry[0], entry[1] * 2])
+    );
+
+    console.log( doublePrices.meat );
+
+    // Tasks
+    {
+        console.log('\n*** Tasks ***');
+
+        // 1
+        let salaries = {
+            "John": 100,
+            "Pete": 300,
+            "Mary": 250
+        };
+
+        console.log( sumSalaries(salaries) ); // 650
+
+        function sumSalaries(salaries) {
+
+            let sum = 0;
+            for (let salary of Object.values(salaries)) {
+                sum += salary;
+            }
+
+            return sum;
+        }
+
+        // 2
+        let user = {
+            name: 'John',
+            age: 30
+        };
+
+        console.log( count(user) ); // 2
+
+        function count(obj) {
+            return Object.keys(obj).length;
+        }
+    }
+}
+// #endregion
+
