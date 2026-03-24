@@ -1007,3 +1007,407 @@
 }
 // #endregion
 
+// #region #### 5.11 Date and time ####
+{
+  console.log('\n#### 5.11 Date and time ####');
+
+  // Testing
+  {
+    console.log('\n*** Testing ***');
+
+    let date = new Date();
+    // date.setUTCHours(15);
+    let date2 = new Date(0);
+    console.log(date2);
+    console.log(date - date2);
+    console.log(date.getTime() - date2.getTime());
+
+    console.log(date.getHours(), date.getMinutes(), date.getUTCHours(), date.getUTCMinutes());
+    console.log(date.getTime());
+    console.log(date.getTimezoneOffset());
+
+
+    function diffSubtract(date1, date2) {
+      return date2 - date1;
+    }
+
+    function diffGetTime(date1, date2) {
+      return date2.getTime() - date1.getTime();
+    }
+
+    function bench(f) {
+      let date1 = new Date(0);
+      let date2 = new Date();
+
+      let start = Date.now();
+      for (let i = 0; i < 100000; i++) f(date1, date2);
+      return Date.now() - start;
+    }
+
+    let time1 = 0;
+    let time2 = 0;
+
+    // added for "heating up" prior to the main loop
+    bench(diffSubtract);
+    bench(diffGetTime);
+
+    // run bench(diffSubtract) and bench(diffGetTime) each 10 times alternating
+    // for (let i = 0; i < 10; i++) {
+    //   time1 += bench(diffSubtract);
+    //   time2 += bench(diffGetTime);
+    // }
+
+
+    console.log('Time of diffSubtract: ' + time1 + 'ms');
+    console.log('Time of diffGetTime: ' + time2 + 'ms');
+
+    let Dec31_1969 = new Date(-24 * 3600 * 1000);
+    console.log(Dec31_1969);
+
+    let date3 = new Date(Date.parse('2012-01-26T13:51:50.417-07:00'));
+    console.log(date3, new Date());
+
+    let date4 = new Date(Date.parse('Mar 23 2026'));
+    console.log(date4);
+  }
+
+  // Creation
+  {
+    console.log('\n*** Creation ***');
+
+    // new Date()
+    let now = new Date();
+    console.log(now);
+
+    // new Date(milliseconds)
+    let Jan01_1970 = new Date(0);
+    console.log(Jan01_1970);
+
+    let Jan02_1970 = new Date(24 * 3600 * 1000);
+    console.log(Jan02_1970);
+
+    let Dec31_1969 = new Date(-24 * 3600 * 1000);
+    console.log(Dec31_1969);
+
+    // new Date(datestring)
+    let date = new Date("2017-01-26");
+    console.log(date);
+
+    // new Date(year, month, date, hours, minutes, seconds, ms)
+    let date2 = new Date(2011, 0, 1, 2, 3, 4, 567);
+    console.log(date2);
+  }
+
+  // Access date components
+  {
+    console.log('\n*** Access date components ***');
+
+    let date = new Date();
+
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let dayOfMonth = date.getDate();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    let ms = date.getMilliseconds();
+    let dayOfWeek = date.getDay();
+    console.log(year, month, dayOfMonth, hours, minutes, seconds, ms, dayOfWeek);
+
+    console.log('\n*** Access UTC date components ***');
+
+    let yearUTC = date.getUTCFullYear();
+    let monthUTC = date.getUTCMonth();
+    let dayofMonthUTC = date.getUTCDate();
+    let hoursUTC = date.getUTCHours();
+    let minutesUTC = date.getUTCMinutes();
+    let secondsUTC = date.getUTCSeconds();
+    let msUTC = date.getUTCMilliseconds();
+    let dayOfWeekUTC = date.getUTCDay();
+    console.log(yearUTC, monthUTC, dayofMonthUTC, hoursUTC, minutesUTC, secondsUTC, msUTC, dayOfWeekUTC);
+
+    let timestamp = date.getTime();
+    console.log(timestamp);
+
+    let timezoneOffset = date.getTimezoneOffset();
+    console.log(timezoneOffset);
+  }
+
+  // Setting date components
+  {
+    console.log('\n*** setting date components ***');
+
+    let date = new Date();
+    console.log(date);
+    console.log('\n');
+
+    // set date/time components : normal
+    date.setFullYear(2016, 0, 21);
+    console.log(date);
+
+    date.setMonth(7, 3);
+    console.log(date);
+
+    date.setDate(17);
+    console.log(date);
+
+    date.setHours(17, 40, 10, 333);
+    console.log(date);
+
+    date.setMinutes(20, 5, 111);
+    console.log(date);
+
+    date.setSeconds(59, 444);
+    console.log(date);
+
+    date.setMilliseconds(5200);
+    console.log(date);
+
+    date.setTime(0);
+    console.log(date);
+
+    // set date/time components : UTC
+    console.log('\n*** setting date componenets : UTC ***');
+
+    date.setUTCFullYear(2017, 9, 3);
+    console.log(date);
+
+    date.setUTCMonth(2, 9);
+    console.log(date);
+
+    date.setUTCDate(31);
+    console.log(date);
+
+    date.setUTCHours(15, 30, 45, 600);
+    console.log(date);
+
+    date.setUTCMinutes(45, 60, 750);
+    console.log(date);
+
+    date.setUTCSeconds(75, 900);
+    console.log(date);
+
+    date.setUTCMilliseconds(1050);
+    console.log(date);
+  }
+
+  // Autocorrection
+  {
+    console.log('\n*** Autocorrection ***');
+
+    let date = new Date(2013, 0, 32);
+    console.log(date);
+
+    date.setDate(date.getDate() + 2);
+    console.log(date);
+
+    date.setSeconds(date.getSeconds() + 70);
+    console.log(date);
+
+    date.setFullYear(2016, 0, 2);
+    date.setDate(1);
+    console.log(date);
+
+    date.setDate(0);
+    console.log(date);
+  }
+
+  // Date to number, date diff
+  {
+    console.log('\n*** Date to number, date diff ***');
+
+    let date = new Date();
+    console.log(+date);
+
+    let start = new Date(); // start measuring time
+
+    // do the job
+    for (let i = 0; i < 100000; i++) {
+      let doSomething = i * i * i;
+    }
+
+    let end = new Date(); // end measuring time
+
+    console.log(`The loop took ${end - start} ms`);
+  }
+
+  // Date.now()
+  {
+    console.log('\n*** Date.now() ***');
+
+    let timestamp = Date.now();
+    console.log(timestamp);
+
+    let start = Date.now(); // milliseconds count from 1 Jan 1970
+
+    // do the job
+    for (let i = 0; i < 100000; i++) {
+      let doSomething = i * i * i;
+    }
+
+    let end = Date.now(); // done
+
+    console.log(`The loop took ${end - start} ms`); // subract numbers, not dates
+  }
+
+  // Benchmarking
+  {
+    console.log('\n*** Benchmarking ***');
+
+    function diffSubtract(date1, date2) {
+      return date2 - date1;
+    }
+
+    function diffGetTime(date1, date2) {
+      return date2.getTime() - date1.getTime();
+    }
+
+    function bench(f) {
+      let date1 = new Date(0);
+      let date2 = new Date();
+
+      let start = Date.now();
+      for (let i = 0; i < 100000; i++) f(date1, date2);
+      return Date.now() - start;
+    }
+
+    console.log('Time of diffSubtract: ' + bench(diffSubtract) + 'ms');
+    console.log(`Time of diffSubtract: ${bench(diffGetTime)} ms`);
+
+    let time1 = 0;
+    let time2 = 0;
+
+    // bench(diffSubtract);
+    // bench(diffGetTime);
+
+    for (let i = 0; i < 10; i++) {
+      // time1 += bench(diffSubtract);
+      // time2 += bench(diffGetTime);
+    }
+
+    console.log(`Total time for diffSubtract: ${time1}`);
+    console.log(`Total time for diffGetTime: ${time2}`);
+  }
+
+  // Date.parse from a string
+  {
+    console.log('\n*** Date.parse from a string ***');
+
+    let ms = Date.parse('2012-01-26T13:51:50.417-07:00');
+    console.log(ms);
+
+    let date = new Date(Date.parse('2012-01-26T13:51:50.417-07:00'));
+    console.log(date);
+  }
+
+  // Summary
+  {
+    console.log('\n*** Summary ***');
+    console.log(`Loading started ${performance.now()}ms ago`);
+  }
+
+  // Tasks
+  {
+    console.log('\n*** Tasks ***');
+
+    // 1
+    let date = new Date("2012-02-20T03:12");
+    date = new Date(2012, 1, 20, 3, 12);
+    console.log(date);
+
+    // 2
+    function getWeekDay(date) {
+      let daysOfWeek = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+      return daysOfWeek[date.getDay()];
+    }
+    date = new Date(2012, 0, 3);
+    console.log(getWeekDay(date));
+
+    // 3
+    function getLocalDay(date) {
+      let day = date.getDay();
+
+      if (day == 0) { // weekday 0 (sunday) is 7 in european
+        return 7;
+      }
+
+      return day;
+    }
+
+    // 4
+    function getDateAgo(date, days) {
+      let dateCopy = new Date(date);
+      dateCopy.setDate(date.getDate() - days);
+      return dateCopy.getDate();
+    }
+
+    date = new Date(2015, 0, 2);
+
+    console.log(getDateAgo(date, 1)); // 1, (1 Jan 2015)
+    console.log(getDateAgo(date, 2)); // 31, (31 Dec 2014)
+    console.log(getDateAgo(date, 365)); // 2, (2 Jan 2014)
+
+    // 5
+    function getLastDayOfMonth(year, month) {
+      let date = new Date(year, month + 1, 0);
+      return date.getDate();
+    }
+
+    console.log(getLastDayOfMonth(2012, 1)); // 29
+
+    // 6
+    function getSecondsToday() {
+      let date = new Date();
+      return date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds();
+    }
+
+    console.log(getSecondsToday());
+
+    // 7
+    function getSecondsToTomorrow() {
+      let now = new Date();
+      let tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+
+      let diff = tomorrow.getTime() - now.getTime();
+
+      let seconds = Math.floor(diff / 1000);
+      return seconds;
+
+    }
+
+    console.log(getSecondsToTomorrow());
+
+    // 8
+    function formatDate(date) {
+      let now = Date.now();
+      let diff = now - date.getTime();
+
+      if (diff < 1000) {
+        return 'right now';
+      } else if (diff < (60 * 1000)) {
+        let seconds = Math.floor(diff / 1000);
+        return `${seconds} sec. ago`;
+      } else if (diff < (3600 * 1000)) {
+        let minutes = Math.floor(diff / (60 * 1000));
+        return `${minutes} min. ago`;
+      } else {
+        let dateOfMonth = date.getDate().toString().padStart(2, "0");
+        let month = (date.getMonth() + 1).toString().padStart(2, "0");
+        let year = date.getFullYear().toString().slice(-2);
+        let hours = date.getHours().toString().padStart(2, "0");
+        let minutes = date.getMinutes().toString().padStart(2, "0");
+
+        return `${dateOfMonth}.${month}.${year} ${hours}:${minutes}`;
+      }
+
+    }
+
+    console.log(formatDate(new Date(new Date - 1))); // "right now"
+    console.log(formatDate(new Date(new Date - 30 * 1000))); // "30 sec. ago"
+    console.log(formatDate(new Date(new Date - 5 * 60 * 1000))); // "5 min. ago"
+    console.log(formatDate(new Date(new Date - 86400 * 1000))); // yesterday's date like 31.12.16 20:00
+
+  }
+
+}
+// #endregion
