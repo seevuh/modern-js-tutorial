@@ -1411,3 +1411,307 @@
 
 }
 // #endregion
+
+// #region #### 5.12 JSON methods, toJSON
+{
+  console.log('\n#### 5.12 JSON methods, toJSON ####');
+
+  // Testing
+  {
+    console.log('\n*** Testing ***');
+
+    let user = {
+      name: "John",
+      age: 30,
+
+      toString() {
+        return `{name: "${this.name}", age: ${this.age}}`;
+      }
+    };
+    console.log(user, `${user}`, user.toString());
+
+    let student = {
+      name: 'John',
+      age: 30,
+      isAdmin: false,
+      courses: ['html', 'css', 'js'],
+      spouse: null,
+
+      [Symbol.isPrimitive](hint) {
+        return hint == "string" ? `{name: "${this.name}"}` : this.age;
+      }
+    };
+
+    let json = JSON.stringify(student, null, 2);
+
+    console.log(typeof json);
+
+    console.log(json);
+
+    let room = {
+      number: 23
+    };
+
+    let meetup = {
+      title: "Conference",
+      participants: [{ name: "John" }, { name: "Alice" }],
+      place: room
+    };
+
+    // meetup.place = room;
+    room.occupiedBy = meetup;
+
+    // let str1 = JSON.stringify(meetup);
+
+    let str = JSON.stringify(meetup, function replacer(key, value) {
+      console.log(`${key}: ${value}`);
+      return (key === 'occupiedBy') ? undefined : value;
+
+    });
+
+    str = JSON.stringify(meetup, (key, value) => {
+      console.log(`${key}: ${value}`);
+      if (key === 'occupiedBy') {
+        return "Conference";
+      }
+      return (key === 'occupiedBy') ? undefined : value
+    }, 2);
+
+    console.log(str);
+
+    let date = new Date();
+    console.log(JSON.stringify(date));
+    console.log(date.toLocaleString());
+    console.log(date.toISOString());
+    console.log(date.toUTCString());
+    console.log(date.toString());
+    console.log(date.toLocaleString('sv').replace(' ', 'T'));
+
+    let newDate = date.toLocaleString('sv', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', fractionalSecondDigits: 3 }).replace(',', '.').replace(' ', 'T');
+
+    console.log(newDate);
+
+    let numbers = `[1, 2, 3, 4, 5]`;
+
+    console.log(JSON.parse(numbers));
+
+    let userData = `{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }`;
+
+    let user1 = JSON.parse(userData);
+
+    console.log(user1.friends[1]);
+
+  }
+
+  // toString()
+  {
+    console.log('\n*** toString() ***');
+
+    let user = {
+      name: "John",
+      age: 30,
+
+      toString() {
+        return `{name: "${this.name}", age: ${this.age}}`;
+      }
+    };
+
+    console.log(`${user}`); // instead of [object Object] (implicit string conversion by backticks)
+  }
+
+  // JSON.stringify
+  {
+    console.log('\n*** JSON.stringify ***');
+
+    let student = {
+      name: 'John',
+      age: 30,
+      isAdmin: false,
+      courses: ['html', 'css', 'js'],
+      spouse: null
+    };
+
+    let json = JSON.stringify(student);
+
+    console.log(typeof json);
+    console.log(json);
+
+    console.log(JSON.stringify(1));
+    console.log(JSON.stringify('test'));
+    console.log(JSON.stringify(true));
+    console.log(JSON.stringify([1, 2, 3]));
+
+    let user = {
+      sayHi() {
+        console.log("Hello"); // ignored
+      },
+      [Symbol("id")]: 123, // ignored
+      something: undefined // ignored
+    };
+
+    console.log(JSON.stringify(user)); // {} (empty object)
+
+    let meetup = {
+      title: "Conference",
+      room: {
+        number: 23,
+        participants: ["john", "ann"]
+      }
+    };
+
+    console.log(JSON.stringify(meetup));
+
+    // no circular references
+  }
+
+  // Excluding and transforming: replacer
+  {
+    console.log('\n*** Exluding and transforming: replacer');
+
+    let room = {
+      number: 23
+    };
+
+    let meetup = {
+      title: "Conference",
+      participants: [{ name: "John" }, { name: "Alice" }],
+      place: room // meetup references room
+    };
+
+    room.occupiedBy = meetup; // room references meetup
+
+    // passing array of properties needed to be encoded
+    console.log(JSON.stringify(meetup, ['title', 'participants']));
+    console.log(JSON.stringify(meetup, ['title', 'participants', 'place', 'name', 'number']));
+
+    // using replacer function
+    console.log(JSON.stringify(meetup, function replacer(key, value) {
+      // console.log( `${key}: ${value}`);
+      return (key == 'occupiedBy') ? undefined : value;
+    }));
+  }
+
+  // Formatting: space
+  {
+    console.log('\n*** Formatting: space ***');
+
+    let user = {
+      name: "John",
+      age: 25,
+      roles: {
+        isAdmin: false,
+        isEditor: true
+      }
+    };
+
+    console.log(JSON.stringify(user, null, 2));
+  }
+
+  // Custom "toJSON"
+  {
+    console.log('\n*** Custom toJSON ***');
+
+    let room = {
+      number: 23,
+      toJSON() {
+        return this.number;
+      }
+    };
+
+    let meetup = {
+      title: "Conference",
+      date: new Date(Date.UTC(2017, 0, 1)),
+      room
+    };
+
+    console.log(JSON.stringify(room));
+
+    console.log(JSON.stringify(meetup));
+  }
+
+  // JSON.parse
+  {
+    console.log('\n*** JSON.parse ***');
+
+    let numbers = "[0, 1, 2, 3]";
+
+    numbers = JSON.parse(numbers);
+
+    console.log(numbers);
+
+    // nested object
+    let userData = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
+
+    let user = JSON.parse(userData);
+
+    console.log(user.friends[1]);
+  }
+
+  // Using reviver
+  {
+    let str = '{"title": "Conference", "date":"2017-11-30T12:00:00.000Z"}';
+    let meetup = JSON.parse(str);
+    console.log(meetup);
+
+    meetup = JSON.parse(str, function (key, value) {
+      if (key == 'date') return new Date(value);
+      return value;
+    });
+
+    console.log(meetup.date.getDate());
+
+    // nested objects
+    let schedule = `{
+      "meetups": [
+        { "title": "Conference", "date": "2017-11-30T12:00:00.000Z" },
+        { "title": "Birthday", "date": "2017-04-18T12:00:00.000Z" }
+      ]
+    }`;
+
+    schedule = JSON.parse(schedule, function (key, value) {
+      if (key == 'date') return new Date(value);
+      return value;
+    });
+
+    console.log(schedule.meetups[1].date.getDate());
+  }
+
+  // Tasks
+  {
+    console.log('\n*** Tasks ***');
+
+    // 1
+    let user = {
+      name: "John Smith",
+      age: 35
+    };
+
+    // let user2 = JSON.parse(JSON.stringify(user));
+    let userStr = JSON.stringify(user);
+    let userBack = JSON.parse(userStr);
+    console.log(user, userStr, userBack);
+
+
+    // 2
+    console.log('\n*** Task 2 ***');
+    let room = {
+      number: 23
+    };
+
+    let meetup = {
+      title: "Conference",
+      occupiedBy: [{ name: "John" }, { name: "Alice" }],
+      place: room
+    };
+
+    // circular references
+    room.occupiedBy = meetup;
+    meetup.self = meetup;
+
+    console.log(JSON.stringify(meetup, function replacer(key, value) {
+      return (key != "" && value == meetup) ? undefined : value;
+    }));
+  }
+}
+// #endregion
+
