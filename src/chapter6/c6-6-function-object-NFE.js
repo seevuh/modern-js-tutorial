@@ -180,27 +180,43 @@ console.log("\n***Task 2 ***");
   console.log(sum(6)(-1)(-2)(-3) == 0);
   console.log(sum(0)(1)(2)(3)(4)(5) == 15);
 
-  function sum(a) {
-    let currentSum = a;
 
-    function f(b) {
-      if (f.length) {
-        currentSum += b;
-        return f;
-      }
-      return currentSum;
+  function sum(a) {
+    let sum = a;
+
+    let f = function (b) {
+      sum += b;
+      return f;
     }
 
     f[Symbol.toPrimitive] = (hint) => {
-      return currentSum;
+      return sum;
     };
-
-    // f.toString = function () {
-    //   return currentSum;
-    // };
 
     return f;
   }
+
+  // function sum(a) {
+  //   let currentSum = a;
+
+  //   function f(b) {
+  //     // if (f.length) {
+  //       currentSum += b;
+  //       return f;
+  //     // }
+  //     // return currentSum;
+  //   }
+
+  //   f[Symbol.toPrimitive] = (hint) => {
+  //     return currentSum;
+  //   };
+
+  //   // f.toString = function () {
+  //   //   return currentSum;
+  //   // };
+
+  //   return f;
+  // }
 
   // function sum1(value) {
   //   let currentSum = value;
