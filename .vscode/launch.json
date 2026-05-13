@@ -9,6 +9,13 @@
             "request": "launch",
             "name": "Open index.html",
             "file": "/Users/seevuh/Code/modern-js-tutorial/index.html"
+        },
+        {
+          "type": "editor-browser",
+          "request": "launch",
+          "name": "Editor Launch",
+          "url": "file:/Users/seevuh/Code/modern-js-tutorial/index.html"
         }
+        
     ]
 }
