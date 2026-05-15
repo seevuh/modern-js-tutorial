@@ -7,13 +7,13 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open index.html",
+            "name": "Chrome",
             "file": "/Users/seevuh/Code/modern-js-tutorial/index.html"
         },
         {
           "type": "editor-browser",
           "request": "launch",
-          "name": "Editor Launch",
+          "name": "VSCode",
           "url": "file:/Users/seevuh/Code/modern-js-tutorial/index.html"
         }
         
