@@ -8,7 +8,7 @@
       "type": "editor-browser",
       "request": "launch",
       "name": "VSCodium",
-      "url": "file:/Users/seevuh/Code/modern-js-tutorial/index.html"
+      "url": "file:${workspaceFolder}/index.html"
     },
     {
       "name": "Firefox",
