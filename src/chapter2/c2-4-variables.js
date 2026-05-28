@@ -71,7 +71,7 @@ console.log("### Examples ###");
 
 // constants calculated in run-time
 {
-  const pageLoadTime =  /* time taken by a webpage to load */;
+  // const pageLoadTime =  /* time taken by a webpage to load */
 }
 
 // #endregion
@@ -92,6 +92,6 @@ console.log("\n### Tasks ###");
   let currentUserName;
 
   const BIRTHDAY = '18.04.1982';
-  const age = someCode(BIRTHDAY);
+  // const age = someCode(BIRTHDAY);
 }
 // #endregion
