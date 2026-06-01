@@ -31,7 +31,7 @@ console.log('\n*** Function expressions ***');
 console.log('\n*** Callback functions ***');
 {
   function ask(question, yes, no) {
-    if (confirm(question)) yes()
+    if (confirm(question)) yes();
     else no();
   }
 
